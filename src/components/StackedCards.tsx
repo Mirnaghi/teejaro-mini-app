@@ -9,12 +9,14 @@ interface CardData {
   status: "Active" | "Coming Soon" | "Blocked";
   cardNumber: string;
   gradientClass: string;
+  balance: string;
   onClick?: () => void;
 }
 
 interface StackedCardsProps {
   cards: CardData[];
   onCardClick?: (cardId: string) => void;
+  onCardChange?: (cardIndex: number, balance: string) => void;
 }
 
 interface TouchState {
@@ -24,7 +26,7 @@ interface TouchState {
   isSwiping: boolean;
 }
 
-export function StackedCards({ cards, onCardClick }: StackedCardsProps) {
+export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const touchStateRef = useRef<TouchState>({ startX: 0, startY: 0, startTime: 0, isSwiping: false });
@@ -33,13 +35,21 @@ export function StackedCards({ cards, onCardClick }: StackedCardsProps) {
   const nextCard = () => {
     if (isAnimating || currentIndex >= cards.length - 1) return;
     setIsAnimating(true);
-    setCurrentIndex(prev => prev + 1);
+    const newIndex = currentIndex + 1;
+    setCurrentIndex(newIndex);
+    if (onCardChange) {
+      onCardChange(newIndex, cards[newIndex].balance);
+    }
   };
 
   const prevCard = () => {
     if (isAnimating || currentIndex <= 0) return;
     setIsAnimating(true);
-    setCurrentIndex(prev => prev - 1);
+    const newIndex = currentIndex - 1;
+    setCurrentIndex(newIndex);
+    if (onCardChange) {
+      onCardChange(newIndex, cards[newIndex].balance);
+    }
   };
 
   useEffect(() => {
@@ -217,7 +227,14 @@ export function StackedCards({ cards, onCardClick }: StackedCardsProps) {
           {cards.map((_, index) => (
             <button
               key={index}
-              onClick={() => !isAnimating && setCurrentIndex(index)}
+              onClick={() => {
+                if (!isAnimating) {
+                  setCurrentIndex(index);
+                  if (onCardChange) {
+                    onCardChange(index, cards[index].balance);
+                  }
+                }
+              }}
               className={`w-2 h-2 rounded-full transition-colors ${
                 index === currentIndex ? 'bg-primary' : 'bg-muted-foreground/30'
               }`}
