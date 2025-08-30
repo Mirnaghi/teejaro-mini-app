@@ -7,6 +7,7 @@ import { Plus, ArrowUp, MessageCircle, User, MoreHorizontal, ChevronRight, Build
 import { CardDetailsModal } from "./CardDetailsModal";
 import { AddMoneyModal } from "./AddMoneyModal";
 import { BankAccountModal } from "./BankAccountModal";
+import { StackedCards } from "./StackedCards";
 
 interface Transaction {
   id: string;
@@ -70,45 +71,37 @@ export function MainScreen() {
       </div>
 
       {/* Cards Section */}
-      <div className="px-6 mb-8">
-        <div className="flex space-x-4 overflow-x-auto pb-4">
-          <Card 
-            className="min-w-[280px] bg-gradient-card border-border shadow-card cursor-pointer transform transition-transform hover:scale-105"
-            onClick={() => setIsCardDetailsOpen(true)}
-          >
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground">Visa Virtual</h3>
-                  <Badge variant="secondary" className="mt-1">Active</Badge>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm text-muted-foreground">•••• 1234</p>
-                </div>
-              </div>
-              <div className="mt-6">
-                <div className="w-12 h-8 bg-gradient-primary rounded-md"></div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="min-w-[280px] bg-gradient-card border-border shadow-card">
-            <CardContent className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground">Visa Metal</h3>
-                  <Badge variant="outline">Coming Soon</Badge>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm text-muted-foreground">•••• ••••</p>
-                </div>
-              </div>
-              <div className="mt-6">
-                <div className="w-12 h-8 bg-secondary rounded-md"></div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+      <div className="px-6">
+        <StackedCards 
+          cards={[
+            {
+              id: "visa-virtual",
+              title: "Visa Virtual",
+              status: "Active",
+              cardNumber: "•••• 1234",
+              gradientClass: "bg-gradient-card"
+            },
+            {
+              id: "visa-metal",
+              title: "Visa Metal",
+              status: "Coming Soon",
+              cardNumber: "•••• ••••",
+              gradientClass: "bg-gradient-card"
+            },
+            {
+              id: "crypto-card",
+              title: "Crypto Rewards",
+              status: "Active",
+              cardNumber: "•••• 5678",
+              gradientClass: "bg-gradient-crypto"
+            }
+          ]}
+          onCardClick={(cardId) => {
+            if (cardId === "visa-virtual") {
+              setIsCardDetailsOpen(true);
+            }
+          }}
+        />
       </div>
 
       {/* Utility Sections */}
