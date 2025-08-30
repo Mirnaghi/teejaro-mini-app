@@ -4,7 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Users, Coins, Building2, ChevronRight, Search } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ArrowLeft, Users, Coins, Building2, ChevronRight, Search, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface SendModalProps {
@@ -17,7 +18,28 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [amount, setAmount] = useState("");
   const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [selectedToken, setSelectedToken] = useState("USDT");
+  const [selectedNetwork, setSelectedNetwork] = useState("");
+  const [recipientAddress, setRecipientAddress] = useState("");
+  const [cryptoAmount, setCryptoAmount] = useState("");
   const { toast } = useToast();
+
+  // Available tokens
+  const tokens = [
+    { value: "USDT", label: "USDT", icon: "₮" },
+    { value: "USDC", label: "USDC", icon: "◉" },
+  ];
+
+  // Available networks
+  const networks = [
+    { id: "ethereum", name: "Ethereum (ERC20)", fee: "~$2-10" },
+    { id: "polygon", name: "Polygon PoS", fee: "~$0.01-0.1" },
+    { id: "base", name: "Base", fee: "~$0.01-0.1" },
+    { id: "optimism", name: "Optimism", fee: "~$0.1-1" },
+    { id: "avalanche", name: "Avalanche", fee: "~$0.1-1" },
+    { id: "arbitrum", name: "Arbitrum One", fee: "~$0.1-1" },
+    { id: "tron", name: "Tron (TRC20)", fee: "~$1-2" },
+  ];
 
   // Mock users for search
   const mockUsers = [
@@ -37,6 +59,10 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
     setSearchQuery("");
     setAmount("");
     setSelectedUser(null);
+    setSelectedToken("USDT");
+    setSelectedNetwork("");
+    setRecipientAddress("");
+    setCryptoAmount("");
   };
 
   const handleClose = () => {
@@ -44,6 +70,10 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
     setSearchQuery("");
     setAmount("");
     setSelectedUser(null);
+    setSelectedToken("USDT");
+    setSelectedNetwork("");
+    setRecipientAddress("");
+    setCryptoAmount("");
     onClose();
   };
 
@@ -61,6 +91,38 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
     toast({
       title: "Money Sent Successfully",
       description: `$${amount} sent to ${selectedUser.name}`,
+      duration: 3000,
+    });
+
+    handleClose();
+  };
+
+  const handleSendCrypto = () => {
+    if (!selectedNetwork || !recipientAddress || !cryptoAmount) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+        duration: 2000,
+      });
+      return;
+    }
+
+    if (parseFloat(cryptoAmount) <= 0) {
+      toast({
+        title: "Error",
+        description: "Please enter a valid amount",
+        variant: "destructive",
+        duration: 2000,
+      });
+      return;
+    }
+
+    const selectedNetworkName = networks.find(n => n.id === selectedNetwork)?.name || selectedNetwork;
+    
+    toast({
+      title: "Crypto Transfer Initiated",
+      description: `${cryptoAmount} ${selectedToken} sent via ${selectedNetworkName}`,
       duration: 3000,
     });
 
@@ -205,8 +267,99 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
             <h2 className="text-xl font-semibold text-foreground">Crypto Transfer</h2>
             <div className="w-10"></div>
           </div>
-          <div className="text-center py-8">
-            <p className="text-muted-foreground">Crypto transfer functionality will be implemented here</p>
+
+          <div className="space-y-4">
+            {/* Token Selection */}
+            <div>
+              <Label className="text-foreground mb-2 block">Select Token</Label>
+              <div className="grid grid-cols-2 gap-3">
+                {tokens.map((token) => (
+                  <Card
+                    key={token.value}
+                    className={`cursor-pointer transition-colors ${
+                      selectedToken === token.value
+                        ? "border-primary bg-primary/5"
+                        : "border-border hover:bg-secondary/30"
+                    }`}
+                    onClick={() => setSelectedToken(token.value)}
+                  >
+                    <CardContent className="p-4 text-center">
+                      <div className="text-2xl mb-2">{token.icon}</div>
+                      <p className="font-medium text-foreground">{token.label}</p>
+                      {selectedToken === token.value && (
+                        <CheckCircle className="w-4 h-4 text-primary mx-auto mt-2" />
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Network Selection */}
+            <div>
+              <Label className="text-foreground mb-2 block">Select Network</Label>
+              <Select value={selectedNetwork} onValueChange={setSelectedNetwork}>
+                <SelectTrigger className="bg-secondary border-border">
+                  <SelectValue placeholder="Choose network..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {networks.map((network) => (
+                    <SelectItem key={network.id} value={network.id}>
+                      <div className="flex justify-between items-center w-full">
+                        <span>{network.name}</span>
+                        <span className="text-muted-foreground text-sm ml-2">{network.fee}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Recipient Address */}
+            <div>
+              <Label className="text-foreground mb-2 block">Recipient Address</Label>
+              <Input
+                placeholder="Enter wallet address (0x...)"
+                value={recipientAddress}
+                onChange={(e) => setRecipientAddress(e.target.value)}
+                className="bg-secondary border-border font-mono text-sm"
+              />
+            </div>
+
+            {/* Amount Input */}
+            <div>
+              <Label className="text-foreground mb-2 block">Amount ({selectedToken})</Label>
+              <Input
+                type="number"
+                placeholder="0.00"
+                value={cryptoAmount}
+                onChange={(e) => setCryptoAmount(e.target.value)}
+                className="bg-secondary border-border"
+              />
+            </div>
+
+            {/* Network Fee Info */}
+            {selectedNetwork && (
+              <Card className="bg-warning/10 border-warning/20">
+                <CardContent className="p-3">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-muted-foreground">Network Fee:</span>
+                    <span className="font-medium text-foreground">
+                      {networks.find(n => n.id === selectedNetwork)?.fee}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Send Button */}
+            <Button 
+              onClick={handleSendCrypto}
+              className="w-full h-12 mt-6"
+              disabled={!selectedNetwork || !recipientAddress || !cryptoAmount || parseFloat(cryptoAmount) <= 0}
+            >
+              Send {cryptoAmount || "0.00"} {selectedToken}
+            </Button>
           </div>
         </>
       );
