@@ -8,6 +8,7 @@ import { CardDetailsModal } from "./CardDetailsModal";
 import { AddMoneyModal } from "./AddMoneyModal";
 import { BankAccountModal } from "./BankAccountModal";
 import { InviteFriendsModal } from "./InviteFriendsModal";
+import { SendModal } from "./SendModal";
 import { StackedCards } from "./StackedCards";
 
 interface Transaction {
@@ -31,6 +32,7 @@ export function MainScreen() {
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
   const [isBankAccountOpen, setIsBankAccountOpen] = useState(false);
   const [isInviteFriendsOpen, setIsInviteFriendsOpen] = useState(false);
+  const [isSendOpen, setIsSendOpen] = useState(false);
   
   // Calculate total bank account balance
   const totalBankBalance = "$17,680.87"; // Chase: $12,450.75 + Bank of America: $5,230.12
@@ -68,7 +70,12 @@ export function MainScreen() {
             <Plus className="w-5 h-5 mr-2" />
             Top up
           </Button>
-          <Button variant="secondary" size="lg" className="h-14">
+          <Button 
+            variant="secondary" 
+            size="lg" 
+            className="h-14"
+            onClick={() => setIsSendOpen(true)}
+          >
             <ArrowUp className="w-5 h-5 mr-2" />
             Send
           </Button>
@@ -225,6 +232,10 @@ export function MainScreen() {
       <InviteFriendsModal 
         isOpen={isInviteFriendsOpen} 
         onClose={() => setIsInviteFriendsOpen(false)} 
+      />
+      <SendModal 
+        isOpen={isSendOpen} 
+        onClose={() => setIsSendOpen(false)} 
       />
     </div>
   );
