@@ -29,44 +29,44 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
 
       <div>
           {/* Virtual Card Display */}
-          <Card className="mb-8 bg-gradient-crypto border-0 shadow-primary">
-            <CardContent className="p-6 relative overflow-hidden">
+          <Card className="mb-6 bg-gradient-crypto border-0 shadow-primary max-w-sm mx-auto">
+            <CardContent className="p-4 relative overflow-hidden">
               {/* Geometric Pattern Background */}
               <div className="absolute inset-0 opacity-20">
-                <div className="absolute top-4 right-4 w-20 h-20 border border-white/30 rounded-full"></div>
-                <div className="absolute bottom-4 left-4 w-16 h-16 border border-white/30 rounded-lg rotate-45"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-white/20 rounded-full"></div>
+                <div className="absolute top-2 right-2 w-12 h-12 border border-white/30 rounded-full"></div>
+                <div className="absolute bottom-2 left-2 w-10 h-10 border border-white/30 rounded-lg rotate-45"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 border border-white/20 rounded-full"></div>
               </div>
               
               <div className="relative z-10">
-                <div className="flex justify-between items-start mb-8">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <User className="w-5 h-5 text-white" />
+                <div className="flex justify-between items-start mb-4">
+                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4 text-white" />
                   </div>
-                  <div className="text-white font-bold text-lg">VISA</div>
+                  <div className="text-white font-bold">VISA</div>
                 </div>
                 
-                <div className="mb-4">
-                  <p className="text-white/80 text-sm mb-1">Card Holder</p>
-                  <p className="text-white font-semibold">
+                <div className="mb-3">
+                  <p className="text-white/80 text-xs mb-1">Card Holder</p>
+                  <p className="text-white font-semibold text-sm">
                     {showCardDetails ? "John Doe" : "J••• D••"}
                   </p>
                 </div>
                 
-                <div className="text-white font-mono text-lg tracking-wider mb-4">
+                <div className="text-white font-mono text-base tracking-wider mb-3">
                   {showCardDetails ? "4734 5678 9012 1234" : "•••• •••• •••• 1234"}
                 </div>
                 
                 <div className="flex justify-between items-end">
                   <div>
                     <p className="text-white/80 text-xs">Valid Thru</p>
-                    <p className="text-white font-mono">
+                    <p className="text-white font-mono text-sm">
                       {showCardDetails ? "12/27" : "••/••"}
                     </p>
                   </div>
                   <div>
                     <p className="text-white/80 text-xs">CVV</p>
-                    <p className="text-white font-mono">
+                    <p className="text-white font-mono text-sm">
                       {showCardDetails ? "123" : "•••"}
                     </p>
                   </div>
