@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
@@ -35,22 +36,21 @@ export function PopupMenu({
 
   return (
     <div className={cn(
-      "fixed inset-0 z-[9999] flex items-end justify-center transition-all duration-300",
-      isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+      "fixed inset-0 z-[9999] flex items-end justify-center",
+      isOpen ? "animate-backdrop-enter" : ""
     )}>
       {/* Backdrop */}
       <div 
         className={cn(
-          "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300",
-          isOpen ? "opacity-100" : "opacity-0"
+          "absolute inset-0 bg-black/60 backdrop-blur-sm animate-backdrop-enter"
         )}
         onClick={onClose}
       />
       
       {/* Popup Content */}
       <div className={cn(
-        "relative w-full max-w-md bg-background rounded-t-3xl shadow-2xl transition-all duration-300 ease-out transform",
-        isOpen ? "translate-y-0 scale-100" : "translate-y-full scale-95",
+        "relative w-full max-w-md bg-background rounded-t-3xl shadow-2xl",
+        isOpen ? "animate-slide-up" : "animate-slide-down",
         className
       )}>
         {/* Drag Handle */}
@@ -65,7 +65,7 @@ export function PopupMenu({
               variant="ghost" 
               size="icon" 
               onClick={onClose}
-              className="ml-auto hover:bg-secondary/80"
+              className="ml-auto hover:bg-secondary/80 transition-colors duration-200"
             >
               <X className="w-5 h-5" />
             </Button>
