@@ -168,27 +168,6 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Navigation buttons */}
-      {currentIndex > 0 && (
-        <button
-          onClick={prevCard}
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-border hover:bg-secondary/80 transition-colors"
-          disabled={isAnimating}
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-      )}
-      
-      {currentIndex < cards.length - 1 && (
-        <button
-          onClick={nextCard}
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-background/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-border hover:bg-secondary/80 transition-colors"
-          disabled={isAnimating}
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      )}
-
       {/* Stacked Cards */}
       <div className="relative h-full px-2">
         {cards.map((card, index) => {
