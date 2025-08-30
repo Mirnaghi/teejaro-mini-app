@@ -80,7 +80,7 @@ export function MainScreen() {
               title: "Visa Virtual",
               status: "Active",
               cardNumber: "•••• 1234",
-              gradientClass: "bg-gradient-card",
+              gradientClass: "bg-gradient-to-br from-slate-800 to-slate-900 text-white",
               balance: "$4.00"
             },
             {
@@ -88,7 +88,7 @@ export function MainScreen() {
               title: "Visa Metal",
               status: "Coming Soon",
               cardNumber: "•••• ••••",
-              gradientClass: "bg-gradient-card",
+              gradientClass: "bg-gradient-to-br from-gray-600 to-gray-800 text-white",
               balance: "$0.00"
             },
             {
@@ -96,7 +96,7 @@ export function MainScreen() {
               title: "Crypto Rewards",
               status: "Active",
               cardNumber: "•••• 5678",
-              gradientClass: "bg-gradient-crypto",
+              gradientClass: "bg-gradient-to-br from-purple-600 to-blue-600 text-white",
               balance: "$2,450.75"
             }
           ]}

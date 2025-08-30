@@ -200,20 +200,45 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
             style={cardStyle}
             onClick={() => handleCardClick(card.id)}
           >
-            <CardContent className="p-6 h-full flex flex-col justify-between">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground">{card.title}</h3>
-                  <Badge variant={getBadgeVariant(card.status)} className="mt-1">
-                    {card.status}
-                  </Badge>
+            <CardContent className="p-6 h-full flex flex-col justify-between relative overflow-hidden">
+              {/* Card Background Patterns */}
+              {card.id === "visa-virtual" && (
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-4 right-4 w-16 h-16 border border-white/30 rounded-full"></div>
+                  <div className="absolute bottom-4 left-4 w-12 h-12 border border-white/30 rounded-lg rotate-45"></div>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm text-muted-foreground">{card.cardNumber}</p>
+              )}
+              {card.id === "crypto-card" && (
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute top-6 right-6 w-8 h-8 bg-white/20 rounded-full"></div>
+                  <div className="absolute top-12 right-12 w-4 h-4 bg-white/20 rounded-full"></div>
+                  <div className="absolute bottom-8 left-8 w-6 h-6 bg-white/20 rounded-full"></div>
+                </div>
+              )}
+              
+              <div className="relative z-10">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground">{card.title}</h3>
+                    <Badge variant={getBadgeVariant(card.status)} className="mt-1">
+                      {card.status}
+                    </Badge>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-muted-foreground">{card.cardNumber}</p>
+                  </div>
                 </div>
               </div>
-              <div className="mt-auto">
-                <div className="w-12 h-8 bg-gradient-primary rounded-md"></div>
+              
+              {/* Balance Display on Card */}
+              <div className="relative z-10 mt-auto">
+                <div className="flex justify-between items-end">
+                  <div>
+                    <p className="text-xs text-white/80 mb-1">Balance</p>
+                    <p className="text-2xl font-bold text-white">{card.balance}</p>
+                  </div>
+                  <div className="w-12 h-8 bg-gradient-primary rounded-md"></div>
+                </div>
               </div>
             </CardContent>
           </Card>
