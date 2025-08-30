@@ -7,6 +7,7 @@ import { Plus, ArrowUp, MessageCircle, User, MoreHorizontal, ChevronRight, Build
 import { CardDetailsModal } from "./CardDetailsModal";
 import { AddMoneyModal } from "./AddMoneyModal";
 import { BankAccountModal } from "./BankAccountModal";
+import { InviteFriendsModal } from "./InviteFriendsModal";
 import { StackedCards } from "./StackedCards";
 
 interface Transaction {
@@ -29,6 +30,7 @@ export function MainScreen() {
   const [isCardDetailsOpen, setIsCardDetailsOpen] = useState(false);
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
   const [isBankAccountOpen, setIsBankAccountOpen] = useState(false);
+  const [isInviteFriendsOpen, setIsInviteFriendsOpen] = useState(false);
   
   // Calculate total bank account balance
   const totalBankBalance = "$17,680.87"; // Chase: $12,450.75 + Bank of America: $5,230.12
@@ -133,7 +135,10 @@ export function MainScreen() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card border-border shadow-card">
+        <Card 
+          className="bg-card border-border shadow-card cursor-pointer hover:bg-secondary/50 transition-colors"
+          onClick={() => setIsInviteFriendsOpen(true)}
+        >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -216,6 +221,10 @@ export function MainScreen() {
       <BankAccountModal 
         isOpen={isBankAccountOpen} 
         onClose={() => setIsBankAccountOpen(false)} 
+      />
+      <InviteFriendsModal 
+        isOpen={isInviteFriendsOpen} 
+        onClose={() => setIsInviteFriendsOpen(false)} 
       />
     </div>
   );
