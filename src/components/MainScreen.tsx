@@ -29,7 +29,6 @@ export function MainScreen() {
   const [isCardDetailsOpen, setIsCardDetailsOpen] = useState(false);
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
   const [isBankAccountOpen, setIsBankAccountOpen] = useState(false);
-  const [currentBalance, setCurrentBalance] = useState("$4.00");
 
   return (
     <div className="min-h-screen bg-background pb-8">
@@ -49,7 +48,7 @@ export function MainScreen() {
       {/* Centered Balance Section */}
       <div className="px-6 py-4 text-center">
         <h1 className="text-sm text-muted-foreground mb-2">BALANCE (USDT)</h1>
-        <p className="text-4xl font-bold text-foreground transition-all duration-300">{currentBalance}</p>
+        <p className="text-4xl font-bold text-foreground">$4.00</p>
       </div>
 
       {/* Action Buttons */}
@@ -104,9 +103,6 @@ export function MainScreen() {
             if (cardId === "visa-virtual") {
               setIsCardDetailsOpen(true);
             }
-          }}
-          onCardChange={(cardIndex, balance) => {
-            setCurrentBalance(balance);
           }}
         />
       </div>
