@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Building2, Plus, ArrowLeft, Check } from "lucide-react";
+import { Building2, Plus, ArrowLeft, Check, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { BankAccountDetailModal } from "./BankAccountDetailModal";
 
 interface BankAccountModalProps {
@@ -64,16 +65,7 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [selectedAccountData, setSelectedAccountData] = useState<BankAccount | null>(null);
   const [formData, setFormData] = useState({
-    bankName: "",
-    accountNumber: "",
-    routingNumber: "",
     currency: "",
-    accountHolderName: "",
-    address: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    country: "",
   });
 
   const handleBack = () => {
@@ -84,16 +76,7 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
     setCurrentScreen("select");
     setSelectedAccount(null);
     setFormData({
-      bankName: "",
-      accountNumber: "",
-      routingNumber: "",
       currency: "",
-      accountHolderName: "",
-      address: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      country: "",
     });
     onClose();
   };
@@ -105,7 +88,7 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
 
   const handleCreateAccount = () => {
     // Handle account creation logic here
-    console.log("Creating account with data:", formData);
+    console.log("Creating account with currency:", formData.currency);
     handleClose();
   };
 
@@ -128,121 +111,36 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
             <div className="w-10"></div>
           </div>
 
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="bankName">Bank Name</Label>
-                <Input
-                  id="bankName"
-                  value={formData.bankName}
-                  onChange={(e) => setFormData({ ...formData, bankName: e.target.value })}
-                  placeholder="Chase Bank"
-                />
-              </div>
-              <div>
-                <Label htmlFor="currency">Currency</Label>
-                <Select value={formData.currency} onValueChange={(value) => setFormData({ ...formData, currency: value })}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select currency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {currencies.map((currency) => (
-                      <SelectItem key={currency.value} value={currency.value}>
-                        {currency.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+          <div className="space-y-6">
+            {/* Alert about activation requirement */}
+            <Alert className="border-warning/20 bg-warning/10">
+              <AlertCircle className="h-4 w-4 text-warning" />
+              <AlertDescription className="text-warning">
+                You need at least $100 USD in your balance for account activation.
+              </AlertDescription>
+            </Alert>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="accountNumber">Account Number</Label>
-                <Input
-                  id="accountNumber"
-                  value={formData.accountNumber}
-                  onChange={(e) => setFormData({ ...formData, accountNumber: e.target.value })}
-                  placeholder="1234567890"
-                />
-              </div>
-              <div>
-                <Label htmlFor="routingNumber">Routing Number</Label>
-                <Input
-                  id="routingNumber"
-                  value={formData.routingNumber}
-                  onChange={(e) => setFormData({ ...formData, routingNumber: e.target.value })}
-                  placeholder="021000021"
-                />
-              </div>
-            </div>
-
+            {/* Currency Selection */}
             <div>
-              <Label htmlFor="accountHolderName">Account Holder Name</Label>
-              <Input
-                id="accountHolderName"
-                value={formData.accountHolderName}
-                onChange={(e) => setFormData({ ...formData, accountHolderName: e.target.value })}
-                placeholder="John Doe"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="address">Address</Label>
-              <Input
-                id="address"
-                value={formData.address}
-                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                placeholder="123 Main Street"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="city">City</Label>
-                <Input
-                  id="city"
-                  value={formData.city}
-                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                  placeholder="New York"
-                />
-              </div>
-              <div>
-                <Label htmlFor="state">State</Label>
-                <Input
-                  id="state"
-                  value={formData.state}
-                  onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                  placeholder="NY"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="zipCode">ZIP Code</Label>
-                <Input
-                  id="zipCode"
-                  value={formData.zipCode}
-                  onChange={(e) => setFormData({ ...formData, zipCode: e.target.value })}
-                  placeholder="10001"
-                />
-              </div>
-              <div>
-                <Label htmlFor="country">Country</Label>
-                <Input
-                  id="country"
-                  value={formData.country}
-                  onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                  placeholder="United States"
-                />
-              </div>
+              <Label htmlFor="currency">Select Currency</Label>
+              <Select value={formData.currency} onValueChange={(value) => setFormData({ currency: value })}>
+                <SelectTrigger className="mt-2">
+                  <SelectValue placeholder="Choose your preferred currency" />
+                </SelectTrigger>
+                <SelectContent>
+                  {currencies.map((currency) => (
+                    <SelectItem key={currency.value} value={currency.value}>
+                      {currency.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <Button 
               onClick={handleCreateAccount} 
               className="w-full mt-6"
-              disabled={!formData.bankName || !formData.accountNumber || !formData.currency}
+              disabled={!formData.currency}
             >
               Apply for Account
             </Button>
