@@ -34,8 +34,46 @@ export function MainScreen() {
   const [isInviteFriendsOpen, setIsInviteFriendsOpen] = useState(false);
   const [isSendOpen, setIsSendOpen] = useState(false);
   
-  // Calculate total bank account balance
-  const totalBankBalance = "$17,680.87"; // Chase: $12,450.75 + Bank of America: $5,230.12
+  // Card balances data
+  const cards = [
+    {
+      id: "visa-virtual",
+      title: "Visa Virtual",
+      status: "Active" as const,
+      cardNumber: "•••• 1234",
+      gradientClass: "bg-gradient-to-br from-slate-800 to-slate-900 text-white",
+      balance: "$4.00"
+    },
+    {
+      id: "visa-metal",
+      title: "Visa Metal", 
+      status: "Coming Soon" as const,
+      cardNumber: "•••• ••••",
+      gradientClass: "bg-gradient-to-br from-gray-600 to-gray-800 text-white",
+      balance: "$0.00"
+    },
+    {
+      id: "crypto-card",
+      title: "Crypto Rewards",
+      status: "Active" as const,
+      cardNumber: "•••• 5678",
+      gradientClass: "bg-gradient-to-br from-purple-600 to-blue-600 text-white",
+      balance: "$2,450.75"
+    }
+  ];
+
+  // Bank account balances (these would come from your data source)
+  const bankAccountBalances = [12450.75, 5230.12]; // Chase + Bank of America
+
+  // Calculate total balance from cards and bank accounts
+  const cardTotalValue = cards.reduce((sum, card) => {
+    const numericValue = parseFloat(card.balance.replace('$', '').replace(',', ''));
+    return sum + (isNaN(numericValue) ? 0 : numericValue);
+  }, 0);
+
+  const bankTotalValue = bankAccountBalances.reduce((sum, balance) => sum + balance, 0);
+  const totalBalance = cardTotalValue + bankTotalValue;
+  const totalBankBalance = `$${bankTotalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
   return (
     <div className="min-h-screen bg-background pb-8">
@@ -54,8 +92,10 @@ export function MainScreen() {
 
       {/* Centered Balance Section */}
       <div className="px-6 py-4 text-center">
-        <h1 className="text-sm text-muted-foreground mb-2">BALANCE (USDT)</h1>
-        <p className="text-4xl font-bold text-foreground">$4.00</p>
+        <h1 className="text-sm text-muted-foreground mb-2">TOTAL BALANCE (USDT)</h1>
+        <p className="text-4xl font-bold text-foreground">
+          ${totalBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        </p>
       </div>
 
       {/* Action Buttons */}
@@ -85,32 +125,7 @@ export function MainScreen() {
       {/* Cards Section */}
       <div className="px-6">
         <StackedCards 
-          cards={[
-            {
-              id: "visa-virtual",
-              title: "Visa Virtual",
-              status: "Active",
-              cardNumber: "•••• 1234",
-              gradientClass: "bg-gradient-to-br from-slate-800 to-slate-900 text-white",
-              balance: "$4.00"
-            },
-            {
-              id: "visa-metal",
-              title: "Visa Metal",
-              status: "Coming Soon",
-              cardNumber: "•••• ••••",
-              gradientClass: "bg-gradient-to-br from-gray-600 to-gray-800 text-white",
-              balance: "$0.00"
-            },
-            {
-              id: "crypto-card",
-              title: "Crypto Rewards",
-              status: "Active",
-              cardNumber: "•••• 5678",
-              gradientClass: "bg-gradient-to-br from-purple-600 to-blue-600 text-white",
-              balance: "$2,450.75"
-            }
-          ]}
+          cards={cards}
           onCardClick={(cardId) => {
             if (cardId === "visa-virtual") {
               setIsCardDetailsOpen(true);
