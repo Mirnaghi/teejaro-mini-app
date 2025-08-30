@@ -111,7 +111,7 @@ Tap the button below to launch the app:`
       {
         text: "🏦 Open Teejaro App",
         web_app: {
-          url: "https://4a208a28-9433-46d3-b31b-6ac9d288bac3.lovableproject.com?forceHideBadge=true"
+          url: `${new URL(req.url).origin}?forceHideBadge=true`
         }
       }
     ]]
