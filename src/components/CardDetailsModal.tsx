@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { PopupMenu } from "@/components/ui/popup-menu";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { X, MoreHorizontal, Eye, EyeOff, Lock, RefreshCw, User } from "lucide-react";
+import { MoreHorizontal, Eye, EyeOff, Lock, RefreshCw, User } from "lucide-react";
 
 interface CardDetailsModalProps {
   isOpen: boolean;
@@ -15,18 +15,19 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
   const [showCardNumber, setShowCardNumber] = useState(false);
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-background border-border p-0 gap-0 animate-modal-enter data-[state=closed]:animate-modal-exit">
-        <DialogHeader className="flex flex-row items-center justify-between p-6 pb-4">
-          <Button variant="ghost" size="icon" onClick={onClose} className="hover:bg-secondary/80">
-            <X className="w-5 h-5" />
-          </Button>
-          <Button variant="ghost" size="icon" className="hover:bg-secondary/80">
-            <MoreHorizontal className="w-5 h-5" />
-          </Button>
-        </DialogHeader>
+    <PopupMenu 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      showHeader={false}
+      className="max-h-[90vh]"
+    >
+      <div className="flex items-center justify-end mb-4">
+        <Button variant="ghost" size="icon" className="hover:bg-secondary/80">
+          <MoreHorizontal className="w-5 h-5" />
+        </Button>
+      </div>
 
-        <div className="p-6 pt-0">
+      <div>
           {/* Virtual Card Display */}
           <Card className="mb-8 bg-gradient-crypto border-0 shadow-primary">
             <CardContent className="p-6 relative overflow-hidden">
@@ -121,8 +122,7 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
               Lock Card
             </Button>
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </PopupMenu>
   );
 }

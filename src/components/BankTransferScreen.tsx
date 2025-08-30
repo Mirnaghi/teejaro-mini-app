@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { PopupMenu } from "@/components/ui/popup-menu";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Building2, ChevronRight } from "lucide-react";
@@ -28,17 +28,20 @@ const mockBankAccounts = [
 
 export function BankTransferScreen({ isOpen, onClose, onBack }: BankTransferScreenProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-background border-border animate-modal-enter data-[state=closed]:animate-modal-exit">
-        <DialogHeader className="flex flex-row items-center justify-between">
-          <Button variant="ghost" size="icon" onClick={onBack} className="hover:bg-secondary/80">
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-          <DialogTitle className="text-xl font-semibold text-foreground">Bank Transfer</DialogTitle>
-          <div className="w-10"></div>
-        </DialogHeader>
+    <PopupMenu 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      showHeader={false}
+    >
+      <div className="flex items-center justify-between mb-6">
+        <Button variant="ghost" size="icon" onClick={onBack} className="hover:bg-secondary/80">
+          <ArrowLeft className="w-5 h-5" />
+        </Button>
+        <h2 className="text-xl font-semibold text-foreground">Bank Transfer</h2>
+        <div className="w-10"></div>
+      </div>
 
-        <div className="space-y-4 mt-6">
+      <div className="space-y-4">
           <div>
             <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
               Connected Accounts
@@ -102,8 +105,7 @@ export function BankTransferScreen({ isOpen, onClose, onBack }: BankTransferScre
               </div>
             </div>
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </PopupMenu>
   );
 }

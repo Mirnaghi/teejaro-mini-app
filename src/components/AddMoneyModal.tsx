@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { PopupMenu } from "@/components/ui/popup-menu";
 import { Card, CardContent } from "@/components/ui/card";
-import { X, QrCode, Building2 } from "lucide-react";
+import { QrCode, Building2 } from "lucide-react";
 import { TopUpCryptoScreen } from "./TopUpCryptoScreen";
 import { BankTransferScreen } from "./BankTransferScreen";
 
@@ -44,16 +43,12 @@ export function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md bg-background border-border animate-modal-enter data-[state=closed]:animate-modal-exit">
-        <DialogHeader className="flex flex-row items-center justify-between">
-          <DialogTitle className="text-xl font-semibold text-foreground">Add Money with</DialogTitle>
-          <Button variant="ghost" size="icon" onClick={handleClose} className="hover:bg-secondary/80">
-            <X className="w-5 h-5" />
-          </Button>
-        </DialogHeader>
-
-        <div className="space-y-4 mt-6">
+    <PopupMenu 
+      isOpen={isOpen} 
+      onClose={handleClose} 
+      title="Add Money with"
+    >
+      <div className="space-y-4 mt-4">
           <Card 
             className="cursor-pointer hover:bg-secondary/50 transition-colors bg-card border-border"
             onClick={() => setCurrentScreen("crypto")}
@@ -87,8 +82,7 @@ export function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
               </div>
             </CardContent>
           </Card>
-        </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </PopupMenu>
   );
 }

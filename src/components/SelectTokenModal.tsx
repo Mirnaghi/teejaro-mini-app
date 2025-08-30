@@ -1,5 +1,4 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { PopupMenu } from "@/components/ui/popup-menu";
 import { Card, CardContent } from "@/components/ui/card";
 import { Check } from "lucide-react";
 
@@ -27,13 +26,12 @@ const tokens = [
 
 export function SelectTokenModal({ isOpen, onClose }: SelectTokenModalProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-background border-border animate-modal-enter data-[state=closed]:animate-modal-exit">
-        <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-foreground">Select a token</DialogTitle>
-        </DialogHeader>
-
-        <div className="space-y-3 mt-6">
+    <PopupMenu 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      title="Select a token"
+    >
+      <div className="space-y-3 mt-4">
           {tokens.map((token) => (
             <Card 
               key={token.id}
@@ -64,8 +62,7 @@ export function SelectTokenModal({ isOpen, onClose }: SelectTokenModalProps) {
               </CardContent>
             </Card>
           ))}
-        </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </PopupMenu>
   );
 }
