@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, ArrowUp, MessageCircle, User, MoreHorizontal, ChevronRight } from "lucide-react";
+import { Plus, ArrowUp, MessageCircle, User, MoreHorizontal, ChevronRight, Building2 } from "lucide-react";
 import { CardDetailsModal } from "./CardDetailsModal";
 import { AddMoneyModal } from "./AddMoneyModal";
+import { BankAccountModal } from "./BankAccountModal";
 
 interface Transaction {
   id: string;
@@ -26,6 +27,7 @@ export function MainScreen() {
   const navigate = useNavigate();
   const [isCardDetailsOpen, setIsCardDetailsOpen] = useState(false);
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
+  const [isBankAccountOpen, setIsBankAccountOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background pb-8">
@@ -111,12 +113,15 @@ export function MainScreen() {
 
       {/* Utility Sections */}
       <div className="px-6 mb-8 space-y-4">
-        <Card className="bg-card border-border shadow-card">
+        <Card 
+          className="bg-card border-border shadow-card cursor-pointer hover:bg-secondary/50 transition-colors"
+          onClick={() => setIsBankAccountOpen(true)}
+        >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-crypto-blue/20 rounded-lg flex items-center justify-center">
-                  <span className="text-xl">🏦</span>
+                <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+                  <Building2 className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <h3 className="font-medium text-foreground">Bank account</h3>
@@ -207,6 +212,10 @@ export function MainScreen() {
       <AddMoneyModal 
         isOpen={isAddMoneyOpen} 
         onClose={() => setIsAddMoneyOpen(false)} 
+      />
+      <BankAccountModal 
+        isOpen={isBankAccountOpen} 
+        onClose={() => setIsBankAccountOpen(false)} 
       />
     </div>
   );
