@@ -32,25 +32,24 @@ export function PopupMenu({
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   return (
     <div className={cn(
-      "fixed inset-0 z-[9999] flex items-end justify-center",
-      isOpen ? "animate-backdrop-enter" : ""
+      "fixed inset-0 z-[9999] flex items-end justify-center transition-all duration-300",
+      isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
     )}>
       {/* Backdrop */}
       <div 
         className={cn(
-          "absolute inset-0 bg-black/60 backdrop-blur-sm animate-backdrop-enter"
+          "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300",
+          isOpen ? "opacity-100" : "opacity-0"
         )}
         onClick={onClose}
       />
       
       {/* Popup Content */}
       <div className={cn(
-        "relative w-full max-w-md bg-background rounded-t-3xl shadow-2xl",
-        isOpen ? "animate-slide-up" : "animate-slide-down",
+        "relative w-full max-w-md bg-background rounded-t-3xl shadow-2xl transform transition-all duration-300 ease-out",
+        isOpen ? "translate-y-0 scale-100" : "translate-y-full scale-95",
         className
       )}>
         {/* Drag Handle */}
