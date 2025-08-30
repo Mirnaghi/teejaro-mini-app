@@ -74,9 +74,6 @@ export function BankTransferContent({ onBack }: BankTransferContentProps) {
                         <p className="text-sm text-muted-foreground">
                           {account.currency} • {account.accountNumber}
                         </p>
-                        <p className="text-sm font-semibold text-primary">
-                          {account.balance}
-                        </p>
                       </div>
                     </div>
                     <ChevronRight className="w-5 h-5 text-muted-foreground" />
