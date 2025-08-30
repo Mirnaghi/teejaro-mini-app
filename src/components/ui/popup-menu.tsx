@@ -72,7 +72,7 @@ export function PopupMenu({
           </div>
         )}
         
-        <div className="px-4 pb-6 max-h-[80vh] overflow-y-auto">
+        <div className="px-4 pb-6 max-h-[80vh] overflow-y-auto scrollbar-hide">
           {children}
         </div>
       </div>
