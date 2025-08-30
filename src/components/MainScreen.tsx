@@ -31,7 +31,12 @@ export function MainScreen() {
     <div className="min-h-screen bg-background pb-8">
       {/* Header */}
       <div className="flex items-center justify-between px-6 pt-2 pb-2">
-        <div className="flex-1" />
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-gradient-crypto rounded-full flex items-center justify-center">
+            <User className="w-4 h-4 text-primary-foreground" />
+          </div>
+          <span className="text-sm font-medium text-foreground">Teejaro</span>
+        </div>
         <Button variant="ghost" size="icon">
           <MessageCircle className="w-6 h-6" />
         </Button>
@@ -39,12 +44,7 @@ export function MainScreen() {
 
       {/* Centered Balance Section */}
       <div className="px-6 py-4 text-center">
-        <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-gradient-crypto rounded-full flex items-center justify-center">
-            <User className="w-8 h-8 text-primary-foreground" />
-          </div>
-        </div>
-        <h1 className="text-sm text-muted-foreground mb-2">Teejaro BALANCE (USDT)</h1>
+        <h1 className="text-sm text-muted-foreground mb-2">BALANCE (USDT)</h1>
         <p className="text-4xl font-bold text-foreground">$4.00</p>
       </div>
 
