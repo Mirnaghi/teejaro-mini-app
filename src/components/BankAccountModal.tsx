@@ -190,6 +190,9 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
                         <p className="text-sm text-muted-foreground">
                           {account.currency} • {account.accountNumber}
                         </p>
+                        <p className="text-sm font-semibold text-primary">
+                          {account.balance}
+                        </p>
                       </div>
                     </div>
                   </div>
