@@ -46,10 +46,11 @@ export function PopupMenu({
         onClick={onClose}
       />
       
-      {/* Popup Content */}
+      {/* Popup Content - Bottom Sheet Style */}
       <div className={cn(
-        "relative w-full max-w-md bg-background rounded-t-3xl shadow-2xl transform transition-all duration-300 ease-out",
-        isOpen ? "translate-y-0 scale-100" : "translate-y-full scale-95",
+        "relative w-full max-w-lg bg-background rounded-t-3xl shadow-2xl transform transition-all duration-300 ease-out",
+        "max-h-[85vh] overflow-hidden",
+        isOpen ? "translate-y-0" : "translate-y-full",
         className
       )}>
         {/* Drag Handle */}
