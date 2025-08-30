@@ -128,25 +128,25 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
     const position = index - currentIndex;
     
     if (position < 0) {
-      // Cards behind (left)
+      // Cards behind - hidden
       return {
-        transform: `translateX(-${Math.abs(position) * 20}px) scale(${1 - Math.abs(position) * 0.05})`,
+        transform: `translateY(${Math.abs(position) * 8}px) scale(${1 - Math.abs(position) * 0.08})`,
         zIndex: 10 - Math.abs(position),
-        opacity: 0.6
+        opacity: 0
       };
     } else if (position === 0) {
       // Current card
       return {
-        transform: 'translateX(0px) scale(1)',
+        transform: 'translateY(0px) scale(1)',
         zIndex: 20,
         opacity: 1
       };
     } else {
-      // Cards ahead (right)
+      // Cards ahead - stacked behind
       return {
-        transform: `translateX(${position * 20}px) scale(${1 - position * 0.05})`,
-        zIndex: 10 - position,
-        opacity: Math.max(0.4, 1 - position * 0.2)
+        transform: `translateY(${position * 8}px) scale(${1 - position * 0.08})`,
+        zIndex: 20 - position,
+        opacity: Math.max(0.3, 1 - position * 0.3)
       };
     }
   };
