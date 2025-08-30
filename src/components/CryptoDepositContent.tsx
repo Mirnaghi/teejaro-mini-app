@@ -43,30 +43,30 @@ export function CryptoDepositContent({ onBack }: CryptoDepositContentProps) {
         <div className="w-10"></div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Token & Network Info */}
         <Card className="bg-gradient-crypto border-0 text-white">
-          <CardContent className="p-4 text-center">
-            <div className="flex items-center justify-center space-x-2 mb-2">
-              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-sm font-bold">₮</span>
+          <CardContent className="p-3 text-center">
+            <div className="flex items-center justify-center space-x-2 mb-1">
+              <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-xs font-bold">₮</span>
               </div>
-              <span className="text-lg font-semibold">{selectedToken}</span>
+              <span className="font-semibold">{selectedToken}</span>
             </div>
-            <p className="text-white/80 text-sm">via {selectedNetwork} Network</p>
+            <p className="text-white/80 text-xs">via {selectedNetwork} Network</p>
           </CardContent>
         </Card>
 
         {/* QR Code */}
         <Card className="bg-card border-border">
-          <CardContent className="p-6 text-center">
-            <div className="w-48 h-48 bg-white rounded-lg mx-auto mb-4 flex items-center justify-center">
+          <CardContent className="p-4 text-center">
+            <div className="w-32 h-32 bg-white rounded-lg mx-auto mb-3 flex items-center justify-center">
               <div className="text-center">
-                <QrCode className="w-16 h-16 mx-auto mb-2 text-gray-400" />
+                <QrCode className="w-12 h-12 mx-auto mb-2 text-gray-400" />
                 <p className="text-xs text-gray-500">QR Code</p>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs text-muted-foreground">
               Scan QR code to get deposit address
             </p>
           </CardContent>
@@ -74,24 +74,24 @@ export function CryptoDepositContent({ onBack }: CryptoDepositContentProps) {
 
         {/* Deposit Address */}
         <div>
-          <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+          <h3 className="text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wide">
             Deposit Address
           </h3>
           <Card className="bg-secondary/30 border-border">
-            <CardContent className="p-4">
+            <CardContent className="p-3">
               <div className="flex items-center justify-between">
-                <div className="flex-1 mr-3">
-                  <p className="text-sm font-mono text-foreground break-all">
+                <div className="flex-1 mr-2">
+                  <p className="text-xs font-mono text-foreground break-all">
                     {depositAddress}
                   </p>
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="p-2 h-8 w-8 flex-shrink-0"
+                  className="p-1 h-6 w-6 flex-shrink-0"
                   onClick={() => copyToClipboard(depositAddress, "Deposit address")}
                 >
-                  <Copy className="w-4 h-4" />
+                  <Copy className="w-3 h-3" />
                 </Button>
               </div>
             </CardContent>
@@ -100,9 +100,9 @@ export function CryptoDepositContent({ onBack }: CryptoDepositContentProps) {
 
         {/* Important Information */}
         <Card className="bg-warning/10 border-warning/20">
-          <CardContent className="p-4">
-            <h4 className="font-medium text-foreground mb-2">Important Information</h4>
-            <div className="space-y-2 text-sm text-muted-foreground">
+          <CardContent className="p-3">
+            <h4 className="font-medium text-foreground mb-2 text-sm">Important Information</h4>
+            <div className="space-y-1 text-xs text-muted-foreground">
               <div className="flex justify-between">
                 <span>Minimum deposit:</span>
                 <span className="font-medium text-foreground">{minDeposit}</span>
@@ -116,7 +116,7 @@ export function CryptoDepositContent({ onBack }: CryptoDepositContentProps) {
                 <span className="font-medium text-foreground">12</span>
               </div>
             </div>
-            <div className="mt-3 p-3 bg-warning/20 rounded-lg">
+            <div className="mt-2 p-2 bg-warning/20 rounded-lg">
               <p className="text-xs text-warning">
                 ⚠️ Only send {selectedToken} to this address via {selectedNetwork} network. 
                 Sending other tokens or using wrong network may result in permanent loss.
@@ -126,7 +126,7 @@ export function CryptoDepositContent({ onBack }: CryptoDepositContentProps) {
         </Card>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-2 gap-4 mt-6">
+        <div className="grid grid-cols-2 gap-3 mt-4">
           <Button variant="outline">
             View History
           </Button>
