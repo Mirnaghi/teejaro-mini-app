@@ -163,7 +163,7 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
   return (
     <div 
       ref={containerRef}
-      className="relative h-48 mb-8"
+      className="relative h-56 mb-8"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -196,7 +196,7 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
           return (
           <Card
             key={card.id}
-            className={`absolute top-0 left-8 right-8 h-44 ${card.gradientClass} border-border shadow-card cursor-pointer transition-all duration-300 ease-out select-none`}
+            className={`absolute top-0 left-8 right-8 h-52 ${card.gradientClass} border-border shadow-card cursor-pointer transition-all duration-300 ease-out select-none`}
             style={cardStyle}
             onClick={() => handleCardClick(card.id)}
           >
