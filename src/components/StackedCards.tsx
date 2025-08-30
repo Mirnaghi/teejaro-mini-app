@@ -169,13 +169,13 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
       onTouchEnd={handleTouchEnd}
     >
       {/* Stacked Cards */}
-      <div className="relative h-full px-2">
+      <div className="relative h-full px-1">
         {cards.map((card, index) => {
           const cardStyle = getCardStyle(index);
           return (
           <Card
             key={card.id}
-            className={`absolute top-0 left-2 right-2 h-52 ${card.gradientClass} border-border shadow-card cursor-pointer transition-all duration-300 ease-out select-none`}
+            className={`absolute top-0 left-1 right-1 h-52 ${card.gradientClass} border-border shadow-card cursor-pointer transition-all duration-300 ease-out select-none`}
             style={cardStyle}
             onClick={() => handleCardClick(card.id)}
           >
