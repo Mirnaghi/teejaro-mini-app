@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -17,9 +17,18 @@ interface StackedCardsProps {
   onCardClick?: (cardId: string) => void;
 }
 
+interface TouchState {
+  startX: number;
+  startY: number;
+  startTime: number;
+  isSwiping: boolean;
+}
+
 export function StackedCards({ cards, onCardClick }: StackedCardsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const touchStateRef = useRef<TouchState>({ startX: 0, startY: 0, startTime: 0, isSwiping: false });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const nextCard = () => {
     if (isAnimating || currentIndex >= cards.length - 1) return;
@@ -43,9 +52,66 @@ export function StackedCards({ cards, onCardClick }: StackedCardsProps) {
   }, [isAnimating]);
 
   const handleCardClick = (cardId: string) => {
-    if (onCardClick) {
+    if (onCardClick && !touchStateRef.current.isSwiping) {
       onCardClick(cardId);
     }
+  };
+
+  // Touch event handlers for swipe gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStateRef.current = {
+      startX: touch.clientX,
+      startY: touch.clientY,
+      startTime: Date.now(),
+      isSwiping: false
+    };
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStateRef.current.startX) return;
+    
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - touchStateRef.current.startX);
+    const deltaY = Math.abs(touch.clientY - touchStateRef.current.startY);
+    
+    // If horizontal movement is greater than vertical, prevent scrolling
+    if (deltaX > deltaY && deltaX > 10) {
+      e.preventDefault();
+      touchStateRef.current.isSwiping = true;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStateRef.current.startX || isAnimating) return;
+    
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStateRef.current.startX;
+    const deltaY = touch.clientY - touchStateRef.current.startY;
+    const deltaTime = Date.now() - touchStateRef.current.startTime;
+    
+    // Minimum swipe distance and maximum time for a valid swipe
+    const minSwipeDistance = 50;
+    const maxSwipeTime = 300;
+    
+    // Check if it's a valid horizontal swipe
+    if (Math.abs(deltaX) > minSwipeDistance && 
+        Math.abs(deltaX) > Math.abs(deltaY) && 
+        deltaTime < maxSwipeTime) {
+      
+      if (deltaX > 0) {
+        // Swipe right - go to previous card
+        prevCard();
+      } else {
+        // Swipe left - go to next card
+        nextCard();
+      }
+    }
+    
+    // Reset touch state after a delay to prevent immediate clicks
+    setTimeout(() => {
+      touchStateRef.current.isSwiping = false;
+    }, 100);
   };
 
   const getCardStyle = (index: number) => {
@@ -85,7 +151,13 @@ export function StackedCards({ cards, onCardClick }: StackedCardsProps) {
   };
 
   return (
-    <div className="relative h-48 mb-8">
+    <div 
+      ref={containerRef}
+      className="relative h-48 mb-8"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Navigation buttons */}
       {currentIndex > 0 && (
         <button
@@ -109,11 +181,13 @@ export function StackedCards({ cards, onCardClick }: StackedCardsProps) {
 
       {/* Stacked Cards */}
       <div className="relative h-full px-8">
-        {cards.map((card, index) => (
+        {cards.map((card, index) => {
+          const cardStyle = getCardStyle(index);
+          return (
           <Card
             key={card.id}
-            className={`absolute top-0 left-8 right-8 h-44 ${card.gradientClass} border-border shadow-card cursor-pointer transition-all duration-300 ease-out`}
-            style={getCardStyle(index)}
+            className={`absolute top-0 left-8 right-8 h-44 ${card.gradientClass} border-border shadow-card cursor-pointer transition-all duration-300 ease-out select-none`}
+            style={cardStyle}
             onClick={() => handleCardClick(card.id)}
           >
             <CardContent className="p-6 h-full flex flex-col justify-between">
@@ -133,7 +207,8 @@ export function StackedCards({ cards, onCardClick }: StackedCardsProps) {
               </div>
             </CardContent>
           </Card>
-        ))}
+        );
+        })}
       </div>
 
       {/* Dots indicator */}
