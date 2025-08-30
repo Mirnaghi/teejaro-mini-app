@@ -52,10 +52,10 @@ const mockBankAccounts: BankAccount[] = [
 ];
 
 const currencies = [
-  { value: "USD", label: "USD - US Dollar" },
-  { value: "EUR", label: "EUR - Euro" },
-  { value: "AED", label: "AED - UAE Dirham" },
-  { value: "GBP", label: "GBP - British Pound" },
+  { value: "USD", label: "USD - US Dollar", symbol: "$", flag: "🇺🇸" },
+  { value: "EUR", label: "EUR - Euro", symbol: "€", flag: "🇪🇺" },
+  { value: "AED", label: "AED - UAE Dirham", symbol: "د.إ", flag: "🇦🇪" },
+  { value: "GBP", label: "GBP - British Pound", symbol: "£", flag: "🇬🇧" },
 ];
 
 export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
@@ -121,19 +121,36 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
 
             {/* Currency Selection */}
             <div>
-              <Label htmlFor="currency">Select Currency</Label>
-              <Select value={formData.currency} onValueChange={(value) => setFormData({ currency: value })}>
-                <SelectTrigger className="mt-2">
-                  <SelectValue placeholder="Choose your preferred currency" />
-                </SelectTrigger>
-                <SelectContent>
-                  {currencies.map((currency) => (
-                    <SelectItem key={currency.value} value={currency.value}>
-                      {currency.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Label className="text-foreground mb-4 block">Select Currency</Label>
+              <div className="grid grid-cols-2 gap-3">
+                {currencies.map((currency) => (
+                  <div
+                    key={currency.value}
+                    className={`relative cursor-pointer rounded-lg border-2 p-4 transition-all hover:border-primary/50 ${
+                      formData.currency === currency.value
+                        ? "border-primary bg-primary/5"
+                        : "border-border bg-card hover:bg-secondary/30"
+                    }`}
+                    onClick={() => setFormData({ currency: currency.value })}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="text-2xl">{currency.flag}</div>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg font-bold text-primary">{currency.symbol}</span>
+                          <span className="font-semibold text-foreground">{currency.value}</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground">{currency.label.split(' - ')[1]}</p>
+                      </div>
+                      {formData.currency === currency.value && (
+                        <div className="w-4 h-4 bg-primary rounded-full flex items-center justify-center">
+                          <div className="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <Button 
