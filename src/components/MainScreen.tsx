@@ -30,7 +30,7 @@ export function MainScreen() {
   return (
     <div className="min-h-screen bg-background pb-8">
       {/* Header */}
-      <div className="flex items-center justify-between p-6 pb-2">
+      <div className="flex items-center justify-between px-6 pt-2 pb-2">
         <div className="flex-1" />
         <Button variant="ghost" size="icon">
           <MessageCircle className="w-6 h-6" />
@@ -38,7 +38,7 @@ export function MainScreen() {
       </div>
 
       {/* Centered Balance Section */}
-      <div className="px-6 py-8 text-center">
+      <div className="px-6 py-4 text-center">
         <div className="flex justify-center mb-4">
           <div className="w-16 h-16 bg-gradient-crypto rounded-full flex items-center justify-center">
             <User className="w-8 h-8 text-primary-foreground" />
