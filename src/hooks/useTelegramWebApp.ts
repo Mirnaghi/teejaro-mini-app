@@ -29,6 +29,7 @@ interface TelegramWebApp {
   viewportStableHeight: number;
   headerColor: string;
   backgroundColor: string;
+  isClosingConfirmationEnabled: boolean;
   BackButton: {
     isVisible: boolean;
     onClick: (callback: () => void) => void;
@@ -56,6 +57,10 @@ interface TelegramWebApp {
   expand: () => void;
   close: () => void;
   ready: () => void;
+  enableClosingConfirmation: () => void;
+  disableClosingConfirmation: () => void;
+  onEvent: (eventType: string, callback: () => void) => void;
+  offEvent: (eventType: string, callback: () => void) => void;
 }
 
 declare global {
@@ -81,6 +86,20 @@ export const useTelegramWebApp = () => {
       // Initialize the app
       tg.ready();
       tg.expand();
+      
+      // Enable full screen mode and prevent closing on swipe down
+      if (typeof tg.enableClosingConfirmation === 'function') {
+        tg.enableClosingConfirmation();
+      }
+      
+      // Prevent viewport changes when closing
+      if (typeof tg.onEvent === 'function') {
+        tg.onEvent('viewportChanged', () => {
+          if (!tg.isExpanded) {
+            tg.expand();
+          }
+        });
+      }
       
       // Set theme colors based on Telegram theme
       if (tg.colorScheme === 'dark') {
