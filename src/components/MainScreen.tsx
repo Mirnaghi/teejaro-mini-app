@@ -29,6 +29,9 @@ export function MainScreen() {
   const [isCardDetailsOpen, setIsCardDetailsOpen] = useState(false);
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
   const [isBankAccountOpen, setIsBankAccountOpen] = useState(false);
+  
+  // Calculate total bank account balance
+  const totalBankBalance = "$17,680.87"; // Chase: $12,450.75 + Bank of America: $5,230.12
 
   return (
     <div className="min-h-screen bg-background pb-8">
@@ -120,8 +123,9 @@ export function MainScreen() {
                   <Building2 className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-foreground">Bank account</h3>
-                  <p className="text-sm text-muted-foreground">Connect your bank</p>
+                  <h3 className="font-medium text-foreground">Bank accounts</h3>
+                  <p className="text-sm text-muted-foreground">Total balance</p>
+                  <p className="text-lg font-bold text-primary">{totalBankBalance}</p>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
