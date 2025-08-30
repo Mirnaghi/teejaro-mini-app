@@ -22,6 +22,14 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
   const [selectedNetwork, setSelectedNetwork] = useState("");
   const [recipientAddress, setRecipientAddress] = useState("");
   const [cryptoAmount, setCryptoAmount] = useState("");
+  const [bankTransferAmount, setBankTransferAmount] = useState("");
+  const [bankDetails, setBankDetails] = useState({
+    accountHolderName: "",
+    bankName: "",
+    accountNumber: "",
+    routingNumber: "",
+    swiftCode: "",
+  });
   const { toast } = useToast();
 
   // Available tokens
@@ -63,6 +71,14 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
     setSelectedNetwork("");
     setRecipientAddress("");
     setCryptoAmount("");
+    setBankTransferAmount("");
+    setBankDetails({
+      accountHolderName: "",
+      bankName: "",
+      accountNumber: "",
+      routingNumber: "",
+      swiftCode: "",
+    });
   };
 
   const handleClose = () => {
@@ -74,6 +90,14 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
     setSelectedNetwork("");
     setRecipientAddress("");
     setCryptoAmount("");
+    setBankTransferAmount("");
+    setBankDetails({
+      accountHolderName: "",
+      bankName: "",
+      accountNumber: "",
+      routingNumber: "",
+      swiftCode: "",
+    });
     onClose();
   };
 
@@ -91,6 +115,36 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
     toast({
       title: "Money Sent Successfully",
       description: `$${amount} sent to ${selectedUser.name}`,
+      duration: 3000,
+    });
+
+    handleClose();
+  };
+
+  const handleBankTransfer = () => {
+    if (!bankDetails.accountHolderName || !bankDetails.bankName || !bankDetails.accountNumber || !bankDetails.routingNumber || !bankTransferAmount) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+        duration: 2000,
+      });
+      return;
+    }
+
+    if (parseFloat(bankTransferAmount) <= 0) {
+      toast({
+        title: "Error",
+        description: "Please enter a valid amount",
+        variant: "destructive",
+        duration: 2000,
+      });
+      return;
+    }
+
+    toast({
+      title: "Bank Transfer Initiated",
+      description: `$${bankTransferAmount} transfer to ${bankDetails.bankName} initiated`,
       duration: 3000,
     });
 
@@ -375,8 +429,114 @@ export function SendModal({ isOpen, onClose }: SendModalProps) {
             <h2 className="text-xl font-semibold text-foreground">Bank Transfer</h2>
             <div className="w-10"></div>
           </div>
-          <div className="text-center py-8">
-            <p className="text-muted-foreground">Bank transfer functionality will be implemented here</p>
+
+          <div className="space-y-4">
+            {/* Account Holder Name */}
+            <div>
+              <Label className="text-foreground mb-2 block">Account Holder Name</Label>
+              <Input
+                placeholder="Enter full name as on bank account"
+                value={bankDetails.accountHolderName}
+                onChange={(e) => setBankDetails({...bankDetails, accountHolderName: e.target.value})}
+                className="bg-secondary border-border"
+              />
+            </div>
+
+            {/* Bank Name */}
+            <div>
+              <Label className="text-foreground mb-2 block">Bank Name</Label>
+              <Input
+                placeholder="Enter bank name"
+                value={bankDetails.bankName}
+                onChange={(e) => setBankDetails({...bankDetails, bankName: e.target.value})}
+                className="bg-secondary border-border"
+              />
+            </div>
+
+            {/* Account Number and Routing Number */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <Label className="text-foreground mb-2 block">Account Number</Label>
+                <Input
+                  placeholder="Account number"
+                  value={bankDetails.accountNumber}
+                  onChange={(e) => setBankDetails({...bankDetails, accountNumber: e.target.value})}
+                  className="bg-secondary border-border"
+                />
+              </div>
+              <div>
+                <Label className="text-foreground mb-2 block">Routing Number</Label>
+                <Input
+                  placeholder="Routing number"
+                  value={bankDetails.routingNumber}
+                  onChange={(e) => setBankDetails({...bankDetails, routingNumber: e.target.value})}
+                  className="bg-secondary border-border"
+                />
+              </div>
+            </div>
+
+            {/* SWIFT Code (Optional) */}
+            <div>
+              <Label className="text-foreground mb-2 block">SWIFT Code (Optional)</Label>
+              <Input
+                placeholder="For international transfers"
+                value={bankDetails.swiftCode}
+                onChange={(e) => setBankDetails({...bankDetails, swiftCode: e.target.value})}
+                className="bg-secondary border-border"
+              />
+            </div>
+
+            {/* Amount */}
+            <div>
+              <Label className="text-foreground mb-2 block">Amount (USD)</Label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">$</span>
+                <Input
+                  type="number"
+                  placeholder="0.00"
+                  value={bankTransferAmount}
+                  onChange={(e) => setBankTransferAmount(e.target.value)}
+                  className="pl-8 bg-secondary border-border"
+                />
+              </div>
+            </div>
+
+            {/* Transfer Info */}
+            <Card className="bg-warning/10 border-warning/20">
+              <CardContent className="p-3">
+                <h4 className="font-medium text-foreground mb-2 text-sm">Transfer Information</h4>
+                <div className="space-y-1 text-xs text-muted-foreground">
+                  <div className="flex justify-between">
+                    <span>Transfer fee:</span>
+                    <span>$2.99</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Processing time:</span>
+                    <span>1-3 business days</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Daily limit:</span>
+                    <span>$25,000</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Send Button */}
+            <Button 
+              onClick={handleBankTransfer}
+              className="w-full h-12 mt-6"
+              disabled={
+                !bankDetails.accountHolderName || 
+                !bankDetails.bankName || 
+                !bankDetails.accountNumber || 
+                !bankDetails.routingNumber || 
+                !bankTransferAmount || 
+                parseFloat(bankTransferAmount) <= 0
+              }
+            >
+              Transfer ${bankTransferAmount || "0.00"}
+            </Button>
           </div>
         </>
       );
