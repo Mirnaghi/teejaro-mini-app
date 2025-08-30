@@ -93,6 +93,7 @@ export function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
       isOpen={isOpen} 
       onClose={handleClose} 
       title={getTitle()}
+      showHeader={false}
     >
       {renderContent()}
     </PopupMenu>
