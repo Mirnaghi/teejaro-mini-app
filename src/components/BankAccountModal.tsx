@@ -281,13 +281,6 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2">
-                      {account.isConnected && (
-                        <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                          Connected
-                        </span>
-                      )}
-                    </div>
                   </div>
                 </CardContent>
               </Card>
