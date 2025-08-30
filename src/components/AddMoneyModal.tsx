@@ -45,10 +45,10 @@ export function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md bg-background border-border">
+      <DialogContent className="sm:max-w-md bg-background border-border animate-modal-enter data-[state=closed]:animate-modal-exit">
         <DialogHeader className="flex flex-row items-center justify-between">
           <DialogTitle className="text-xl font-semibold text-foreground">Add Money with</DialogTitle>
-          <Button variant="ghost" size="icon" onClick={handleClose}>
+          <Button variant="ghost" size="icon" onClick={handleClose} className="hover:bg-secondary/80">
             <X className="w-5 h-5" />
           </Button>
         </DialogHeader>

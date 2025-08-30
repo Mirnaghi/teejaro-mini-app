@@ -16,12 +16,12 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-background border-border p-0 gap-0">
+      <DialogContent className="sm:max-w-md bg-background border-border p-0 gap-0 animate-modal-enter data-[state=closed]:animate-modal-exit">
         <DialogHeader className="flex flex-row items-center justify-between p-6 pb-4">
-          <Button variant="ghost" size="icon" onClick={onClose}>
+          <Button variant="ghost" size="icon" onClick={onClose} className="hover:bg-secondary/80">
             <X className="w-5 h-5" />
           </Button>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" className="hover:bg-secondary/80">
             <MoreHorizontal className="w-5 h-5" />
           </Button>
         </DialogHeader>

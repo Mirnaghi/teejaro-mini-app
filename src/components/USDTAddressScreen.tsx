@@ -26,9 +26,9 @@ export function USDTAddressScreen({ isOpen, onClose, onBack }: USDTAddressScreen
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-background border-border max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-md bg-background border-border max-h-[90vh] overflow-y-auto animate-modal-enter data-[state=closed]:animate-modal-exit">
         <DialogHeader className="flex flex-row items-center justify-between">
-          <Button variant="ghost" size="icon" onClick={onBack}>
+          <Button variant="ghost" size="icon" onClick={onBack} className="hover:bg-secondary/80">
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <DialogTitle className="text-lg font-semibold text-foreground">Your USDT Address</DialogTitle>

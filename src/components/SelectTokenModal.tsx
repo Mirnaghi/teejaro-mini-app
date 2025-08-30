@@ -28,7 +28,7 @@ const tokens = [
 export function SelectTokenModal({ isOpen, onClose }: SelectTokenModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-background border-border">
+      <DialogContent className="sm:max-w-md bg-background border-border animate-modal-enter data-[state=closed]:animate-modal-exit">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold text-foreground">Select a token</DialogTitle>
         </DialogHeader>

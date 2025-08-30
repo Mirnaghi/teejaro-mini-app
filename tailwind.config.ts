@@ -99,11 +99,60 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'modal-enter': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(100%) scale(0.95)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0) scale(1)'
+					}
+				},
+				'modal-exit': {
+					'0%': {
+						opacity: '1',
+						transform: 'translateY(0) scale(1)'
+					},
+					'100%': {
+						opacity: '0',
+						transform: 'translateY(100%) scale(0.95)'
+					}
+				},
+				'backdrop-enter': {
+					'0%': {
+						opacity: '0'
+					},
+					'100%': {
+						opacity: '1'
+					}
+				},
+				'slide-up': {
+					'0%': {
+						transform: 'translateY(100%)'
+					},
+					'100%': {
+						transform: 'translateY(0)'
+					}
+				},
+				'slide-down': {
+					'0%': {
+						transform: 'translateY(0)'
+					},
+					'100%': {
+						transform: 'translateY(100%)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'modal-enter': 'modal-enter 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+				'modal-exit': 'modal-exit 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+				'backdrop-enter': 'backdrop-enter 0.2s ease-out',
+				'slide-up': 'slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+				'slide-down': 'slide-down 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
 			}
 		}
 	},

@@ -29,9 +29,9 @@ const mockBankAccounts = [
 export function BankTransferScreen({ isOpen, onClose, onBack }: BankTransferScreenProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-background border-border">
+      <DialogContent className="sm:max-w-md bg-background border-border animate-modal-enter data-[state=closed]:animate-modal-exit">
         <DialogHeader className="flex flex-row items-center justify-between">
-          <Button variant="ghost" size="icon" onClick={onBack}>
+          <Button variant="ghost" size="icon" onClick={onBack} className="hover:bg-secondary/80">
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <DialogTitle className="text-xl font-semibold text-foreground">Bank Transfer</DialogTitle>
