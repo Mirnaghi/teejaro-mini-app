@@ -167,35 +167,28 @@ export function MainScreen() {
           {/* Top Card with Content */}
           <Card className="relative bg-card border-border hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] group-hover:-translate-y-1">
             <CardContent className="p-0">
-              {/* Show first 3 transactions */}
-              {mockTransactions.slice(0, 3).map((transaction, index) => (
-                <div 
-                  key={transaction.id} 
-                  className={`flex items-center justify-between p-4 ${
-                    index < 2 ? 'border-b border-border/50' : ''
-                  }`}
-                >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-secondary/50 rounded-xl flex items-center justify-center text-sm">
-                      {transaction.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-foreground text-sm">{transaction.description}</h4>
-                      <p className="text-xs text-muted-foreground">Today</p>
-                    </div>
+              {/* Show only the first transaction */}
+              <div className="flex items-center justify-between p-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-secondary/50 rounded-xl flex items-center justify-center">
+                    {mockTransactions[0].icon}
                   </div>
-                  <p className={`font-semibold text-sm ${
-                    transaction.type === "credit" ? "text-green-500" : "text-foreground"
-                  }`}>
-                    {transaction.amount}
-                  </p>
+                  <div>
+                    <h4 className="font-medium text-foreground">{mockTransactions[0].description}</h4>
+                    <p className="text-sm text-muted-foreground">Today</p>
+                  </div>
                 </div>
-              ))}
+                <p className={`font-semibold ${
+                  mockTransactions[0].type === "credit" ? "text-green-500" : "text-foreground"
+                }`}>
+                  {mockTransactions[0].amount}
+                </p>
+              </div>
               
               {/* More indicator */}
-              <div className="p-4 text-center border-t border-border/50">
+              <div className="p-3 text-center border-t border-border/50">
                 <p className="text-sm text-muted-foreground">
-                  +{mockTransactions.length - 3} more transactions
+                  +{mockTransactions.length - 1} more transactions
                 </p>
               </div>
             </CardContent>
