@@ -246,28 +246,6 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
         })}
       </div>
 
-      {/* Dots indicator */}
-      {cards.length > 1 && (
-        <div className="flex justify-center mt-4 space-x-2">
-          {cards.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                if (!isAnimating) {
-                  setCurrentIndex(index);
-                  if (onCardChange) {
-                    onCardChange(index, cards[index].balance);
-                  }
-                }
-              }}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentIndex ? 'bg-primary' : 'bg-muted-foreground/30'
-              }`}
-              disabled={isAnimating}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 }
