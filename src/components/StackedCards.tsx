@@ -56,7 +56,7 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
     if (isAnimating) {
       const timer = setTimeout(() => {
         setIsAnimating(false);
-      }, 300);
+      }, 400);
       return () => clearTimeout(timer);
     }
   }, [isAnimating]);
@@ -175,7 +175,7 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
           return (
           <Card
             key={card.id}
-            className={`absolute top-0 left-1 right-1 h-52 ${card.gradientClass} border-border shadow-card cursor-pointer transition-all duration-300 ease-out select-none`}
+            className={`absolute top-0 left-1 right-1 h-52 ${card.gradientClass} border-border shadow-card cursor-pointer transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] select-none will-change-transform`}
             style={cardStyle}
             onClick={() => handleCardClick(card.id)}
           >
