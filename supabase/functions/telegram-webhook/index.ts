@@ -53,7 +53,8 @@ serve(async (req) => {
         
         // Handle /start command
         if (message.text === '/start') {
-          await sendWelcomeMessage(chatId, TELEGRAM_BOT_TOKEN)
+          const appUrl = new URL(req.url).origin
+          await sendWelcomeMessage(chatId, TELEGRAM_BOT_TOKEN, appUrl)
         }
       }
 
@@ -99,7 +100,7 @@ serve(async (req) => {
   }
 })
 
-async function sendWelcomeMessage(chatId: number, botToken: string) {
+async function sendWelcomeMessage(chatId: number, botToken: string, appUrl: string) {
   const message = `🚀 Welcome to Teejaro Crypto Card Hub!
 
 Manage your crypto cards, bank accounts, and transactions directly in Telegram.
@@ -111,7 +112,7 @@ Tap the button below to launch the app:`
       {
         text: "🏦 Open Teejaro App",
         web_app: {
-          url: `${new URL(req.url).origin}?forceHideBadge=true`
+          url: `${appUrl}?forceHideBadge=true`
         }
       }
     ]]
