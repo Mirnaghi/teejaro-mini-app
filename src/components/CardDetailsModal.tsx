@@ -12,7 +12,7 @@ interface CardDetailsModalProps {
 }
 
 export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
-  const [showCardNumber, setShowCardNumber] = useState(false);
+  const [showCardDetails, setShowCardDetails] = useState(false);
 
   return (
     <PopupMenu 
@@ -48,15 +48,28 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
                 
                 <div className="mb-4">
                   <p className="text-white/80 text-sm mb-1">Card Holder</p>
-                  <p className="text-white font-semibold">John Doe</p>
+                  <p className="text-white font-semibold">
+                    {showCardDetails ? "John Doe" : "J••• D••"}
+                  </p>
                 </div>
                 
-                <div className="text-white font-mono text-lg tracking-wider">
-                  •••• •••• •••• 1234
+                <div className="text-white font-mono text-lg tracking-wider mb-4">
+                  {showCardDetails ? "4734 5678 9012 1234" : "•••• •••• •••• 1234"}
                 </div>
                 
-                <div className="mt-4 text-right">
-                  <p className="text-white/80 text-sm">Signature</p>
+                <div className="flex justify-between items-end">
+                  <div>
+                    <p className="text-white/80 text-xs">Valid Thru</p>
+                    <p className="text-white font-mono">
+                      {showCardDetails ? "12/27" : "••/••"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-white/80 text-xs">CVV</p>
+                    <p className="text-white font-mono">
+                      {showCardDetails ? "123" : "•••"}
+                    </p>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -69,8 +82,8 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
               <div className="relative">
                 <Input
                   id="cardNumber"
-                  type={showCardNumber ? "text" : "password"}
-                  value={showCardNumber ? "4734 5678 9012 1234" : "•••• •••• •••• 1234"}
+                  type={showCardDetails ? "text" : "password"}
+                  value={showCardDetails ? "4734 5678 9012 1234" : "•••• •••• •••• 1234"}
                   readOnly
                   className="bg-secondary border-border text-foreground"
                 />
@@ -78,14 +91,25 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
                   variant="ghost"
                   size="sm"
                   className="absolute right-2 top-1/2 transform -translate-y-1/2"
-                  onClick={() => setShowCardNumber(!showCardNumber)}
+                  onClick={() => setShowCardDetails(!showCardDetails)}
                 >
-                  {showCardNumber ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showCardDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   <span className="ml-2 text-sm">
-                    {showCardNumber ? "Hide details" : "Reveal details"}
+                    {showCardDetails ? "Hide details" : "Reveal details"}
                   </span>
                 </Button>
               </div>
+            </div>
+
+            <div>
+              <Label htmlFor="cardHolder" className="text-foreground mb-2 block">Card holder name</Label>
+              <Input
+                id="cardHolder"
+                type={showCardDetails ? "text" : "password"}
+                value={showCardDetails ? "John Doe" : "J••• D••"}
+                readOnly
+                className="bg-secondary border-border text-foreground"
+              />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -93,7 +117,8 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
                 <Label htmlFor="expiration" className="text-foreground mb-2 block">Expiration date</Label>
                 <Input
                   id="expiration"
-                  value="12/27"
+                  type={showCardDetails ? "text" : "password"}
+                  value={showCardDetails ? "12/27" : "••/••"}
                   readOnly
                   className="bg-secondary border-border text-foreground"
                 />
@@ -102,8 +127,8 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
                 <Label htmlFor="cvv" className="text-foreground mb-2 block">CVV</Label>
                 <Input
                   id="cvv"
-                  type="password"
-                  value="•••"
+                  type={showCardDetails ? "text" : "password"}
+                  value={showCardDetails ? "123" : "•••"}
                   readOnly
                   className="bg-secondary border-border text-foreground"
                 />
