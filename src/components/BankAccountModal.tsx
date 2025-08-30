@@ -54,9 +54,8 @@ const mockBankAccounts: BankAccount[] = [
 const currencies = [
   { value: "USD", label: "USD - US Dollar" },
   { value: "EUR", label: "EUR - Euro" },
+  { value: "AED", label: "AED - UAE Dirham" },
   { value: "GBP", label: "GBP - British Pound" },
-  { value: "CAD", label: "CAD - Canadian Dollar" },
-  { value: "AUD", label: "AUD - Australian Dollar" },
 ];
 
 export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
