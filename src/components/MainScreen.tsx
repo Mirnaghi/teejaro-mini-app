@@ -156,14 +156,14 @@ export function MainScreen() {
           </button>
         </div>
         
-        {/* Stacked Cards Effect */}
-        <div 
-          className="relative cursor-pointer group"
-          onClick={() => navigate("/transactions")}
-        >
-          {/* Stack Effect - Background Cards */}
-          <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-x-1 translate-y-1 opacity-60" />
-          <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-x-0.5 translate-y-0.5 opacity-80" />
+          {/* Stacked Cards Effect */}
+          <div 
+            className="relative cursor-pointer group"
+            onClick={() => navigate("/transactions")}
+          >
+            {/* Stack Effect - Background Cards */}
+            <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-y-1 opacity-60" />
+            <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-y-0.5 opacity-80" />
           
           {/* Top Card with Content */}
           <Card className="relative bg-card border-border hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] group-hover:-translate-y-1">
