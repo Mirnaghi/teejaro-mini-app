@@ -10,6 +10,7 @@ import { BankAccountModal } from "./BankAccountModal";
 import { InviteFriendsModal } from "./InviteFriendsModal";
 import { SendModal } from "./SendModal";
 import { StackedCards } from "./StackedCards";
+import { useTelegramWebApp } from "@/hooks/useTelegramWebApp";
 
 interface Transaction {
   id: string;
@@ -28,11 +29,18 @@ const mockTransactions: Transaction[] = [
 
 export function MainScreen() {
   const navigate = useNavigate();
+  const { user, isInTelegram, hapticFeedback } = useTelegramWebApp();
   const [isCardDetailsOpen, setIsCardDetailsOpen] = useState(false);
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
   const [isBankAccountOpen, setIsBankAccountOpen] = useState(false);
   const [isInviteFriendsOpen, setIsInviteFriendsOpen] = useState(false);
   const [isSendOpen, setIsSendOpen] = useState(false);
+
+  // Add haptic feedback to button clicks
+  const handleButtonClick = (action: () => void) => {
+    hapticFeedback('light');
+    action();
+  };
   
   // Card balances data
   const cards = [
@@ -83,11 +91,15 @@ export function MainScreen() {
           <div className="w-8 h-8 bg-gradient-crypto rounded-full flex items-center justify-center">
             <User className="w-4 h-4 text-primary-foreground" />
           </div>
-          <span className="text-sm font-medium text-foreground">Teejaro</span>
+          <span className="text-sm font-medium text-foreground">
+            {isInTelegram && user ? `${user.first_name}${user.last_name ? ` ${user.last_name}` : ''}` : 'Teejaro'}
+          </span>
         </div>
-        <Button variant="ghost" size="icon">
-          <MessageCircle className="w-6 h-6" />
-        </Button>
+        {!isInTelegram && (
+          <Button variant="ghost" size="icon">
+            <MessageCircle className="w-6 h-6" />
+          </Button>
+        )}
       </div>
 
       {/* Centered Balance Section */}
@@ -105,7 +117,7 @@ export function MainScreen() {
             variant="crypto" 
             size="lg" 
             className="h-14"
-            onClick={() => setIsAddMoneyOpen(true)}
+            onClick={() => handleButtonClick(() => setIsAddMoneyOpen(true))}
           >
             <Plus className="w-5 h-5 mr-2" />
             Top up
@@ -114,7 +126,7 @@ export function MainScreen() {
             variant="secondary" 
             size="lg" 
             className="h-14"
-            onClick={() => setIsSendOpen(true)}
+            onClick={() => handleButtonClick(() => setIsSendOpen(true))}
           >
             <ArrowUp className="w-5 h-5 mr-2" />
             Send
