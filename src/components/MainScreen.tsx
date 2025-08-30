@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +23,7 @@ const mockTransactions: Transaction[] = [
 ];
 
 export function MainScreen() {
+  const navigate = useNavigate();
   const [isCardDetailsOpen, setIsCardDetailsOpen] = useState(false);
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
 
@@ -141,32 +143,63 @@ export function MainScreen() {
         </Card>
       </div>
 
-      {/* Transactions */}
+      {/* Transactions Stack */}
       <div className="px-6">
-        <h2 className="text-lg font-semibold text-foreground mb-4">Transactions</h2>
-        <div className="space-y-3">
-          {mockTransactions.map((transaction) => (
-            <Card key={transaction.id} className="bg-card border-border">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold text-foreground">Recent Transactions</h3>
+          <button 
+            onClick={() => navigate("/transactions")}
+            className="text-sm text-primary hover:text-primary/80 transition-colors"
+          >
+            View All
+          </button>
+        </div>
+        
+        {/* Stacked Cards Effect */}
+        <div 
+          className="relative cursor-pointer group"
+          onClick={() => navigate("/transactions")}
+        >
+          {/* Stack Effect - Background Cards */}
+          <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-x-1 translate-y-1 opacity-60" />
+          <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-x-0.5 translate-y-0.5 opacity-80" />
+          
+          {/* Top Card with Content */}
+          <Card className="relative bg-card border-border hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] group-hover:-translate-y-1">
+            <CardContent className="p-0">
+              {/* Show first 3 transactions */}
+              {mockTransactions.slice(0, 3).map((transaction, index) => (
+                <div 
+                  key={transaction.id} 
+                  className={`flex items-center justify-between p-4 ${
+                    index < 2 ? 'border-b border-border/50' : ''
+                  }`}
+                >
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                      <span className="text-lg">{transaction.icon}</span>
+                    <div className="w-10 h-10 bg-secondary/50 rounded-xl flex items-center justify-center text-sm">
+                      {transaction.icon}
                     </div>
                     <div>
-                      <p className="font-medium text-foreground">{transaction.description}</p>
-                      <p className="text-sm text-muted-foreground">Today</p>
+                      <h4 className="font-medium text-foreground text-sm">{transaction.description}</h4>
+                      <p className="text-xs text-muted-foreground">Today</p>
                     </div>
                   </div>
-                  <p className={`font-semibold ${
-                    transaction.type === "credit" ? "text-success" : "text-foreground"
+                  <p className={`font-semibold text-sm ${
+                    transaction.type === "credit" ? "text-green-500" : "text-foreground"
                   }`}>
                     {transaction.amount}
                   </p>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+              ))}
+              
+              {/* More indicator */}
+              <div className="p-4 text-center border-t border-border/50">
+                <p className="text-sm text-muted-foreground">
+                  +{mockTransactions.length - 3} more transactions
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
