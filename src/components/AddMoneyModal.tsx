@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { QrCode, Building2 } from "lucide-react";
 import { TopUpCryptoContent } from "./TopUpCryptoContent";
 import { BankTransferContent } from "./BankTransferContent";
+import { CryptoDepositContent } from "./CryptoDepositContent";
 
 interface AddMoneyModalProps {
   isOpen: boolean;
@@ -30,7 +31,7 @@ export function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
     switch (currentScreen) {
       case "crypto": return "Top up with Crypto";
       case "bank": return "Bank Transfer";
-      case "address": return "USDT Address";
+      case "address": return "Deposit Address";
       default: return "Add Money with";
     }
   };
@@ -45,12 +46,7 @@ export function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
     }
 
     if (currentScreen === "address") {
-      return (
-        <div className="text-center py-8">
-          <p className="text-muted-foreground">Address screen content will go here</p>
-          <button onClick={handleBack} className="mt-4 text-primary">Back</button>
-        </div>
-      );
+      return <CryptoDepositContent onBack={handleBack} />;
     }
 
     return (
