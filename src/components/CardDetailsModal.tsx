@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MoreHorizontal, Eye, EyeOff, Lock, RefreshCw, User } from "lucide-react";
+import { MoreHorizontal, Eye, EyeOff, Lock, RefreshCw, User, Copy } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface CardDetailsModalProps {
   isOpen: boolean;
@@ -13,6 +14,25 @@ interface CardDetailsModalProps {
 
 export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
   const [showCardDetails, setShowCardDetails] = useState(false);
+  const { toast } = useToast();
+
+  const copyToClipboard = async (text: string, fieldName: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast({
+        title: "Copied to clipboard",
+        description: `${fieldName} copied successfully`,
+        duration: 2000,
+      });
+    } catch (err) {
+      toast({
+        title: "Copy failed",
+        description: "Unable to copy to clipboard",
+        variant: "destructive",
+        duration: 2000,
+      });
+    }
+  };
 
   return (
     <PopupMenu 
@@ -85,53 +105,94 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
                   type={showCardDetails ? "text" : "password"}
                   value={showCardDetails ? "4734 5678 9012 1234" : "•••• •••• •••• 1234"}
                   readOnly
-                  className="bg-secondary border-border text-foreground"
+                  className="bg-secondary border-border text-foreground pr-20"
                 />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2"
-                  onClick={() => setShowCardDetails(!showCardDetails)}
-                >
-                  {showCardDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  <span className="ml-2 text-sm">
-                    {showCardDetails ? "Hide details" : "Reveal details"}
-                  </span>
-                </Button>
+                <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="p-1 h-8 w-8"
+                    onClick={() => copyToClipboard("4734567890121234", "Card number")}
+                    disabled={!showCardDetails}
+                  >
+                    <Copy className="w-3 h-3" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="p-1 h-8 w-8"
+                    onClick={() => setShowCardDetails(!showCardDetails)}
+                  >
+                    {showCardDetails ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                  </Button>
+                </div>
               </div>
             </div>
 
             <div>
               <Label htmlFor="cardHolder" className="text-foreground mb-2 block">Card holder name</Label>
-              <Input
-                id="cardHolder"
-                type={showCardDetails ? "text" : "password"}
-                value={showCardDetails ? "John Doe" : "J••• D••"}
-                readOnly
-                className="bg-secondary border-border text-foreground"
-              />
+              <div className="relative">
+                <Input
+                  id="cardHolder"
+                  type={showCardDetails ? "text" : "password"}
+                  value={showCardDetails ? "John Doe" : "J••• D••"}
+                  readOnly
+                  className="bg-secondary border-border text-foreground pr-12"
+                />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 h-8 w-8"
+                  onClick={() => copyToClipboard("John Doe", "Cardholder name")}
+                  disabled={!showCardDetails}
+                >
+                  <Copy className="w-3 h-3" />
+                </Button>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="expiration" className="text-foreground mb-2 block">Expiration date</Label>
-                <Input
-                  id="expiration"
-                  type={showCardDetails ? "text" : "password"}
-                  value={showCardDetails ? "12/27" : "••/••"}
-                  readOnly
-                  className="bg-secondary border-border text-foreground"
-                />
+                <div className="relative">
+                  <Input
+                    id="expiration"
+                    type={showCardDetails ? "text" : "password"}
+                    value={showCardDetails ? "12/27" : "••/••"}
+                    readOnly
+                    className="bg-secondary border-border text-foreground pr-12"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 h-8 w-8"
+                    onClick={() => copyToClipboard("12/27", "Expiration date")}
+                    disabled={!showCardDetails}
+                  >
+                    <Copy className="w-3 h-3" />
+                  </Button>
+                </div>
               </div>
               <div>
                 <Label htmlFor="cvv" className="text-foreground mb-2 block">CVV</Label>
-                <Input
-                  id="cvv"
-                  type={showCardDetails ? "text" : "password"}
-                  value={showCardDetails ? "123" : "•••"}
-                  readOnly
-                  className="bg-secondary border-border text-foreground"
-                />
+                <div className="relative">
+                  <Input
+                    id="cvv"
+                    type={showCardDetails ? "text" : "password"}
+                    value={showCardDetails ? "123" : "•••"}
+                    readOnly
+                    className="bg-secondary border-border text-foreground pr-12"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 h-8 w-8"
+                    onClick={() => copyToClipboard("123", "CVV")}
+                    disabled={!showCardDetails}
+                  >
+                    <Copy className="w-3 h-3" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
