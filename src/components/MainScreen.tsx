@@ -28,7 +28,7 @@ export function MainScreen() {
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-8">
       {/* Header */}
       <div className="flex items-center justify-between p-6 pb-4">
         <div className="flex items-center space-x-3">
