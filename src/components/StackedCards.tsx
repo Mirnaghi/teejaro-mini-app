@@ -130,7 +130,7 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
     if (position < 0) {
       // Cards behind - hidden
       return {
-        transform: `translateY(${Math.abs(position) * 8}px) scale(${1 - Math.abs(position) * 0.08})`,
+        transform: `translateY(-${Math.abs(position) * 12}px) scale(${1 - Math.abs(position) * 0.1})`,
         zIndex: 10 - Math.abs(position),
         opacity: 0
       };
@@ -142,11 +142,11 @@ export function StackedCards({ cards, onCardClick, onCardChange }: StackedCardsP
         opacity: 1
       };
     } else {
-      // Cards ahead - stacked behind
+      // Cards ahead - visible stack below
       return {
-        transform: `translateY(${position * 8}px) scale(${1 - position * 0.08})`,
+        transform: `translateY(${position * 12}px) scale(${1 - position * 0.04})`,
         zIndex: 20 - position,
-        opacity: Math.max(0.3, 1 - position * 0.3)
+        opacity: Math.max(0.6, 1 - position * 0.15)
       };
     }
   };
