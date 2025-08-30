@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Building2, Plus, ArrowLeft, Check } from "lucide-react";
+import { BankAccountDetailModal } from "./BankAccountDetailModal";
 
 interface BankAccountModalProps {
   isOpen: boolean;
@@ -17,6 +18,10 @@ interface BankAccount {
   bankName: string;
   accountNumber: string;
   currency: string;
+  balance: string;
+  routingNumber: string;
+  accountHolderName: string;
+  address: string;
   isConnected: boolean;
 }
 
@@ -26,6 +31,10 @@ const mockBankAccounts: BankAccount[] = [
     bankName: "Chase Bank",
     accountNumber: "****1234",
     currency: "USD",
+    balance: "$12,450.75",
+    routingNumber: "021000021",
+    accountHolderName: "John Doe",
+    address: "123 Main St, New York, NY 10001",
     isConnected: true,
   },
   {
@@ -33,6 +42,10 @@ const mockBankAccounts: BankAccount[] = [
     bankName: "Bank of America",
     accountNumber: "****5678",
     currency: "USD",
+    balance: "$5,230.12",
+    routingNumber: "026009593",
+    accountHolderName: "John Doe",
+    address: "456 Oak Ave, Los Angeles, CA 90210",
     isConnected: true,
   },
 ];
@@ -48,6 +61,8 @@ const currencies = [
 export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
   const [currentScreen, setCurrentScreen] = useState<"select" | "create">("select");
   const [selectedAccount, setSelectedAccount] = useState<string | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [selectedAccountData, setSelectedAccountData] = useState<BankAccount | null>(null);
   const [formData, setFormData] = useState({
     bankName: "",
     accountNumber: "",
@@ -83,9 +98,9 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
     onClose();
   };
 
-  const handleAccountSelect = (accountId: string) => {
-    setSelectedAccount(accountId);
-    // Handle account selection logic here
+  const handleAccountSelect = (account: BankAccount) => {
+    setSelectedAccountData(account);
+    setIsDetailOpen(true);
   };
 
   const handleCreateAccount = () => {
@@ -247,12 +262,8 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
             {mockBankAccounts.map((account) => (
               <Card 
                 key={account.id}
-                className={`cursor-pointer transition-colors border-2 ${
-                  selectedAccount === account.id 
-                    ? "border-primary bg-primary/5" 
-                    : "border-border hover:bg-secondary/50"
-                }`}
-                onClick={() => handleAccountSelect(account.id)}
+                className={`cursor-pointer transition-colors border-2 border-border hover:bg-secondary/50`}
+                onClick={() => handleAccountSelect(account)}
               >
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
@@ -260,10 +271,13 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
                       <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
                         <Building2 className="w-5 h-5 text-primary" />
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <h4 className="font-medium text-foreground">{account.bankName}</h4>
                         <p className="text-sm text-muted-foreground">
                           {account.currency} • {account.accountNumber}
+                        </p>
+                        <p className="text-sm font-semibold text-primary">
+                          {account.balance}
                         </p>
                       </div>
                     </div>
@@ -272,9 +286,6 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
                         <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
                           Connected
                         </span>
-                      )}
-                      {selectedAccount === account.id && (
-                        <Check className="w-5 h-5 text-primary" />
                       )}
                     </div>
                   </div>
@@ -299,25 +310,26 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
             </p>
           </CardContent>
         </Card>
-
-        {/* Continue Button */}
-        {selectedAccount && (
-          <Button onClick={handleClose} className="w-full mt-6">
-            Continue with Selected Account
-          </Button>
-        )}
       </div>
     );
   };
 
   return (
-    <PopupMenu 
-      isOpen={isOpen} 
-      onClose={handleClose} 
-      title={getTitle()}
-      showHeader={currentScreen === "select"}
-    >
-      {renderContent()}
-    </PopupMenu>
+    <>
+      <PopupMenu 
+        isOpen={isOpen} 
+        onClose={handleClose} 
+        title={getTitle()}
+        showHeader={currentScreen === "select"}
+      >
+        {renderContent()}
+      </PopupMenu>
+      
+      <BankAccountDetailModal 
+        isOpen={isDetailOpen}
+        onClose={() => setIsDetailOpen(false)}
+        account={selectedAccountData}
+      />
+    </>
   );
 }
