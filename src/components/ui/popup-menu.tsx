@@ -34,7 +34,10 @@ export function PopupMenu({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center">
+    <div className={cn(
+      "fixed inset-0 z-[9999] flex items-end justify-center transition-all duration-300",
+      isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+    )}>
       {/* Backdrop */}
       <div 
         className={cn(
@@ -46,8 +49,8 @@ export function PopupMenu({
       
       {/* Popup Content */}
       <div className={cn(
-        "relative w-full max-w-md bg-background rounded-t-3xl shadow-2xl transition-transform duration-300 ease-out",
-        isOpen ? "translate-y-0" : "translate-y-full",
+        "relative w-full max-w-md bg-background rounded-t-3xl shadow-2xl transition-all duration-300 ease-out transform",
+        isOpen ? "translate-y-0 scale-100" : "translate-y-full scale-95",
         className
       )}>
         {/* Drag Handle */}
