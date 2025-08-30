@@ -61,6 +61,9 @@ interface TelegramWebApp {
   disableClosingConfirmation: () => void;
   onEvent: (eventType: string, callback: () => void) => void;
   offEvent: (eventType: string, callback: () => void) => void;
+  setHeaderColor: (color: string) => void;
+  setBackgroundColor: (color: string) => void;
+  requestViewport: (params: { height?: number; is_state_stable?: boolean; is_expanded?: boolean }) => void;
 }
 
 declare global {
@@ -87,6 +90,14 @@ export const useTelegramWebApp = () => {
       tg.ready();
       tg.expand();
       
+      // Request fullscreen viewport with stability
+      if (typeof tg.requestViewport === 'function') {
+        tg.requestViewport({
+          is_expanded: true,
+          is_state_stable: true
+        });
+      }
+      
       // Enable full screen mode and prevent closing on swipe down
       if (typeof tg.enableClosingConfirmation === 'function') {
         tg.enableClosingConfirmation();
@@ -97,6 +108,13 @@ export const useTelegramWebApp = () => {
         tg.onEvent('viewportChanged', () => {
           if (!tg.isExpanded) {
             tg.expand();
+            // Re-request stable viewport
+            if (typeof tg.requestViewport === 'function') {
+              tg.requestViewport({
+                is_expanded: true,
+                is_state_stable: true
+              });
+            }
           }
         });
       }
