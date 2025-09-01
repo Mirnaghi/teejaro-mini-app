@@ -175,17 +175,12 @@ export function MainScreen() {
           </CardContent>
         </Card>
 
-        <div className="relative">
-          {/* Gradient border container */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 via-cyan-400 to-purple-400 rounded-xl p-[3px]">
-            <div className="w-full h-full bg-card rounded-[10px]"></div>
-          </div>
-          
+        <div className="relative p-[3px] bg-gradient-to-r from-purple-400 via-pink-400 via-cyan-400 to-purple-400 rounded-xl">
           <Card 
-            className="relative bg-transparent border-0 cursor-pointer hover:bg-secondary/20 transition-all duration-300 hover:scale-[1.02]"
+            className="bg-card border-0 cursor-pointer hover:bg-secondary/20 transition-all duration-300 hover:scale-[1.02]"
             onClick={() => setIsInviteFriendsOpen(true)}
           >
-            <CardContent className="p-4 bg-card rounded-[10px] m-[3px]">
+            <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-lg">
