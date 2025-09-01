@@ -180,7 +180,7 @@ export function MainScreen() {
                 </div>
                 <div>
                   <h3 className="font-medium text-foreground">Invite Friends to Earn</h3>
-                  <p className="text-base font-bold text-primary">You have +500 TJR points</p>
+                  <p className="text-base font-bold text-primary">500 TJR</p>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
