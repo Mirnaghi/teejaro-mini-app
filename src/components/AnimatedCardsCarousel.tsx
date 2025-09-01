@@ -163,14 +163,14 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
     } else if (position > 0) {
       // Cards to the right
       return {
-        transform: `translateX(${position * 280}px) translateY(${absPosition * 20}px) scale(${1 - absPosition * 0.1}) rotateY(-${Math.min(absPosition * 45, 60)}deg)`,
+        transform: `translateX(${position * 300}px) translateY(${absPosition * 20}px) scale(${1 - absPosition * 0.1}) rotateY(-${Math.min(absPosition * 45, 60)}deg)`,
         zIndex: 30 - absPosition,
         opacity: Math.max(0.4, 1 - absPosition * 0.3)
       };
     } else {
       // Cards to the left
       return {
-        transform: `translateX(${position * 280}px) translateY(${absPosition * 20}px) scale(${1 - absPosition * 0.1}) rotateY(${Math.min(absPosition * 45, 60)}deg)`,
+        transform: `translateX(${position * 300}px) translateY(${absPosition * 20}px) scale(${1 - absPosition * 0.1}) rotateY(${Math.min(absPosition * 45, 60)}deg)`,
         zIndex: 30 - absPosition,
         opacity: Math.max(0.4, 1 - absPosition * 0.3)
       };
@@ -209,7 +209,7 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
           return (
             <Card
               key={card.id}
-              className={`absolute w-72 h-52 ${card.gradientClass} border-border cursor-pointer select-none will-change-transform transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-2xl`}
+              className={`absolute w-80 h-52 ${card.gradientClass} border-border cursor-pointer select-none will-change-transform transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-2xl`}
               style={cardStyle}
               onClick={() => handleCardClick(card.id)}
             >
@@ -218,18 +218,16 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
                   // Empty card with create button
                   <div className="flex flex-col items-center justify-center h-full">
                     <div className="text-center">
-                      <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Plus className="w-6 h-6 text-primary" />
                       </div>
-                      <h3 className="text-lg font-semibold text-foreground mb-2">Create Virtual Card</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Get your virtual card instantly</p>
                       <Button 
                         variant="default" 
                         size="sm"
                         onClick={() => handleCardClick(card.id)}
                         className="w-full"
                       >
-                        <Plus className="w-4 h-4" />
+                        Create Card
                       </Button>
                     </div>
                   </div>

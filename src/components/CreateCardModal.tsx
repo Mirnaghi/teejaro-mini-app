@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertTriangle, CreditCard } from "lucide-react";
@@ -22,16 +22,16 @@ export function CreateCardModal({ isOpen, onClose }: CreateCardModalProps) {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent side="bottom" className="h-[80vh]">
+        <SheetHeader>
+          <SheetTitle className="flex items-center gap-2">
             <CreditCard className="w-5 h-5" />
             Create Virtual Card
-          </DialogTitle>
-        </DialogHeader>
+          </SheetTitle>
+        </SheetHeader>
         
-        <div className="space-y-6">
+        <div className="space-y-6 mt-6">
           {/* Card Preview */}
           <div className="w-full h-32 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl flex items-center justify-center">
             <div className="text-center text-white">
@@ -90,7 +90,7 @@ export function CreateCardModal({ isOpen, onClose }: CreateCardModalProps) {
             </Button>
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }
