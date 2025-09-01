@@ -23,6 +23,70 @@
 
 @layer base {
   :root {
+    /* Light mode colors */
+    --background: 0 0% 100%;
+    --foreground: 228 8% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 228 8% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 228 8% 8%;
+
+    /* Crypto purple primary */
+    --primary: 258 90% 66%;
+    --primary-foreground: 0 0% 98%;
+
+    /* Light secondary */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 228 8% 8%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 258 90% 66%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 258 90% 66%;
+
+    --radius: 0.75rem;
+
+    /* Custom crypto app colors */
+    --crypto-blue: 217 91% 60%;
+    --crypto-green: 142 71% 45%;
+    --crypto-orange: 25 95% 53%;
+    --success: 142 71% 45%;
+    --warning: 45 93% 58%;
+    
+    /* Light mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--crypto-blue)));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(220 14% 98%));
+    --gradient-crypto: linear-gradient(135deg, hsl(var(--crypto-blue)), hsl(var(--primary)));
+    
+    /* Light mode shadows */
+    --shadow-primary: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.1);
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.15);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
     /* Dark crypto theme */
     --background: 228 8% 8%;
     --foreground: 0 0% 98%;
@@ -54,8 +118,6 @@
     --input: 228 8% 16%;
     --ring: 258 90% 66%;
 
-    --radius: 0.75rem;
-
     /* Custom crypto app colors */
     --crypto-blue: 217 91% 60%;
     --crypto-green: 142 71% 45%;
@@ -63,36 +125,24 @@
     --success: 142 71% 45%;
     --warning: 45 93% 58%;
     
-    /* Gradients */
+    /* Dark mode gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--crypto-blue)));
     --gradient-card: linear-gradient(135deg, hsl(var(--card)), hsl(228 8% 14%));
     --gradient-crypto: linear-gradient(135deg, hsl(var(--crypto-blue)), hsl(var(--primary)));
     
-    /* Shadows */
+    /* Dark mode shadows */
     --shadow-primary: 0 10px 30px -10px hsl(var(--primary) / 0.3);
     --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.4);
     --shadow-glow: 0 0 40px hsl(var(--primary) / 0.2);
 
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 228 8% 12%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 228 8% 8%;
+    --sidebar-accent: 228 8% 16%;
+    --sidebar-accent-foreground: 0 0% 85%;
+    --sidebar-border: 228 8% 20%;
+    --sidebar-ring: 258 90% 66%;
   }
 }
 

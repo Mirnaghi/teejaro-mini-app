@@ -10,6 +10,7 @@ import { BankAccountModal } from "./BankAccountModal";
 import { InviteFriendsModal } from "./InviteFriendsModal";
 import { SendModal } from "./SendModal";
 import { AnimatedCardsCarousel } from "./AnimatedCardsCarousel";
+import { ThemeToggle } from "./ThemeToggle";
 import { useTelegramWebApp } from "@/hooks/useTelegramWebApp";
 
 interface Transaction {
@@ -98,11 +99,14 @@ export function MainScreen() {
             {isInTelegram && user ? `${user.first_name}${user.last_name ? ` ${user.last_name}` : ''}` : 'Teejaro'}
           </span>
         </button>
-        {!isInTelegram && (
-          <Button variant="ghost" size="icon">
-            <MessageCircle className="w-6 h-6" />
-          </Button>
-        )}
+        <div className="flex items-center space-x-2">
+          <ThemeToggle />
+          {!isInTelegram && (
+            <Button variant="ghost" size="icon">
+              <MessageCircle className="w-6 h-6" />
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Centered Balance Section */}
