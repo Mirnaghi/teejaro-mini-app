@@ -49,15 +49,15 @@ export function PopupMenu({
       {/* Popup Content - Bottom Sheet Style */}
       <div className={cn(
         "relative w-full max-w-lg bg-background rounded-t-3xl shadow-2xl transform transition-all duration-300 ease-out",
-        "max-h-[85vh] overflow-hidden",
+        "max-h-[90vh] overflow-hidden flex flex-col",
         isOpen ? "translate-y-0" : "translate-y-full",
         className
       )}>
         {/* Drag Handle */}
-        <div className="w-12 h-1.5 bg-muted-foreground/30 rounded-full mx-auto mt-3 mb-2" />
+        <div className="w-12 h-1.5 bg-muted-foreground/30 rounded-full mx-auto mt-3 mb-2 flex-shrink-0" />
         
         {showHeader && (
-          <div className="flex items-center justify-between p-4 pb-2">
+          <div className="flex items-center justify-between p-4 pb-2 flex-shrink-0 border-b border-border/50">
             {title && (
               <h2 className="text-lg font-semibold text-foreground">{title}</h2>
             )}
@@ -72,8 +72,10 @@ export function PopupMenu({
           </div>
         )}
         
-        <div className="px-4 pt-4 pb-16 max-h-[75vh] overflow-y-auto scrollbar-hide">
-          {children}
+        <div className="flex-1 overflow-y-auto scrollbar-hide">
+          <div className="p-4 pb-8">
+            {children}
+          </div>
         </div>
       </div>
     </div>
