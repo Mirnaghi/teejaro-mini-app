@@ -9,6 +9,7 @@ import { AddMoneyModal } from "./AddMoneyModal";
 import { BankAccountModal } from "./BankAccountModal";
 import { InviteFriendsModal } from "./InviteFriendsModal";
 import { SendModal } from "./SendModal";
+import { CreateCardModal } from "./CreateCardModal";
 import { AnimatedCardsCarousel } from "./AnimatedCardsCarousel";
 import { ThemeToggle } from "./ThemeToggle";
 import { useTelegramWebApp } from "@/hooks/useTelegramWebApp";
@@ -36,6 +37,7 @@ export function MainScreen() {
   const [isBankAccountOpen, setIsBankAccountOpen] = useState(false);
   const [isInviteFriendsOpen, setIsInviteFriendsOpen] = useState(false);
   const [isSendOpen, setIsSendOpen] = useState(false);
+  const [isCreateCardOpen, setIsCreateCardOpen] = useState(false);
 
   // Add haptic feedback to button clicks
   const handleButtonClick = (action: () => void) => {
@@ -68,6 +70,14 @@ export function MainScreen() {
       cardNumber: "•••• 5678",
       gradientClass: "bg-gradient-to-br from-purple-600 to-blue-600 text-white",
       balance: "$2,450.75"
+    },
+    {
+      id: "empty-virtual",
+      title: "Virtual Card",
+      status: "Coming Soon" as const,
+      cardNumber: "",
+      gradientClass: "bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 border-2 border-dashed border-border",
+      balance: ""
     }
   ];
 
@@ -148,6 +158,8 @@ export function MainScreen() {
           onCardClick={(cardId) => {
             if (cardId === "visa-virtual") {
               setIsCardDetailsOpen(true);
+            } else if (cardId === "empty-virtual") {
+              setIsCreateCardOpen(true);
             }
           }}
         />
@@ -258,6 +270,10 @@ export function MainScreen() {
       <SendModal 
         isOpen={isSendOpen} 
         onClose={() => setIsSendOpen(false)} 
+      />
+      <CreateCardModal 
+        isOpen={isCreateCardOpen} 
+        onClose={() => setIsCreateCardOpen(false)} 
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface CardData {
@@ -214,28 +214,52 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
               onClick={() => handleCardClick(card.id)}
             >
               <CardContent className="p-6 h-full flex flex-col justify-between">
-                <div>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground">{card.title}</h3>
-                      <Badge variant={getBadgeVariant(card.status)} className="mt-1">
-                        {card.status}
-                      </Badge>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm text-muted-foreground">{card.cardNumber}</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="mt-auto">
-                  <div className="flex justify-between items-end">
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-1">Balance</p>
-                      <p className="text-2xl font-bold text-foreground">{card.balance}</p>
+                {card.id === "empty-virtual" ? (
+                  // Empty card with create button
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <Plus className="w-6 h-6 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2">Create Virtual Card</h3>
+                      <p className="text-sm text-muted-foreground mb-4">Get your virtual card instantly</p>
+                      <Button 
+                        variant="default" 
+                        size="sm"
+                        onClick={() => handleCardClick(card.id)}
+                        className="w-full"
+                      >
+                        Create Card
+                      </Button>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  // Regular card content
+                  <>
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="text-lg font-semibold text-foreground">{card.title}</h3>
+                          <Badge variant={getBadgeVariant(card.status)} className="mt-1">
+                            {card.status}
+                          </Badge>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm text-muted-foreground">{card.cardNumber}</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-auto">
+                      <div className="flex justify-between items-end">
+                        <div>
+                          <p className="text-xs text-muted-foreground mb-1">Balance</p>
+                          <p className="text-2xl font-bold text-foreground">{card.balance}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </CardContent>
             </Card>
           );
