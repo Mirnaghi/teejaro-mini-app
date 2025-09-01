@@ -216,9 +216,28 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
               style={cardStyle}
               onClick={() => handleCardClick(card.id)}
             >
-              <CardContent className="p-6 h-full flex flex-col justify-center items-center">
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold text-foreground">{card.title}</h3>
+              <CardContent className="p-6 h-full flex flex-col justify-between">
+                <div>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-lg font-semibold text-foreground">{card.title}</h3>
+                      <Badge variant={getBadgeVariant(card.status)} className="mt-1">
+                        {card.status}
+                      </Badge>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-muted-foreground">{card.cardNumber}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-auto">
+                  <div className="flex justify-between items-end">
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-1">Balance</p>
+                      <p className="text-2xl font-bold text-foreground">{card.balance}</p>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
