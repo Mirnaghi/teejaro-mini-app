@@ -212,49 +212,30 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
           return (
             <Card
               key={card.id}
-              className={`absolute w-72 h-52 ${card.gradientClass} border-border cursor-pointer select-none will-change-transform transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-2xl`}
+              className="absolute w-72 h-52 bg-transparent border-border cursor-pointer select-none will-change-transform transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-2xl"
               style={cardStyle}
               onClick={() => handleCardClick(card.id)}
             >
               <CardContent className="p-6 h-full flex flex-col justify-between relative overflow-hidden">
-                {/* Animated background elements */}
-                <div className="absolute inset-0 opacity-20">
-                  {card.id === "visa-virtual" && (
-                    <>
-                      <div className="absolute top-4 right-4 w-16 h-16 border border-white/30 rounded-full animate-spin" style={{ animationDuration: '20s' }} />
-                      <div className="absolute bottom-4 left-4 w-12 h-12 border border-white/30 rounded-lg rotate-45 animate-pulse" />
-                    </>
-                  )}
-                  {card.id === "crypto-card" && (
-                    <>
-                      <Sparkles className="absolute top-6 right-6 w-8 h-8 text-white/30 animate-pulse" />
-                      <div className="absolute bottom-8 left-8 w-6 h-6 bg-white/20 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }} />
-                    </>
-                  )}
-                </div>
-                
-                <div className="relative z-10">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground animate-fade-in">{card.title}</h3>
-                      <Badge variant={getBadgeVariant(card.status)} className="mt-1 animate-scale-in">
-                        {card.status}
-                      </Badge>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm text-muted-foreground">{card.cardNumber}</p>
-                    </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground animate-fade-in">{card.title}</h3>
+                    <Badge variant={getBadgeVariant(card.status)} className="mt-1 animate-scale-in">
+                      {card.status}
+                    </Badge>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-muted-foreground">{card.cardNumber}</p>
                   </div>
                 </div>
                 
                 {/* Balance Display with animation */}
-                <div className="relative z-10 mt-auto">
+                <div className="mt-auto">
                   <div className="flex justify-between items-end">
                     <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-                      <p className="text-xs text-white/80 mb-1">Balance</p>
-                      <p className="text-2xl font-bold text-white">{card.balance}</p>
+                      <p className="text-xs text-muted-foreground mb-1">Balance</p>
+                      <p className="text-2xl font-bold text-foreground">{card.balance}</p>
                     </div>
-                    <div className="w-12 h-8 bg-gradient-primary rounded-md animate-pulse" />
                   </div>
                 </div>
               </CardContent>
