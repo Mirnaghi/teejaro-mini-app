@@ -87,14 +87,17 @@ export function MainScreen() {
     <div className="min-h-screen bg-background pb-8">
       {/* Header */}
       <div className="flex items-center justify-between px-6 pt-2 pb-2">
-        <div className="flex items-center space-x-2">
+        <button 
+          className="flex items-center space-x-2 cursor-pointer"
+          onClick={() => handleButtonClick(() => navigate('/settings'))}
+        >
           <div className="w-8 h-8 bg-gradient-crypto rounded-full flex items-center justify-center">
             <User className="w-4 h-4 text-primary-foreground" />
           </div>
           <span className="text-sm font-medium text-foreground">
             {isInTelegram && user ? `${user.first_name}${user.last_name ? ` ${user.last_name}` : ''}` : 'Teejaro'}
           </span>
-        </div>
+        </button>
         {!isInTelegram && (
           <Button variant="ghost" size="icon">
             <MessageCircle className="w-6 h-6" />
