@@ -230,13 +230,6 @@ export function MainScreen() {
                   {mockTransactions[0].amount}
                 </p>
               </div>
-              
-              {/* More indicator */}
-              <div className="p-3 text-center border-t border-border/50">
-                <p className="text-sm text-muted-foreground">
-                  +{mockTransactions.length - 1} more transactions
-                </p>
-              </div>
             </CardContent>
           </Card>
         </div>
