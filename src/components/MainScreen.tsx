@@ -179,7 +179,6 @@ export function MainScreen() {
                   <span className="text-xl">🎁</span>
                 </div>
                 <div>
-                  <h3 className="font-medium text-foreground">Teejaro</h3>
                   <p className="text-sm text-muted-foreground">Invite Friends to Earn</p>
                   <p className="text-xs text-primary font-semibold">You have +500 TJR points</p>
                 </div>
