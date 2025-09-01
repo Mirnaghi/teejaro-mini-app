@@ -10,7 +10,6 @@ import { BankAccountModal } from "./BankAccountModal";
 import { InviteFriendsModal } from "./InviteFriendsModal";
 import { SendModal } from "./SendModal";
 import { AnimatedCardsCarousel } from "./AnimatedCardsCarousel";
-import { ThemeToggle } from "./ThemeToggle";
 import { useTelegramWebApp } from "@/hooks/useTelegramWebApp";
 
 interface Transaction {
@@ -99,14 +98,11 @@ export function MainScreen() {
             {isInTelegram && user ? `${user.first_name}${user.last_name ? ` ${user.last_name}` : ''}` : 'Teejaro'}
           </span>
         </button>
-        <div className="flex items-center space-x-2">
-          <ThemeToggle />
-          {!isInTelegram && (
-            <Button variant="ghost" size="icon">
-              <MessageCircle className="w-6 h-6" />
-            </Button>
-          )}
-        </div>
+        {!isInTelegram && (
+          <Button variant="ghost" size="icon">
+            <MessageCircle className="w-6 h-6" />
+          </Button>
+        )}
       </div>
 
       {/* Centered Balance Section */}
@@ -154,9 +150,12 @@ export function MainScreen() {
       </div>
 
       {/* Utility Sections */}
+          {/* className="bg-card border-border shadow-card cursor-pointer hover:bg-secondary/50 transition-colors" */}
+
       <div className="px-6 mb-8 space-y-4">
         <Card 
-          className="bg-card border-border shadow-card cursor-pointer hover:bg-secondary/50 transition-colors"
+          className=" border-border cursor-pointer hover:bg-secondary/50 transition-colors"
+          
           onClick={() => setIsBankAccountOpen(true)}
         >
           <CardContent className="p-4">
@@ -175,27 +174,25 @@ export function MainScreen() {
           </CardContent>
         </Card>
 
-        <div className="relative p-[3px] bg-gradient-to-r from-purple-400 via-pink-400 via-cyan-400 to-purple-400 rounded-xl">
-          <Card 
-            className="bg-card border-0 cursor-pointer hover:bg-secondary/20 transition-all duration-300 hover:scale-[1.02]"
-            onClick={() => setIsInviteFriendsOpen(true)}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center shadow-lg">
-                    <span className="text-xl">🎁</span>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-foreground">Invite Friends to Earn</h3>
-                    <p className="text-base font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">500 TJR</p>
-                  </div>
+        <Card 
+          className="bg-card border-border shadow-card cursor-pointer hover:bg-secondary/50 transition-colors"
+          onClick={() => setIsInviteFriendsOpen(true)}
+        >
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
+                  <span className="text-xl">🎁</span>
                 </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                <div>
+                  <h3 className="font-medium text-foreground">Invite Friends to Earn</h3>
+                  <p className="text-base font-bold text-primary">500 TJR</p>
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+              <ChevronRight className="w-5 h-5 text-muted-foreground" />
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Transactions Stack */}
