@@ -160,7 +160,6 @@ export function MainScreen() {
                 </div>
                 <div>
                   <h3 className="font-medium text-foreground">Bank accounts</h3>
-                  <p className="text-sm text-muted-foreground">Total balance</p>
                   <p className="text-lg font-bold text-primary">{totalBankBalance}</p>
                 </div>
               </div>
