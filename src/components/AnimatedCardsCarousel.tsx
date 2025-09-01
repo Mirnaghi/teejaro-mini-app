@@ -158,24 +158,21 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
       return {
         transform: 'translateX(0) translateY(0) scale(1) rotateY(0deg)',
         zIndex: 30,
-        opacity: 1,
-        filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.25))'
+        opacity: 1
       };
     } else if (position > 0) {
       // Cards to the right
       return {
         transform: `translateX(${position * 280}px) translateY(${absPosition * 20}px) scale(${1 - absPosition * 0.1}) rotateY(-${Math.min(absPosition * 45, 60)}deg)`,
         zIndex: 30 - absPosition,
-        opacity: Math.max(0.4, 1 - absPosition * 0.3),
-        filter: 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15))'
+        opacity: Math.max(0.4, 1 - absPosition * 0.3)
       };
     } else {
       // Cards to the left
       return {
         transform: `translateX(${position * 280}px) translateY(${absPosition * 20}px) scale(${1 - absPosition * 0.1}) rotateY(${Math.min(absPosition * 45, 60)}deg)`,
         zIndex: 30 - absPosition,
-        opacity: Math.max(0.4, 1 - absPosition * 0.3),
-        filter: 'drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15))'
+        opacity: Math.max(0.4, 1 - absPosition * 0.3)
       };
     }
   };
