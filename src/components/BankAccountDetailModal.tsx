@@ -47,7 +47,7 @@ export function BankAccountDetailModal({ isOpen, onClose, account }: BankAccount
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto">
+      <DialogContent className="max-w-md max-h-[85vh] overflow-y-auto z-[10000]">
         <DialogHeader>
           <DialogTitle>Account Details</DialogTitle>
         </DialogHeader>
