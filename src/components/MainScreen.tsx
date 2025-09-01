@@ -160,7 +160,7 @@ export function MainScreen() {
                 </div>
                 <div>
                   <h3 className="font-medium text-foreground">Bank accounts</h3>
-                  <p className="text-lg font-bold text-primary">{totalBankBalance}</p>
+                  <p className="text-base font-bold text-primary">{totalBankBalance}</p>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -180,7 +180,7 @@ export function MainScreen() {
                 </div>
                 <div>
                   <h3 className="font-medium text-foreground">Invite Friends to Earn</h3>
-                  <p className="text-lg font-bold text-primary">You have +500 TJR points</p>
+                  <p className="text-base font-bold text-primary">You have +500 TJR points</p>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
