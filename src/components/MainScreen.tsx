@@ -179,8 +179,8 @@ export function MainScreen() {
                   <span className="text-xl">🎁</span>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Invite Friends to Earn</p>
-                  <p className="text-xs text-primary font-semibold">You have +500 TJR points</p>
+                  <h3 className="font-medium text-foreground">Invite Friends to Earn</h3>
+                  <p className="text-lg font-bold text-primary">You have +500 TJR points</p>
                 </div>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
