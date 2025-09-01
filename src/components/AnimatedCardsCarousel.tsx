@@ -195,8 +195,6 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 rounded-3xl animate-pulse" />
       
       {/* 3D Cards Container */}
       <div 
