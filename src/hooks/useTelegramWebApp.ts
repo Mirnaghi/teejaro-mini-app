@@ -66,6 +66,8 @@ interface TelegramWebApp {
   requestViewport: (params: { height?: number; is_state_stable?: boolean; is_expanded?: boolean }) => void;
   requestFullscreen?: () => void;
   setAllowVerticalSwipe?: (allow: boolean) => void;
+  disableVerticalSwipes?: () => void;
+  enableVerticalSwipes?: () => void;
 }
 
 declare global {
@@ -128,9 +130,27 @@ export const useTelegramWebApp = () => {
         document.documentElement.classList.remove('dark');
       }
       
-      // Make app sticky - disable vertical swipe to prevent accidental closure
+      // Make app sticky - try multiple approaches to prevent vertical swipe closure
       if (typeof tg.setAllowVerticalSwipe === 'function') {
         tg.setAllowVerticalSwipe(false);
+      } else if (typeof tg.disableVerticalSwipes === 'function') {
+        tg.disableVerticalSwipes();
+      }
+      
+      // Additional method to prevent closing
+      if (typeof tg.onEvent === 'function') {
+        tg.onEvent('settingsButtonClicked', () => {
+          // Prevent settings closure
+        });
+      }
+      
+      // Set viewport to maximum height to reduce swipe sensitivity
+      if (typeof tg.requestViewport === 'function') {
+        tg.requestViewport({
+          height: window.innerHeight,
+          is_expanded: true,
+          is_state_stable: true
+        });
       }
       
       // Optionally request fullscreen for a more immersive experience
@@ -138,6 +158,11 @@ export const useTelegramWebApp = () => {
         // Uncomment the line below if you want fullscreen mode
         // tg.requestFullscreen();
       }
+      
+      // Add CSS to prevent overscroll behavior
+      document.body.style.overscrollBehavior = 'none';
+      document.body.style.touchAction = 'pan-x pan-y';
+      document.documentElement.style.overscrollBehavior = 'none';
     }
   }, []);
 
