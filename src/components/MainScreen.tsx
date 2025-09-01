@@ -9,7 +9,6 @@ import { AddMoneyModal } from "./AddMoneyModal";
 import { BankAccountModal } from "./BankAccountModal";
 import { InviteFriendsModal } from "./InviteFriendsModal";
 import { SendModal } from "./SendModal";
-import { StackedCards } from "./StackedCards";
 import { AnimatedCardsCarousel } from "./AnimatedCardsCarousel";
 import { useTelegramWebApp } from "@/hooks/useTelegramWebApp";
 
@@ -36,7 +35,6 @@ export function MainScreen() {
   const [isBankAccountOpen, setIsBankAccountOpen] = useState(false);
   const [isInviteFriendsOpen, setIsInviteFriendsOpen] = useState(false);
   const [isSendOpen, setIsSendOpen] = useState(false);
-  const [useCarouselView, setUseCarouselView] = useState(true);
 
   // Add haptic feedback to button clicks
   const handleButtonClick = (action: () => void) => {
@@ -138,37 +136,14 @@ export function MainScreen() {
 
       {/* Cards Section */}
       <div className="px-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-foreground">Your Cards</h3>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => handleButtonClick(() => setUseCarouselView(!useCarouselView))}
-            className="text-xs text-primary hover:text-primary/80"
-          >
-            {useCarouselView ? "Stack View" : "Carousel View"}
-          </Button>
-        </div>
-        
-        {useCarouselView ? (
-          <AnimatedCardsCarousel 
-            cards={cards}
-            onCardClick={(cardId) => {
-              if (cardId === "visa-virtual") {
-                setIsCardDetailsOpen(true);
-              }
-            }}
-          />
-        ) : (
-          <StackedCards 
-            cards={cards}
-            onCardClick={(cardId) => {
-              if (cardId === "visa-virtual") {
-                setIsCardDetailsOpen(true);
-              }
-            }}
-          />
-        )}
+        <AnimatedCardsCarousel 
+          cards={cards}
+          onCardClick={(cardId) => {
+            if (cardId === "visa-virtual") {
+              setIsCardDetailsOpen(true);
+            }
+          }}
+        />
       </div>
 
       {/* Utility Sections */}
