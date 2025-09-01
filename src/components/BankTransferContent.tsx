@@ -42,8 +42,8 @@ export function BankTransferContent({ onBack }: BankTransferContentProps) {
     setIsDetailOpen(true);
   };
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between mb-4 flex-shrink-0">
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
         <Button variant="ghost" size="icon" onClick={onBack} className="hover:bg-secondary/80">
           <ArrowLeft className="w-5 h-5" />
         </Button>
@@ -51,40 +51,38 @@ export function BankTransferContent({ onBack }: BankTransferContentProps) {
         <div className="w-10"></div>
       </div>
 
-      <div className="flex-1 overflow-y-auto">
-        <div>
-          <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
-            Your Bank Accounts
-          </h3>
-          <div className="space-y-3 pb-4">
-            {mockBankAccounts.map((account) => (
-              <Card 
-                key={account.id}
-                className="cursor-pointer hover:bg-secondary/50 transition-colors bg-card border-border"
-                onClick={() => handleAccountClick(account)}
-              >
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <Building2 className="w-5 h-5 text-primary" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-foreground truncate">{account.bankName}</h4>
-                        <p className="text-sm text-muted-foreground truncate">
-                          {account.currency} • {account.accountNumber}
-                        </p>
-                        <p className="text-sm font-semibold text-primary">
-                          {account.balance}
-                        </p>
-                      </div>
+      <div>
+        <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+          Your Bank Accounts
+        </h3>
+        <div className="space-y-3">
+          {mockBankAccounts.map((account) => (
+            <Card 
+              key={account.id}
+              className="cursor-pointer hover:bg-secondary/50 transition-colors bg-card border-border"
+              onClick={() => handleAccountClick(account)}
+            >
+              <CardContent className="p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Building2 className="w-5 h-5 text-primary" />
                     </div>
-                    <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-medium text-foreground truncate">{account.bankName}</h4>
+                      <p className="text-sm text-muted-foreground truncate">
+                        {account.currency} • {account.accountNumber}
+                      </p>
+                      <p className="text-sm font-semibold text-primary">
+                        {account.balance}
+                      </p>
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
 
