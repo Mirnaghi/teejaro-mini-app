@@ -195,13 +195,7 @@ export function MainScreen() {
       {/* Transactions Stack */}
       <div className="px-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-foreground">Recent Transactions</h3>
-          <button 
-            onClick={() => navigate("/transactions")}
-            className="text-sm text-primary hover:text-primary/80 transition-colors"
-          >
-            View All
-          </button>
+          <h3 className="text-lg font-semibold text-foreground">Transactions</h3>
         </div>
         
           {/* Stacked Cards Effect */}
