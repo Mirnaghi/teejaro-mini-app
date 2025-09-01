@@ -64,6 +64,8 @@ interface TelegramWebApp {
   setHeaderColor: (color: string) => void;
   setBackgroundColor: (color: string) => void;
   requestViewport: (params: { height?: number; is_state_stable?: boolean; is_expanded?: boolean }) => void;
+  requestFullscreen?: () => void;
+  setAllowVerticalSwipe?: (allow: boolean) => void;
 }
 
 declare global {
@@ -124,6 +126,17 @@ export const useTelegramWebApp = () => {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
+      }
+      
+      // Make app sticky - disable vertical swipe to prevent accidental closure
+      if (typeof tg.setAllowVerticalSwipe === 'function') {
+        tg.setAllowVerticalSwipe(false);
+      }
+      
+      // Optionally request fullscreen for a more immersive experience
+      if (typeof tg.requestFullscreen === 'function') {
+        // Uncomment the line below if you want fullscreen mode
+        // tg.requestFullscreen();
       }
     }
   }, []);
