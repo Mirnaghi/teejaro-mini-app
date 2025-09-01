@@ -177,7 +177,7 @@ export function MainScreen() {
 
         <div className="relative">
           {/* Gradient border container */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 via-cyan-400 to-purple-400 rounded-xl p-[3px] animate-[spin_3s_linear_infinite]">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 via-cyan-400 to-purple-400 rounded-xl p-[3px]">
             <div className="w-full h-full bg-card rounded-[10px]"></div>
           </div>
           
