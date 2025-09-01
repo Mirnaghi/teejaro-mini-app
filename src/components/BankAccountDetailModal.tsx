@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { PopupMenu } from "@/components/ui/popup-menu";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Building2, Copy } from "lucide-react";
+import { Building2, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface BankAccount {
@@ -50,18 +49,10 @@ export function BankAccountDetailModal({ isOpen, onClose, account }: BankAccount
     <PopupMenu 
       isOpen={isOpen} 
       onClose={onClose} 
-      title="Bank Account Details"
-      showHeader={false}
+      title="Account Details"
+      showHeader={true}
     >
-      <div className="flex items-center justify-between mb-6">
-        <Button variant="ghost" size="icon" onClick={onClose} className="hover:bg-secondary/80">
-          <ArrowLeft className="w-5 h-5" />
-        </Button>
-        <h2 className="text-xl font-semibold text-foreground">Account Details</h2>
-        <div className="w-10"></div>
-      </div>
-
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Balance Card */}
         <Card className="bg-gradient-primary border-0 text-white">
           <CardContent className="p-6 text-center">
@@ -75,112 +66,100 @@ export function BankAccountDetailModal({ isOpen, onClose, account }: BankAccount
         </Card>
 
         {/* Bank Details */}
-        <div className="space-y-4">
-          <div>
-            <h4 className="font-medium text-foreground mb-3">Bank Information</h4>
-            
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
-                <div>
-                  <p className="text-sm text-muted-foreground">Bank Name</p>
-                  <p className="font-medium text-foreground">{account.bankName}</p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="p-2 h-8 w-8"
-                  onClick={() => copyToClipboard(account.bankName, "Bank name")}
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
+        <div>
+          <h4 className="font-medium text-foreground mb-3">Bank Information</h4>
+          
+          <div className="space-y-3">
+            <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
+              <div>
+                <p className="text-sm text-muted-foreground">Bank Name</p>
+                <p className="font-medium text-foreground">{account.bankName}</p>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 h-8 w-8"
+                onClick={() => copyToClipboard(account.bankName, "Bank name")}
+              >
+                <Copy className="w-3 h-3" />
+              </Button>
+            </div>
 
-              <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
-                <div>
-                  <p className="text-sm text-muted-foreground">Account Number</p>
-                  <p className="font-medium text-foreground">{account.accountNumber}</p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="p-2 h-8 w-8"
-                  onClick={() => copyToClipboard(account.accountNumber.replace(/\*/g, ''), "Account number")}
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
+            <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
+              <div>
+                <p className="text-sm text-muted-foreground">Account Number</p>
+                <p className="font-medium text-foreground">{account.accountNumber}</p>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 h-8 w-8"
+                onClick={() => copyToClipboard(account.accountNumber.replace(/\*/g, ''), "Account number")}
+              >
+                <Copy className="w-3 h-3" />
+              </Button>
+            </div>
 
-              <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
-                <div>
-                  <p className="text-sm text-muted-foreground">Routing Number</p>
-                  <p className="font-medium text-foreground">{account.routingNumber}</p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="p-2 h-8 w-8"
-                  onClick={() => copyToClipboard(account.routingNumber, "Routing number")}
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
+            <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
+              <div>
+                <p className="text-sm text-muted-foreground">Routing Number</p>
+                <p className="font-medium text-foreground">{account.routingNumber}</p>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 h-8 w-8"
+                onClick={() => copyToClipboard(account.routingNumber, "Routing number")}
+              >
+                <Copy className="w-3 h-3" />
+              </Button>
+            </div>
 
-              <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
-                <div>
-                  <p className="text-sm text-muted-foreground">Account Holder</p>
-                  <p className="font-medium text-foreground">{account.accountHolderName}</p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="p-2 h-8 w-8"
-                  onClick={() => copyToClipboard(account.accountHolderName, "Account holder name")}
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
+            <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
+              <div>
+                <p className="text-sm text-muted-foreground">Account Holder</p>
+                <p className="font-medium text-foreground">{account.accountHolderName}</p>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 h-8 w-8"
+                onClick={() => copyToClipboard(account.accountHolderName, "Account holder name")}
+              >
+                <Copy className="w-3 h-3" />
+              </Button>
+            </div>
 
-              <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
-                <div>
-                  <p className="text-sm text-muted-foreground">Currency</p>
-                  <p className="font-medium text-foreground">{account.currency}</p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="p-2 h-8 w-8"
-                  onClick={() => copyToClipboard(account.currency, "Currency")}
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
+            <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
+              <div>
+                <p className="text-sm text-muted-foreground">Currency</p>
+                <p className="font-medium text-foreground">{account.currency}</p>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 h-8 w-8"
+                onClick={() => copyToClipboard(account.currency, "Currency")}
+              >
+                <Copy className="w-3 h-3" />
+              </Button>
+            </div>
 
-              <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
-                <div>
-                  <p className="text-sm text-muted-foreground">Address</p>
-                  <p className="font-medium text-foreground">{account.address}</p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="p-2 h-8 w-8"
-                  onClick={() => copyToClipboard(account.address, "Address")}
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
+            <div className="flex items-center justify-between p-3 bg-secondary/30 rounded-lg">
+              <div>
+                <p className="text-sm text-muted-foreground">Address</p>
+                <p className="font-medium text-foreground">{account.address}</p>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="p-2 h-8 w-8"
+                onClick={() => copyToClipboard(account.address, "Address")}
+              >
+                <Copy className="w-3 h-3" />
+              </Button>
             </div>
           </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="grid grid-cols-2 gap-4 mt-6">
-          <Button variant="outline">
-            Transfer Money
-          </Button>
-          <Button variant="secondary">
-            View Statements
-          </Button>
         </div>
       </div>
     </PopupMenu>
