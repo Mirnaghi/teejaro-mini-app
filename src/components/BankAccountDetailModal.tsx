@@ -51,7 +51,7 @@ export function BankAccountDetailModal({ isOpen, onClose, account }: BankAccount
       onClose={onClose} 
       title="Account Details"
       showHeader={true}
-      className="max-h-[85vh]"
+      className="max-h-[80vh]"
     >
       <div className="space-y-3">
         {/* Balance Card */}
