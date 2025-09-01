@@ -53,7 +53,7 @@ export function BankAccountDetailModal({ isOpen, onClose, account }: BankAccount
       title="Account Details"
       showHeader={true}
     >
-      <ScrollArea className="h-[70vh] px-1">
+      <ScrollArea className="h-[100vh] px-1">
         <div className="space-y-4 pb-4">
           {/* Balance Card */}
           <Card className="bg-gradient-primary border-0 text-white">
