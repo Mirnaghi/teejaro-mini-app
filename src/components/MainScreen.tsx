@@ -207,8 +207,8 @@ export function MainScreen() {
             onClick={() => navigate("/transactions")}
           >
             {/* Stack Effect - Background Cards */}
-            <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-y-2 opacity-60" />
-            <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-y-1 opacity-80" />
+            <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-y-4 opacity-75 shadow-sm" />
+            <div className="absolute inset-0 bg-card rounded-2xl border border-border transform translate-y-2 opacity-85 shadow-md" />
           
           {/* Top Card with Content */}
           <Card className="relative bg-card border-border hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02] group-hover:-translate-y-1">
