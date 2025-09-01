@@ -212,9 +212,7 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
           return (
             <Card
               key={card.id}
-              className={`absolute w-72 h-52 ${card.gradientClass} border-border cursor-pointer select-none will-change-transform transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-2xl ${
-                // isActive ? 'shadow-2xl ring-2 ring-primary/30' : 'shadow-lg'
-              }`}
+              className={`absolute w-72 h-52 ${card.gradientClass} border-border cursor-pointer select-none will-change-transform transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-2xl`}
               style={cardStyle}
               onClick={() => handleCardClick(card.id)}
             >
