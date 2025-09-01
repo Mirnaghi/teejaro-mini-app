@@ -175,25 +175,32 @@ export function MainScreen() {
           </CardContent>
         </Card>
 
-        <Card 
-          className="bg-card border-border shadow-card cursor-pointer hover:bg-secondary/50 transition-colors"
-          onClick={() => setIsInviteFriendsOpen(true)}
-        >
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
-                  <span className="text-xl">🎁</span>
+        <div className="relative">
+          {/* Gradient border container */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-xl p-[2px] animate-pulse">
+            <div className="w-full h-full bg-background rounded-xl"></div>
+          </div>
+          
+          <Card 
+            className="relative bg-card border-0 shadow-card cursor-pointer hover:bg-secondary/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-glow"
+            onClick={() => setIsInviteFriendsOpen(true)}
+          >
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                    <span className="text-xl">🎁</span>
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-foreground">Invite Friends to Earn</h3>
+                    <p className="text-base font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">500 TJR</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-medium text-foreground">Invite Friends to Earn</h3>
-                  <p className="text-base font-bold text-primary">500 TJR</p>
-                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
               </div>
-              <ChevronRight className="w-5 h-5 text-muted-foreground" />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       {/* Transactions Stack */}
