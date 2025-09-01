@@ -229,7 +229,7 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
                         onClick={() => handleCardClick(card.id)}
                         className="w-full"
                       >
-                        Create Card
+                        <Plus className="w-4 h-4" />
                       </Button>
                     </div>
                   </div>
