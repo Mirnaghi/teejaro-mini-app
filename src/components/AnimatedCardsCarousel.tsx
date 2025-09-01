@@ -188,7 +188,7 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
 
   return (
     <div 
-      className="relative w-full h-72 mb-8 overflow-hidden"
+      className="relative w-full h-72 mb-0 overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -209,23 +209,21 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
           return (
             <Card
               key={card.id}
-              className={`absolute w-80 h-52 ${card.gradientClass} border-border cursor-pointer select-none will-change-transform transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-2xl`}
+              className={`absolute w-80 h-52 ${card.id === "empty-virtual" ? "bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-800 dark:to-blue-900/30" : card.gradientClass} border-border cursor-pointer select-none will-change-transform transition-all duration-[600ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-2xl`}
               style={cardStyle}
               onClick={() => handleCardClick(card.id)}
             >
               <CardContent className="p-6 h-full flex flex-col justify-between">
                 {card.id === "empty-virtual" ? (
-                  // Empty card with create button
-                  <div className="flex flex-col items-center justify-center h-full">
-                    <div className="text-center">
-                      <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Plus className="w-6 h-6 text-primary" />
-                      </div>
+                  // Empty card with create button - Clean gradient background
+                  <div className="flex flex-col items-center justify-center h-full relative">
+                    {/* Main Content */}
+                    <div className="text-center relative z-10 w-full px-8">
                       <Button 
                         variant="default" 
-                        size="sm"
+                        size="lg"
                         onClick={() => handleCardClick(card.id)}
-                        className="w-full"
+                        className="w-full h-16 text-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200"
                       >
                         Create Card
                       </Button>
@@ -265,12 +263,12 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
       </div>
 
       {/* Navigation Buttons */}
-      {cards.length > 1 && (
+      {/* {cards.length > 1 && (
         <>
           <Button
             variant="ghost"
             size="icon"
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-40 bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-all duration-300 animate-fade-in"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-40 bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-all duration-300 animate-fade-in"
             onClick={prevCard}
             disabled={isAnimating}
           >
@@ -280,14 +278,14 @@ export function AnimatedCardsCarousel({ cards, onCardClick, onCardChange }: Anim
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-40 bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-all duration-300 animate-fade-in"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-40 bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-all duration-300 animate-fade-in"
             onClick={nextCard}
             disabled={isAnimating}
           >
             <ChevronRight className="w-5 h-5" />
           </Button>
         </>
-      )}
+      )} */}
 
       {/* Dots Indicator */}
       {cards.length > 1 && (

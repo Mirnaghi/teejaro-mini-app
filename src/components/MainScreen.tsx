@@ -76,7 +76,7 @@ export function MainScreen() {
       title: "Virtual Card",
       status: "Coming Soon" as const,
       cardNumber: "",
-      gradientClass: "bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 border-2 border-dashed border-border",
+      gradientClass: "bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 text-white border border-blue-500/30",
       balance: ""
     }
   ];
@@ -128,7 +128,7 @@ export function MainScreen() {
       </div>
 
       {/* Action Buttons */}
-      <div className="px-6 mb-8">
+      <div className="px-6">
         <div className="grid grid-cols-2 gap-4">
           <Button 
             variant="crypto" 
@@ -166,7 +166,7 @@ export function MainScreen() {
       </div>
 
       {/* Utility Sections */}
-      <div className="px-6 mb-8 space-y-4">
+      <div className="px-6 mb-4 space-y-4">
         <Card 
           className="bg-card border-border shadow-card cursor-pointer hover:bg-secondary/50 transition-colors"
           onClick={() => setIsBankAccountOpen(true)}
