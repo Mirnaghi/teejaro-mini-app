@@ -29,13 +29,15 @@ const AppContent = () => {
 
   return (
     <div className={`app ${isInTelegram ? 'telegram-app' : ''}`}>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/transactions" element={<Transactions />} />
-        <Route path="/settings" element={<Settings />} />
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <div className={`${isInTelegram ? 'pt-16' : ''}`}>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/settings" element={<Settings />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     </div>
   );
 };

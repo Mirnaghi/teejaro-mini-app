@@ -10,6 +10,16 @@
   user-select: none;
 }
 
+/* Additional Telegram Web App spacing */
+.telegram-app .app {
+  padding-top: 0; /* Remove default padding since we handle it in components */
+}
+
+/* Ensure proper spacing for Telegram Web App */
+.telegram-app .min-h-screen {
+  min-height: calc(100vh - 4rem); /* Account for Telegram header space */
+}
+
 /* Hide scrollbars */
 .scrollbar-hide {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */

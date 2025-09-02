@@ -85,7 +85,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-8">
+    <div className="min-h-screen bg-background pb-8 pt-4">
       {/* Header */}
       <div className="flex items-center justify-between px-6 pt-4 pb-6">
         <Button 
