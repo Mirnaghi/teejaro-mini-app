@@ -29,7 +29,7 @@ const AppContent = () => {
 
   return (
     <div className={`app ${isInTelegram ? 'telegram-app' : ''}`}>
-      <div className={`${isInTelegram ? 'pt-16' : ''}`}>
+      <div className={`${isInTelegram ? 'pt-20' : ''}`}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/transactions" element={<Transactions />} />

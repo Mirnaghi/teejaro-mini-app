@@ -95,7 +95,7 @@ export function MainScreen() {
   const totalBankBalance = `$${bankTotalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
   return (
-    <div className="min-h-screen bg-background pb-8 pt-4">
+    <div className="min-h-screen bg-background pb-8 pt-6">
       {/* Header */}
       <div className="flex items-center justify-between px-6 pt-2 pb-2">
         <button 

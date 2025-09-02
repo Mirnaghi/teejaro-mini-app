@@ -17,7 +17,7 @@
 
 /* Ensure proper spacing for Telegram Web App */
 .telegram-app .min-h-screen {
-  min-height: calc(100vh - 4rem); /* Account for Telegram header space */
+  min-height: calc(100vh - 5rem); /* Account for Telegram header space with increased padding */
 }
 
 /* Hide scrollbars */
