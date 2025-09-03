@@ -78,7 +78,7 @@ export function TransactionsBottomSheet({
       ref={sheetRef}
       isOpen={isOpen}
       onClose={handleClose}
-      snapPoints={isTelegramMiniApp ? [0.9, 0.6, 0.38] : [0.9, 0.6, 0.38]}
+      snapPoints={isTelegramMiniApp ? [0.9, 0.6, 0.3] : [0.9, 0.6, 0.3]}
       initialSnap={2} // Start at 40% (index 2)
       className="z-50"
       // Center the sheet in web view, bottom in Telegram
