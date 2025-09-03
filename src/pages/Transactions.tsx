@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, ArrowUpRight, ArrowDownLeft, Filter, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
+import { getStatusColor } from "@/utils/colors";
 
 interface Transaction {
   id: string;
@@ -88,23 +89,14 @@ const transactions: Transaction[] = [
 const Transactions = () => {
   const navigate = useNavigate();
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "completed": return "text-green-500";
-      case "pending": return "text-yellow-500";
-      case "failed": return "text-red-500";
-      default: return "text-muted-foreground";
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background pt-6">
       {/* Header */}
       <div className="sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border z-10">
         <div className="flex items-center justify-between p-4">
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => navigate(-1)}
             className="hover:bg-secondary/80"
           >
@@ -115,13 +107,13 @@ const Transactions = () => {
             <Filter className="w-5 h-5" />
           </Button>
         </div>
-        
+
         {/* Search Bar */}
         <div className="px-4 pb-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search transactions..." 
+            <Input
+              placeholder="Search transactions..."
               className="pl-10 bg-secondary/30 border-border"
             />
           </div>
@@ -143,7 +135,7 @@ const Transactions = () => {
               </div>
             </CardContent>
           </Card>
-          
+
           <Card className="bg-gradient-to-br from-red-500/10 to-red-600/10 border-red-500/20">
             <CardContent className="p-4">
               <div className="flex items-center space-x-2">
@@ -171,7 +163,7 @@ const Transactions = () => {
                 </h3>
                 <div className="space-y-2">
                   {dateTransactions.map((transaction) => (
-                    <Card 
+                    <Card
                       key={transaction.id}
                       className="cursor-pointer hover:bg-secondary/50 transition-colors bg-card border-border"
                     >
@@ -193,9 +185,8 @@ const Transactions = () => {
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className={`font-semibold ${
-                              transaction.type === "in" ? "text-green-500" : "text-foreground"
-                            }`}>
+                            <p className={`font-semibold ${transaction.type === "in" ? "text-green-500" : "text-foreground"
+                              }`}>
                               {transaction.amount}
                             </p>
                             <p className="text-xs text-muted-foreground">{transaction.category}</p>
