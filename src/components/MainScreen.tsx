@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +12,7 @@ import { SendModal } from "./SendModal";
 import { CreateCardModal } from "./CreateCardModal";
 import { AnimatedCardsCarousel } from "./AnimatedCardsCarousel";
 import { ThemeToggle } from "./ThemeToggle";
+import { TransactionsBottomSheet } from "./TransactionsBottomSheet";
 import { useTelegramWebApp } from "@/hooks/useTelegramWebApp";
 import CardBgImage from '@/assets/images/card_bg_img.png'
 import TjrWhiteLogo from '@/assets/icons/tjrWhiteLogo.svg'
@@ -98,6 +99,105 @@ const transactions: Transaction[] = [
     time: "10:15 AM",
     status: "completed",
     category: "Utilities"
+  },
+  {
+    id: "7",
+    icon: "🏥",
+    description: "Pharmacy",
+    amount: "-$32.45",
+    type: "out",
+    date: "Dec 26",
+    time: "4:20 PM",
+    status: "completed",
+    category: "Healthcare"
+  },
+  {
+    id: "8",
+    icon: "🚕",
+    description: "Uber Ride",
+    amount: "-$18.75",
+    type: "out",
+    date: "Dec 26",
+    time: "2:15 PM",
+    status: "completed",
+    category: "Transportation"
+  },
+  {
+    id: "9",
+    icon: "☕",
+    description: "Starbucks",
+    amount: "-$6.50",
+    type: "out",
+    date: "Dec 26",
+    time: "9:30 AM",
+    status: "completed",
+    category: "Food & Dining"
+  },
+  {
+    id: "10",
+    icon: "🎬",
+    description: "Netflix Subscription",
+    amount: "-$19.99",
+    type: "out",
+    date: "Dec 25",
+    time: "12:00 AM",
+    status: "completed",
+    category: "Entertainment"
+  },
+  {
+    id: "11",
+    icon: "🛍️",
+    description: "Target",
+    amount: "-$156.78",
+    type: "out",
+    date: "Dec 25",
+    time: "3:45 PM",
+    status: "completed",
+    category: "Shopping"
+  },
+  {
+    id: "12",
+    icon: "🏠",
+    description: "Rent Payment",
+    amount: "-$1,800.00",
+    type: "out",
+    date: "Dec 24",
+    time: "9:00 AM",
+    status: "completed",
+    category: "Housing"
+  },
+  {
+    id: "13",
+    icon: "📱",
+    description: "Phone Bill",
+    amount: "-$89.99",
+    type: "out",
+    date: "Dec 24",
+    time: "8:30 AM",
+    status: "completed",
+    category: "Utilities"
+  },
+  {
+    id: "14",
+    icon: "💳",
+    description: "Credit Card Payment",
+    amount: "-$450.00",
+    type: "out",
+    date: "Dec 23",
+    time: "2:00 PM",
+    status: "completed",
+    category: "Finance"
+  },
+  {
+    id: "15",
+    icon: "🎁",
+    description: "Gift Card Purchase",
+    amount: "-$100.00",
+    type: "out",
+    date: "Dec 23",
+    time: "11:30 AM",
+    status: "completed",
+    category: "Shopping"
   }
 ];
 
@@ -110,12 +210,33 @@ export function MainScreen() {
   const [isInviteFriendsOpen, setIsInviteFriendsOpen] = useState(false);
   const [isSendOpen, setIsSendOpen] = useState(false);
   const [isCreateCardOpen, setIsCreateCardOpen] = useState(false);
+  const [isTransactionsOpen, setIsTransactionsOpen] = useState(true); // Open by default
 
   // Add haptic feedback to button clicks
   const handleButtonClick = (action: () => void) => {
     hapticFeedback('light');
     action();
   };
+
+  // Close transactions bottom sheet when other modals are opened
+  const handleModalOpen = (modalSetter: (value: boolean) => void) => {
+    setIsTransactionsOpen(false); // Close transactions sheet
+    modalSetter(true);
+  };
+
+  // Auto-close transactions bottom sheet when other modals are open
+  // and make it visible again when other modals close
+  useEffect(() => {
+    const isAnyModalOpen = isCardDetailsOpen || isAddMoneyOpen || isBankAccountOpen || 
+                          isInviteFriendsOpen || isSendOpen || isCreateCardOpen;
+    
+    if (isAnyModalOpen && isTransactionsOpen) {
+      setIsTransactionsOpen(false);
+    } else if (!isAnyModalOpen && !isTransactionsOpen) {
+      // Show transactions bottom sheet when no other modals are open
+      setIsTransactionsOpen(true);
+    }
+  }, [isCardDetailsOpen, isAddMoneyOpen, isBankAccountOpen, isInviteFriendsOpen, isSendOpen, isCreateCardOpen, isTransactionsOpen]);
 
   // Card balances data
   const cards = [
@@ -217,7 +338,7 @@ export function MainScreen() {
             variant="secondary"
             size="lg"
             className="h-[50px] rounded-full"
-            onClick={() => handleButtonClick(() => setIsAddMoneyOpen(true))}
+            onClick={() => handleButtonClick(() => handleModalOpen(setIsAddMoneyOpen))}
           >
             <Plus className="w-5 h-5 mr-2" />
             Top up
@@ -226,7 +347,7 @@ export function MainScreen() {
             variant="secondary"
             size="lg"
             className="h-[50px] rounded-full"
-            onClick={() => handleButtonClick(() => setIsSendOpen(true))}
+            onClick={() => handleButtonClick(() => handleModalOpen(setIsSendOpen))}
           >
             <ArrowUp className="w-5 h-5 mr-2" />
             Send
@@ -239,9 +360,9 @@ export function MainScreen() {
           cards={cards}
           onCardClick={(cardId) => {
             if (cardId === "visa-virtual") {
-              setIsCardDetailsOpen(true);
+              handleModalOpen(setIsCardDetailsOpen);
             } else if (cardId === "empty-virtual") {
-              setIsCreateCardOpen(true);
+              handleModalOpen(setIsCreateCardOpen);
             }
           }}
         />
@@ -262,7 +383,7 @@ export function MainScreen() {
             variant="secondary"
             size="lg"
             className="h-[88px] rounded-3xl flex flex-col items-start"
-            onClick={() => setIsBankAccountOpen(true)}
+            onClick={() => handleModalOpen(setIsBankAccountOpen)}
           >
             <img src={BankFlags} alt="#" />
             <span className="text-[18px] font-semibold">Bank accounts</span>
@@ -274,7 +395,7 @@ export function MainScreen() {
       {/* <div className="px-4 mb-4 space-y-4">
         <Card
           className="bg-card border-border shadow-card cursor-pointer hover:bg-secondary/50 transition-colors"
-          onClick={() => setIsBankAccountOpen(true)}
+          onClick={() => handleModalOpen(setIsBankAccountOpen)}
         >
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
@@ -295,7 +416,7 @@ export function MainScreen() {
         <div className="relative p-[3px] bg-gradient-to-r from-purple-400 via-pink-400 via-cyan-400 to-purple-400 rounded-xl">
           <Card
             className="bg-card border-0 cursor-pointer hover:bg-secondary/20 transition-all duration-300 hover:scale-[1.02]"
-            onClick={() => setIsInviteFriendsOpen(true)}
+            onClick={() => handleModalOpen(setIsInviteFriendsOpen)}
           >
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
@@ -346,60 +467,7 @@ export function MainScreen() {
         </div>
       </div> */}
 
-      <div className="bg-secondary px-4 py-4 pb-8 rounded-tl-[20px] rounded-tr-[20px]">
-        <div className="mb-3 flex justify-between items-center">
-          <span className="font-medium">Transactions</span>
-          <button onClick={() => navigate("/transactions")}>
-            <span className="font-medium text-sm">View all</span>
-          </button>
-        </div>
-        {/* Transactions by Date */}
-        <div className="space-y-6">
-          {/* Group transactions by date */}
-          {["Today", "Yesterday", "Dec 28", "Dec 27"].map((date) => {
-            const dateTransactions = transactions.filter(t => t.date === date);
-            if (dateTransactions.length === 0) return null;
-
-            return (
-              <div key={date}>
-                <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
-                  {date}
-                </h3>
-                <div className="space-y-2">
-                  {dateTransactions.map((transaction) => (
-                    <CardContent className="p-0 mb-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-lg">
-                            {transaction.icon}
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-medium text-foreground">{transaction.description}</h4>
-                            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                              <span>{transaction.time}</span>
-                              <span>•</span>
-                              <span className={getStatusColor(transaction.status)}>
-                                {transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1)}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className={`font-semibold ${transaction.type === "in" ? "text-green-500" : "text-foreground"
-                            }`}>
-                            {transaction.amount}
-                          </p>
-                          <p className="text-xs text-muted-foreground">{transaction.category}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      {/* Transactions are now handled entirely by the bottom sheet */}
 
       {/* Modals */}
       <CardDetailsModal
@@ -425,6 +493,12 @@ export function MainScreen() {
       <CreateCardModal
         isOpen={isCreateCardOpen}
         onClose={() => setIsCreateCardOpen(false)}
+      />
+      <TransactionsBottomSheet
+        isOpen={isTransactionsOpen}
+        onClose={() => setIsTransactionsOpen(false)}
+        transactions={transactions}
+        hideWhenModalsOpen={true}
       />
     </div>
   );
