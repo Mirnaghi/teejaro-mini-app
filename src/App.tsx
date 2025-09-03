@@ -9,23 +9,30 @@ import Index from "./pages/Index";
 import Transactions from "./pages/Transactions";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import { useLocation } from 'react-router-dom'
 
 const queryClient = new QueryClient();
 
 const AppContent = () => {
   const { webApp, isInTelegram } = useTelegramWebApp();
+  const { pathname } = useLocation()
 
   useEffect(() => {
     if (webApp) {
       // Configure the app for Telegram
       webApp.ready();
       webApp.expand();
-      
+
       // Remove any scrollbars and optimize for mobile
       document.body.style.overscrollBehavior = 'none';
       document.body.style.userSelect = 'none';
     }
   }, [webApp]);
+
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   return (
     <div className={`app ${isInTelegram ? 'telegram-app' : ''}`}>
