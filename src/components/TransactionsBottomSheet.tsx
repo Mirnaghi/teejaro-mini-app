@@ -90,28 +90,32 @@ export function TransactionsBottomSheet({
       } : {}}
     >
               <Sheet.Container
-          className={!isTelegramMiniApp ? "mx-auto max-w-md w-full" : ""}
+          className={`${!isTelegramMiniApp ? "mx-auto max-w-md w-full" : ""} bg-background`}
           style={!isTelegramMiniApp ? {
             borderRadius: '20px 20px 0 0',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)',
+            backgroundColor: 'hsl(var(--background))'
           } : {
-            borderRadius: '20px 20px 0 0'
+            borderRadius: '20px 20px 0 0',
+            backgroundColor: 'hsl(var(--background))'
           }}
         >
         <Sheet.Header className="pb-4">
           <div className="flex justify-center pt-4">
-            <div className="w-12 h-1.5 bg-muted rounded-full" />
+            <div className="w-12 h-1.5 bg-foreground/20 rounded-full" />
           </div>
         </Sheet.Header>
 
         <Sheet.Content className="overflow-hidden">
 
           <div 
-            className="space-y-6 overflow-y-auto px-4 pb-8 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+            className="space-y-6 overflow-y-auto px-4 pb-8"
             style={{
               maxHeight: 'calc(100vh - 200px)',
               WebkitOverflowScrolling: 'touch',
-              overscrollBehavior: 'contain'
+              overscrollBehavior: 'contain',
+              scrollbarWidth: 'thin',
+              scrollbarColor: 'hsl(var(--foreground) / 0.3) transparent'
             }}
           >
             {/* Group transactions by date */}
@@ -121,15 +125,15 @@ export function TransactionsBottomSheet({
 
               return (
                 <div key={date}>
-                  <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+                  <h3 className="text-sm font-medium text-foreground/70 mb-3 uppercase tracking-wide">
                     {date}
                   </h3>
                   <div className="space-y-2">
                     {dateTransactions.map((transaction) => (
-                      <div key={transaction.id} className="bg-secondary rounded-lg p-4">
+                      <div key={transaction.id} className="bg-card border border-border rounded-lg p-4 shadow-sm">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
-                            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-lg shadow-sm">
+                            <div className="w-12 h-12 bg-background rounded-full flex items-center justify-center text-lg shadow-sm border border-border">
                               {transaction.icon}
                             </div>
                             <div className="flex-1">
