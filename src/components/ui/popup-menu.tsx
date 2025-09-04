@@ -31,13 +31,22 @@ export function PopupMenu({
       className="max-w-screen-custom m-auto"
     >
       <Sheet.Container
-        className="px-4 pb-10"
+        className="bg-secondary pt-0"
         style={{
           borderRadius: '20px 20px 0 0',
           boxShadow: 'none',
         }}>
-        <Sheet.Header />
-        <Sheet.Content><div className="rounded-tl-[20px]">{children}</div></Sheet.Content>
+        <Sheet.Content>
+          <div
+            className="bg-secondary pb-10 px-4"
+            style={{
+              borderRadius: '20px 20px 0 0',
+              boxShadow: 'none',
+            }}>
+            <Sheet.Header />
+            {children}
+          </div>
+        </Sheet.Content>
       </Sheet.Container>
       <Sheet.Backdrop onTap={handleClose} />
     </Sheet>
