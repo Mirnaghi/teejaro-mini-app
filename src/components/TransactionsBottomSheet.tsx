@@ -62,17 +62,17 @@ export function TransactionsBottomSheet({
       onClose={handleClose}
       snapPoints={[0.9, 0.5, 0.3]}
       initialSnap={2}
-      className="max-w-[444px] m-auto"
+      className="max-w-screen-custom m-auto"
     >
       <Sheet.Container
         style={{
           borderRadius: '20px 20px 0 0',
           boxShadow: 'none',
         }}
-        className="mx-auto max-w-md w-full bg-secondary"
+        className="w-full bg-secondary"
       >
         <div
-          className="mx-auto max-w-md w-full bg-secondary"
+          className="w-full bg-secondary px-4"
           style={{
             borderRadius: '20px 20px 0 0',
             boxShadow: 'none',
@@ -91,7 +91,7 @@ export function TransactionsBottomSheet({
           </div>
           <Sheet.Content className="overflow-hidden">
             <div
-              className="space-y-6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+              className="space-y-6 overflow-y-auto scrollbar-hide"
               style={{
                 maxHeight: 'calc(100vh - 222px)',
                 WebkitOverflowScrolling: 'touch',

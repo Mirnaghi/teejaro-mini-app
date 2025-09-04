@@ -231,7 +231,7 @@ export function MainScreen() {
   }, [isCardDetailsOpen, isAddMoneyOpen, isBankAccountOpen, isInviteFriendsOpen, isSendOpen, isCreateCardOpen, isTransactionsOpen]);
 
   return (
-    <div className="min-h-screen bg-background pt-6 max-w-[444px] m-auto">
+    <div className="min-h-screen bg-background pt-6 max-w-screen-custom m-auto">
       {/* Header */}
       <div className="flex items-center justify-between px-4 pb-2">
         <button
@@ -246,7 +246,7 @@ export function MainScreen() {
               {isInTelegram && user ? `${user.first_name}${user.last_name ?? ''}` : 'Teejaro'}
             </span>
             <span className="text-[10px] text-foreground block text-left">
-              App Version: 1.2.3
+              App Version: 1.2.4
             </span>
           </div>
         </button>
@@ -266,7 +266,7 @@ export function MainScreen() {
           setIsCardDetailsOpen(true);
           // setIsCreateCardOpen(true);
 
-        }} className="relative w-full h-48 max-w-[444px]">
+        }} className="relative w-full h-48 max-w-screen-custom">
           <img src={CardBgImage} alt="#" className="w-full absolute h-full z-1 top-0 left-0" />
           <div className="w-full p-5 absolute h-full z-2 top-0 left-0 flex flex-col justify-between">
             <div className="w-full flex flex-row items-start justify-between">
