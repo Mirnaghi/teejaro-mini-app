@@ -16,22 +16,28 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const { pathname } = useLocation();
-  const { webApp, isInTelegram } = useTelegramWebApp();
   const [safeAreaHeight, setSafeAreaHeight] = useState(WebApp.safeAreaInset?.top || 0);
 
 
   useEffect(() => {
-    if (webApp) {
-      webApp.ready();
-      webApp.expand();
-      webApp.requestFullscreen();
-      document.body.style.overscrollBehavior = 'none';
-      document.body.style.userSelect = 'none';
-    }
-    setTimeout(() => {
+    WebApp.ready();
+    WebApp.expand()
+    WebApp.requestFullscreen();
+
+    // İlk safe area set etmək
+    setSafeAreaHeight(WebApp.safeAreaInset?.top || 0);
+
+    // viewport dəyişəndə safe area yenilə
+    const handler = () => {
       setSafeAreaHeight(WebApp.safeAreaInset?.top || 0);
-    }, 100); // 50ms gecikmə ilə
-  }, [webApp]);
+    };
+    WebApp.onEvent("viewportChanged", handler);
+    return () => {
+      WebApp.offEvent("viewportChanged", handler); // cleanup
+    };
+  }, []);
+
+
 
 
   useEffect(() => {
