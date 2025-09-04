@@ -16,28 +16,19 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const { pathname } = useLocation();
-  const [safeAreaHeight, setSafeAreaHeight] = useState(WebApp.safeAreaInset?.top || 0);
+  const { webApp, isInTelegram } = useTelegramWebApp();
+  const [topPadding, setTopPadding] = useState(WebApp.safeAreaInset?.top || 0);
 
 
   useEffect(() => {
-    WebApp.ready();
-    WebApp.expand()
-    WebApp.requestFullscreen();
-
-    // İlk safe area set etmək
-    setSafeAreaHeight(WebApp.safeAreaInset?.top || 0);
-
-    // viewport dəyişəndə safe area yenilə
-    const handler = () => {
-      setSafeAreaHeight(WebApp.safeAreaInset?.top || 0);
-    };
-    WebApp.onEvent("viewportChanged", handler);
-    return () => {
-      WebApp.offEvent("viewportChanged", handler); // cleanup
-    };
-  }, []);
-
-
+    if (webApp) {
+      webApp.ready();
+      webApp.expand();
+      webApp.requestFullscreen();
+      document.body.style.overscrollBehavior = 'none';
+      document.body.style.userSelect = 'none';
+    }
+  }, [webApp]);
 
 
   useEffect(() => {
@@ -45,7 +36,7 @@ const AppContent = () => {
   }, [pathname])
 
   return (
-    <div className={`app telegram-app`} style={{ paddingTop: `${safeAreaHeight}px` }}>
+    <div className={`app telegram-app`} style={{ paddingTop: `${WebApp?.safeAreaInset?.top + 35}px` }}>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/transactions" element={<Transactions />} />
