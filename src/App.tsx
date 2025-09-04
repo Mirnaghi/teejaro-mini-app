@@ -16,20 +16,25 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const { pathname } = useLocation();
-  const { webApp } = useTelegramWebApp();
+  const { webApp, isInTelegram } = useTelegramWebApp();
   const [topPadding, setTopPadding] = useState(`${WebApp?.safeAreaInset?.top + 35}px`);
-
+  const [mainLoading, setMainLoading] = useState(true)
 
   useEffect(() => {
     if (webApp) {
       webApp.ready();
-      webApp.requestFullscreen();
+      if (WebApp.platform === 'android' || WebApp.platform === 'ios') {
+        webApp.requestFullscreen();
+      }
       document.body.style.overscrollBehavior = 'none';
       document.body.style.userSelect = 'none';
     }
     setTimeout(() => {
       setTopPadding(`${WebApp?.safeAreaInset?.top + 35}px`);
     }, 100);
+    setTimeout(() => {
+      setMainLoading(false)
+    }, 3000);
   }, [webApp]);
 
 
@@ -37,8 +42,13 @@ const AppContent = () => {
     window.scrollTo(0, 0)
   }, [pathname])
 
+  if (mainLoading) return (
+    <div className="flex items-center justify-center h-[100vh] w-full bg-secondary">
+      <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-tjrAppColor border-b-4 border-tjrAppColor" />
+    </div>)
+
   return (
-    <div className={`app telegram-app`} style={{ paddingTop: topPadding }}>
+    <div className={`app telegram-app`} style={{ paddingTop: isInTelegram ? topPadding : 0 }}>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/transactions" element={<Transactions />} />
