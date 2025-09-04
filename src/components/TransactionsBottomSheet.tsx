@@ -76,8 +76,8 @@ export function TransactionsBottomSheet({
       ref={sheetRef}
       isOpen={isOpen}
       onClose={handleClose}
-      snapPoints={[0.9, 0.5, 0.3]}
-      initialSnap={2}
+      snapPoints={[0.9, 0.3]}
+      initialSnap={1}
       className="max-w-[444px] m-auto"
     >
       <Sheet.Container
