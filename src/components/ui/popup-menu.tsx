@@ -1,8 +1,5 @@
 
-import React, { useEffect } from "react";
-import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
-import { Button } from "./button";
+import React from "react";
 import { Sheet } from 'react-modal-sheet';
 
 interface PopupMenuProps {
@@ -25,7 +22,6 @@ export function PopupMenu({
     onClose && onClose()
   }
 
-
   return (
     <Sheet
       isOpen={isOpen}
@@ -35,7 +31,7 @@ export function PopupMenu({
       className="max-w-screen-custom m-auto"
     >
       <Sheet.Container
-        className="px-4"
+        className="px-4 pb-10"
         style={{
           borderRadius: '20px 20px 0 0',
           boxShadow: 'none',
@@ -45,51 +41,5 @@ export function PopupMenu({
       </Sheet.Container>
       <Sheet.Backdrop onTap={handleClose} />
     </Sheet>
-    // <div className={cn(
-    //   "fixed inset-0 z-[9999] flex items-end justify-center transition-all duration-300",
-    //   isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-    // )}>
-    //   {/* Backdrop */}
-    //   <div 
-    //     className={cn(
-    //       "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300",
-    //       isOpen ? "opacity-100" : "opacity-0"
-    //     )}
-    //     onClick={onClose}
-    //   />
-
-    //   {/* Popup Content - Bottom Sheet Style */}
-    //   <div className={cn(
-    //     "relative w-full max-w-lg bg-background rounded-t-3xl shadow-2xl transform transition-all duration-300 ease-out",
-    //     "max-h-[90vh] overflow-hidden flex flex-col",
-    //     isOpen ? "translate-y-0" : "translate-y-full",
-    //     className
-    //   )}>
-    //     {/* Drag Handle */}
-    //     <div className="w-12 h-1.5 bg-muted-foreground/30 rounded-full mx-auto mt-3 mb-2 flex-shrink-0" />
-
-    //     {showHeader && (
-    //       <div className="flex items-center justify-between p-4 pb-2 flex-shrink-0 border-b border-border/50">
-    //         {title && (
-    //           <h2 className="text-lg font-semibold text-foreground">{title}</h2>
-    //         )}
-    //         <Button 
-    //           variant="ghost" 
-    //           size="icon" 
-    //           onClick={onClose}
-    //           className="ml-auto hover:bg-secondary/80 transition-colors duration-200"
-    //         >
-    //           <X className="w-5 h-5" />
-    //         </Button>
-    //       </div>
-    //     )}
-
-    //     <div className="flex-1 overflow-y-auto scrollbar-hide">
-    //       <div className="p-4 pb-8">
-    //         {children}
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
