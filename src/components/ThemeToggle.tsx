@@ -6,14 +6,12 @@ export function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    // Check for saved theme preference or default to light
     const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
+
     const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
     setTheme(initialTheme);
-    
-    // Apply theme to document
+
     if (initialTheme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
@@ -24,10 +22,9 @@ export function ThemeToggle() {
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    
+
     // Save preference
     localStorage.setItem("theme", newTheme);
-    
     // Apply theme to document
     if (newTheme === "dark") {
       document.documentElement.classList.add("dark");
@@ -44,7 +41,7 @@ export function ThemeToggle() {
       className="w-9 h-9 rounded-lg transition-colors hover:bg-secondary/80"
     >
       {theme === "light" ? (
-        <Moon className="h-4 w-4" />
+        <Moon className="h-4 w-4 text-foreground" />
       ) : (
         <Sun className="h-4 w-4" />
       )}

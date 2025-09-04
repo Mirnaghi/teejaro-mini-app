@@ -59,10 +59,12 @@ export function CreateCardModal({ isOpen, onClose }: CreateCardModalProps) {
 
         <Button
           onClick={handleActivateCard}
-          className="w-full h-[60px] bg-tjrAppColor rounded-[20px]"
-          disabled={isActivating}
+          className="w-full h-[60px] bg-tjrAppColor rounded-[20px] text-[#000]"
+          // disabled={isActivating}
+          disabled={true}
         >
-          {isActivating ? "Activating..." : "Activate Card"}
+          {/* {isActivating ? "Activating..." : "Activate Card"} */}
+          Coming soon
         </Button>
       </div>
     </PopupMenu>

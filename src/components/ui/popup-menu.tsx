@@ -28,19 +28,19 @@ export function PopupMenu({
       onClose={handleClose}
       detent="content-height"
       disableScrollLocking={true}
-      className="max-w-screen-custom m-auto"
+      className="max-w-screen-custom m-auto bg-black/30"
     >
       <Sheet.Container
-        className="bg-secondary pt-0"
+        className="bg-background pt-0"
         style={{
-          borderRadius: '20px 20px 0 0',
+          borderRadius: '30px 30px 0 0',
           boxShadow: 'none',
         }}>
         <Sheet.Content>
           <div
-            className="bg-secondary pb-10 px-4"
+            className="bg-background pb-10 px-4"
             style={{
-              borderRadius: '20px 20px 0 0',
+              borderRadius: '22px 22px 0 0',
               boxShadow: 'none',
             }}>
             <Sheet.Header />

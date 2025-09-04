@@ -66,7 +66,7 @@ export function TransactionsBottomSheet({
     >
       <Sheet.Container
         style={{
-          borderRadius: '20px 20px 0 0',
+          borderRadius: '30px 30px 0 0',
           boxShadow: 'none',
         }}
         className="w-full bg-secondary"
@@ -74,7 +74,7 @@ export function TransactionsBottomSheet({
         <div
           className="w-full bg-secondary px-4"
           style={{
-            borderRadius: '20px 20px 0 0',
+            borderRadius: '22px 22px 0 0',
             boxShadow: 'none',
             height: '100%'
           }}>

@@ -263,8 +263,8 @@ export function MainScreen() {
       {/* Card Section */}
       <div className="px-4 mt-5 flex items-center justify-center">
         <button onClick={() => {
-          setIsCardDetailsOpen(true);
-          // setIsCreateCardOpen(true);
+          // setIsCardDetailsOpen(true);
+          setIsCreateCardOpen(true);
 
         }} className="relative w-full h-48 max-w-screen-custom">
           <img src={CardBgImage} alt="#" className="w-full absolute h-full z-1 top-0 left-0" />

@@ -119,11 +119,11 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
 
         {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-4 mt-8">
-          <Button className="h-[60px] bg-tjrAppColor text-[16px] font-semibold">
+          <Button className="h-[60px] bg-tjrAppColor text-[16px] font-semibold text-[#000]">
             Replace Card
             <RefreshCw className="w-4 h-4 ml-2" />
           </Button>
-          <Button className="h-[60px] bg-tjrAppColor text-[16px] font-semibold">
+          <Button className="h-[60px] bg-tjrAppColor text-[16px] font-semibold text-[#000]">
             Lock Card
             <Lock className="w-4 h-4 ml-2" />
           </Button>
