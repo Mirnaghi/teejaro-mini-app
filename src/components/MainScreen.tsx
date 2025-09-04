@@ -287,9 +287,14 @@ export function MainScreen() {
           <div className="w-11 h-11 bg-gradient-crypto rounded-full flex items-center justify-center">
             <User className="w-4 h-4 text-primary-foreground" />
           </div>
-          <span className="text-sm font-medium text-foreground">
-            {isInTelegram && user ? `${user.first_name}${user.last_name ?? ''}` : 'Teejaro'}
-          </span>
+          <div>
+            <span className="text-sm font-medium text-foreground block text-left">
+              {isInTelegram && user ? `${user.first_name}${user.last_name ?? ''}` : 'Teejaro'}
+            </span>
+            <span className="text-[10px] text-foreground block text-left">
+              App Version: 1.1.1
+            </span>
+          </div>
         </button>
         <div className="flex items-center space-x-2">
           <ThemeToggle />
