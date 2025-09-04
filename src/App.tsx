@@ -10,6 +10,7 @@ import Transactions from "./pages/Transactions";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { useLocation } from 'react-router-dom'
+import WebApp from '@twa-dev/sdk';
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const AppContent = () => {
 
       document.body.style.overscrollBehavior = 'none';
       document.body.style.userSelect = 'none';
+
     }
   }, [webApp]);
 
@@ -33,7 +35,7 @@ const AppContent = () => {
   }, [pathname])
 
   return (
-    <div className={`app ${isInTelegram ? 'telegram-app' : ''}`}>
+    <div className={`app telegram-app`} style={{ paddingTop: WebApp?.safeAreaInset?.top }}>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/transactions" element={<Transactions />} />
