@@ -16,8 +16,8 @@ const queryClient = new QueryClient();
 
 const AppContent = () => {
   const { pathname } = useLocation();
-  const { webApp, isInTelegram } = useTelegramWebApp();
-  const [topPadding, setTopPadding] = useState(WebApp.safeAreaInset?.top || 0);
+  const { webApp } = useTelegramWebApp();
+  const [topPadding, setTopPadding] = useState(`${WebApp?.safeAreaInset?.top + 35}px`);
 
 
   useEffect(() => {
@@ -27,6 +27,9 @@ const AppContent = () => {
       document.body.style.overscrollBehavior = 'none';
       document.body.style.userSelect = 'none';
     }
+    setTimeout(() => {
+      setTopPadding(`${WebApp?.safeAreaInset?.top + 35}px`);
+    }, 200);
   }, [webApp]);
 
 
@@ -35,7 +38,7 @@ const AppContent = () => {
   }, [pathname])
 
   return (
-    <div className={`app telegram-app`} style={{ paddingTop: `${WebApp?.safeAreaInset?.top + 35}px` }}>
+    <div className={`app telegram-app`} style={{ paddingTop: topPadding }}>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/transactions" element={<Transactions />} />
