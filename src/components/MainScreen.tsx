@@ -292,7 +292,7 @@ export function MainScreen() {
               {isInTelegram && user ? `${user.first_name}${user.last_name ?? ''}` : 'Teejaro'}
             </span>
             <span className="text-[10px] text-foreground block text-left">
-              App Version: 1.1.3
+              App Version: 1.1.4
             </span>
           </div>
         </button>
