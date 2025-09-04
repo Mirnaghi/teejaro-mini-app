@@ -534,7 +534,6 @@ export function MainScreen() {
         isOpen={isTransactionsOpen}
         onClose={() => setIsTransactionsOpen(false)}
         transactions={transactions}
-        hideWhenModalsOpen={true}
       />
     </div>
   );

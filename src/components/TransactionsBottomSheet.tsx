@@ -22,45 +22,30 @@ interface TransactionsBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
   transactions: Transaction[];
-  hideWhenModalsOpen?: boolean;
 }
 
 export function TransactionsBottomSheet({
   isOpen,
   onClose,
   transactions,
-  hideWhenModalsOpen = true
 }: TransactionsBottomSheetProps) {
 
-  // Prevent the bottom sheet from closing - always keep it open
-  const handleClose = () => {
-    // Do nothing - prevent closure
-  };
+
   const { isInTelegram, hapticFeedback } = useTelegramWebApp();
   const [showAllTransactions, setShowAllTransactions] = useState(true);
   const sheetRef = useRef<SheetRef>(null);
   const navigate = useNavigate();
-  // Initialize when opening
+
   useEffect(() => {
     if (isOpen) {
-      setShowAllTransactions(true); // Always show all transactions
-      // Provide haptic feedback when opening
+      setShowAllTransactions(true);
       if (isInTelegram) {
         hapticFeedback('medium');
       }
     }
   }, [isOpen, isInTelegram, hapticFeedback]);
 
-  // Handle pull-up gesture to expand and show all transactions
-  const handlePullUp = () => {
-    if (!showAllTransactions) {
-      setShowAllTransactions(true);
-      // Haptic feedback for expansion
-      if (isInTelegram) {
-        hapticFeedback('medium');
-      }
-    }
-  };
+  const handleClose = () => { onClose && onClose() };
 
   const getDisplayTransactions = () => {
     if (showAllTransactions) {
@@ -69,15 +54,14 @@ export function TransactionsBottomSheet({
     return transactions.slice(0, 5);
   };
 
-  const isTelegramMiniApp = isInTelegram;
 
   return (
     <Sheet
       ref={sheetRef}
       isOpen={isOpen}
       onClose={handleClose}
-      snapPoints={[0.9, 0.3]}
-      initialSnap={1}
+      snapPoints={[0.9, 0.5, 0.3]}
+      initialSnap={2}
       className="max-w-[444px] m-auto"
     >
       <Sheet.Container
@@ -114,7 +98,7 @@ export function TransactionsBottomSheet({
                 overscrollBehavior: 'contain'
               }}
             >
-              {/* Group transactions by date */}
+
               {["Today", "Yesterday", "Dec 28", "Dec 27", "Dec 25", "Dec 24", "Dec 23"].map((date) => {
                 const dateTransactions = getDisplayTransactions().filter(t => t.date === date);
                 if (dateTransactions.length === 0) return null;
