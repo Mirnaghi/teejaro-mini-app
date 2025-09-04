@@ -35,10 +35,7 @@ const AppContent = () => {
   }, [pathname])
 
   return (
-    <div className={`app telegram-app`} style={{
-      paddingTop: WebApp.isExpanded ? 0 : WebApp.safeAreaInset.top + "px",
-      height: "100vh"
-    }}>
+    <div className={`app telegram-app`} style={{ paddingTop: `${WebApp?.safeAreaInset?.top + 35}px` }}>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/transactions" element={<Transactions />} />
