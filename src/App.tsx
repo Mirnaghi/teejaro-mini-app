@@ -23,7 +23,6 @@ const AppContent = () => {
   useEffect(() => {
     if (webApp) {
       webApp.ready();
-      webApp.expand();
       webApp.requestFullscreen();
       document.body.style.overscrollBehavior = 'none';
       document.body.style.userSelect = 'none';
