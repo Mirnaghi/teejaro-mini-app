@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,19 +15,22 @@ import WebApp from '@twa-dev/sdk';
 const queryClient = new QueryClient();
 
 const AppContent = () => {
+  const { pathname } = useLocation();
   const { webApp, isInTelegram } = useTelegramWebApp();
-  const { pathname } = useLocation()
+  const [safeAreaHeight, setSafeAreaHeight] = useState(WebApp.safeAreaInset?.top || 0);
+
 
   useEffect(() => {
     if (webApp) {
       webApp.ready();
       webApp.expand();
       webApp.requestFullscreen();
-
       document.body.style.overscrollBehavior = 'none';
       document.body.style.userSelect = 'none';
-
     }
+    setTimeout(() => {
+      setSafeAreaHeight(WebApp.safeAreaInset?.top || 0);
+    }, 100); // 50ms gecikmə ilə
   }, [webApp]);
 
 
@@ -36,7 +39,7 @@ const AppContent = () => {
   }, [pathname])
 
   return (
-    <div className={`app telegram-app`} style={{ paddingTop: `${WebApp?.safeAreaInset?.top + 35}px` }}>
+    <div className={`app telegram-app`} style={{ paddingTop: `${safeAreaHeight}px` }}>
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/transactions" element={<Transactions />} />
