@@ -29,7 +29,9 @@ const AppContent = () => {
       document.body.style.overscrollBehavior = 'none';
       document.body.style.userSelect = 'none';
     }
-
+    setTimeout(() => {
+      setTopPadding(`${WebApp?.safeAreaInset?.top + 35}px`);
+    }, 100);
     setTimeout(() => {
       setMainLoading(false)
     }, 2000);
