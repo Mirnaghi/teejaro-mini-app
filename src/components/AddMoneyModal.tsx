@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { PopupMenu } from "@/components/ui/popup-menu";
 import { Card, CardContent } from "@/components/ui/card";
-import { QrCode, Building2 } from "lucide-react";
+import { QrCode, Building2, ChevronRight } from "lucide-react";
 import { TopUpCryptoContent } from "./TopUpCryptoContent";
 import { BankTransferContent } from "./BankTransferContent";
 import { CryptoDepositContent } from "./CryptoDepositContent";
+import { Button } from "@/components/ui/button";
+import TopUpCryptoFlags from '@/assets/icons/topUpCryptoFlags.svg'
+import TopUpBankFlags from '@/assets/icons/topUpBankFlags.svg'
 
 interface AddMoneyModalProps {
   isOpen: boolean;
@@ -50,48 +53,31 @@ export function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
     }
 
     return (
-      <div className="space-y-4 mt-4">
-        <Card 
-          className="cursor-pointer hover:bg-secondary/50 transition-colors bg-card border-border"
-          onClick={() => setCurrentScreen("crypto")}
-        >
-          <CardContent className="p-6">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-crypto-blue/20 rounded-xl flex items-center justify-center">
-                <QrCode className="w-6 h-6 text-crypto-blue" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-foreground">Crypto</h3>
-                <p className="text-sm text-muted-foreground">No Fees, No limits</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card 
-          className="cursor-pointer hover:bg-secondary/50 transition-colors bg-card border-border"
-          onClick={() => setCurrentScreen("bank")}
-        >
-          <CardContent className="p-6">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
-                <Building2 className="w-6 h-6 text-primary" />
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-foreground">Bank Transfer</h3>
-                <p className="text-sm text-muted-foreground">From your bank account</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+      <div className="mt-1">
+        <h2 className="font-medium text-3xl">Add money with</h2>
+        <p className="text-sm mt-1 mb-5">Which card or account do you want to make the transfer from?</p>
+        <Button variant="secondary" className="w-full h-[60px] flex justify-between items-center mb-5" onClick={() => setCurrentScreen("crypto")}>
+          <div className="flex items-center">
+            <img src={TopUpCryptoFlags} alt="#" />
+            <span className="ml-2 text-[16px]">Crypto</span>
+          </div>
+          <ChevronRight className="ml-2" style={{ width: '25px', height: '25px' }} />
+        </Button>
+        <Button variant="secondary" className="w-full h-[60px] flex justify-between items-center" onClick={() => setCurrentScreen("bank")}>
+          <div className="flex items-center">
+            <img src={TopUpBankFlags} alt="#" />
+            <span className="ml-2 text-[16px]">Bank accounts</span>
+          </div>
+          <ChevronRight className="ml-2" style={{ width: '25px', height: '25px' }} />
+        </Button>
       </div>
     );
   };
 
   return (
-    <PopupMenu 
-      isOpen={isOpen} 
-      onClose={handleClose} 
+    <PopupMenu
+      isOpen={isOpen}
+      onClose={handleClose}
       title={getTitle()}
       showHeader={false}
     >
