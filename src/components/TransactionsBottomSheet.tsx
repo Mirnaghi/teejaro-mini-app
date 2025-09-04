@@ -92,6 +92,7 @@ export function TransactionsBottomSheet({
           style={{
             borderRadius: '20px 20px 0 0',
             boxShadow: 'none',
+            height: '100%'
           }}>
           <Sheet.Header className="pb-4">
             <div className="flex justify-center pt-4">
@@ -106,9 +107,9 @@ export function TransactionsBottomSheet({
           </div>
           <Sheet.Content className="overflow-hidden">
             <div
-              className="space-y-6 overflow-y-auto pb-[250px] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+              className="space-y-6 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
               style={{
-                maxHeight: 'calc(100vh - 300px)',
+                maxHeight: 'calc(100vh - 222px)',
                 WebkitOverflowScrolling: 'touch',
                 overscrollBehavior: 'contain'
               }}
