@@ -19,11 +19,9 @@ const AppContent = () => {
 
   useEffect(() => {
     if (webApp) {
-      // Configure the app for Telegram
       webApp.ready();
       webApp.expand();
 
-      // Remove any scrollbars and optimize for mobile
       document.body.style.overscrollBehavior = 'none';
       document.body.style.userSelect = 'none';
     }
@@ -36,15 +34,13 @@ const AppContent = () => {
 
   return (
     <div className={`app ${isInTelegram ? 'telegram-app' : ''}`}>
-      <div className={`${isInTelegram ? 'pt-20' : ''}`}>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/transactions" element={<Transactions />} />
-          <Route path="/settings" element={<Settings />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/settings" element={<Settings />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 };

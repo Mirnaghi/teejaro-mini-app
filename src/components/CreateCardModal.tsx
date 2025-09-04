@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { PopupMenu } from "@/components/ui/popup-menu";
 import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertTriangle, CreditCard } from "lucide-react";
+import VisaMiniLogo from '@/assets/icons/visaMiniLogo.svg'
+import CardBgImage from '@/assets/images/card_bg_img.png'
+import TjrWhiteLogo from '@/assets/icons/tjrWhiteLogo.svg'
 
 interface CreateCardModalProps {
   isOpen: boolean;
@@ -22,70 +23,47 @@ export function CreateCardModal({ isOpen, onClose }: CreateCardModalProps) {
   };
 
   return (
-    <PopupMenu 
-      isOpen={isOpen} 
-      onClose={onClose} 
+    <PopupMenu
+      isOpen={isOpen}
+      onClose={onClose}
       title="Create Virtual Card"
       showHeader={false}
     >
-      <div className="space-y-6 mt-4">
+      <div>
         {/* Card Preview */}
-        <div className="w-full h-32 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl flex items-center justify-center">
-          <div className="text-center text-white">
-            <CreditCard className="w-8 h-8 mx-auto mb-2 opacity-60" />
-            <p className="text-sm opacity-80">Virtual Card</p>
+        <div className="relative w-full h-52">
+          <img src={CardBgImage} alt="#" className="w-full absolute h-full z-1 top-0 left-0" />
+          <div className="w-full p-5 absolute h-full z-2 top-0 left-0 flex flex-col justify-center items-center">
+            <img src={TjrWhiteLogo} alt="#" className="w-[81px] h-[34px]" />
+            <img src={VisaMiniLogo} alt="#" className="w-[50px] h-[16px] mt-4" />
           </div>
         </div>
 
-        {/* Balance Alert */}
-        <Alert className="border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950">
-          <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-          <AlertDescription className="text-amber-800 dark:text-amber-200">
-            You need at least 35 USDT in your balance to activate this card.
-          </AlertDescription>
-        </Alert>
-
-        {/* Card Features */}
-        <div className="space-y-3">
-          <h3 className="font-medium text-foreground">Card Features:</h3>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-              Instant virtual card activation
-            </li>
-            <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-              Online payments worldwide
-            </li>
-            <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-              Real-time transaction notifications
-            </li>
-            <li className="flex items-center gap-2">
-              <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-              Secure contactless payments
-            </li>
-          </ul>
+        <div className="flex flex-wrap items-center justify-center my-5">
+          <div className="bg-secondary rounded-full px-4 py-1 mx-2 my-1">
+            <span>0% Top Up</span>
+          </div>
+          <div className="bg-secondary rounded-full px-4 py-1 mx-2 my-1">
+            <span>Apple & Google Pay</span>
+          </div>
+          <div className="bg-secondary rounded-full px-4 py-1 mx-2 my-1">
+            <span>No Spending Limits</span>
+          </div>
+          <div className="bg-secondary rounded-full px-4 py-1 mx-2 my-1">
+            <span>10+ Visa Benefits</span>
+          </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-3">
-          <Button
-            variant="outline"
-            onClick={onClose}
-            className="flex-1"
-            disabled={isActivating}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={handleActivateCard}
-            className="flex-1"
-            disabled={isActivating}
-          >
-            {isActivating ? "Activating..." : "Activate Card"}
-          </Button>
-        </div>
+        <h1 className="text-lg font-bold text-center mb-1">Visa Signature card</h1>
+        <p className="text-sm text-center mb-5">UEFA Çempionlar Liqasının əsas mərhələsində iştirak etmək hüququ qazanan “Qarabağ” uzun çəkən hücumçu transferini bitirib. Sportinfo.аz xəbər verir ki, Ağdam klubu “Flamenqo”ya satdığı Olavio Juninyonu geri qaytarıb.</p>
+
+        <Button
+          onClick={handleActivateCard}
+          className="w-full h-[60px] bg-tjrAppColor rounded-[20px]"
+          disabled={isActivating}
+        >
+          {isActivating ? "Activating..." : "Activate Card"}
+        </Button>
       </div>
     </PopupMenu>
   );

@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Plus, ArrowUp, MessageCircle, User, MoreHorizontal, ChevronRight, Building2 } from "lucide-react";
+import { Plus, ArrowUp, MessageCircle, User } from "lucide-react";
 import { CardDetailsModal } from "./CardDetailsModal";
 import { AddMoneyModal } from "./AddMoneyModal";
 import { BankAccountModal } from "./BankAccountModal";
 import { InviteFriendsModal } from "./InviteFriendsModal";
 import { SendModal } from "./SendModal";
 import { CreateCardModal } from "./CreateCardModal";
-import { AnimatedCardsCarousel } from "./AnimatedCardsCarousel";
 import { ThemeToggle } from "./ThemeToggle";
 import { TransactionsBottomSheet } from "./TransactionsBottomSheet";
 import { useTelegramWebApp } from "@/hooks/useTelegramWebApp";
@@ -19,7 +16,6 @@ import TjrWhiteLogo from '@/assets/icons/tjrWhiteLogo.svg'
 import VisaLogo from '@/assets/icons/visaLogo.svg'
 import MiniCardIcn from '@/assets/icons/miniCardIcn.svg'
 import BankFlags from '@/assets/icons/bankFlags.svg'
-import { getStatusColor } from "@/utils/colors";
 
 interface Transaction {
   id: string;
@@ -210,35 +206,30 @@ export function MainScreen() {
   const [isInviteFriendsOpen, setIsInviteFriendsOpen] = useState(false);
   const [isSendOpen, setIsSendOpen] = useState(false);
   const [isCreateCardOpen, setIsCreateCardOpen] = useState(false);
-  const [isTransactionsOpen, setIsTransactionsOpen] = useState(true); // Open by default
+  const [isTransactionsOpen, setIsTransactionsOpen] = useState(true);
 
-  // Add haptic feedback to button clicks
   const handleButtonClick = (action: () => void) => {
     hapticFeedback('light');
     action();
   };
 
-  // Close transactions bottom sheet when other modals are opened
   const handleModalOpen = (modalSetter: (value: boolean) => void) => {
-    setIsTransactionsOpen(false); // Close transactions sheet
+    setIsTransactionsOpen(false);
     modalSetter(true);
   };
 
-  // Auto-close transactions bottom sheet when other modals are open
-  // and make it visible again when other modals close
+
   useEffect(() => {
-    const isAnyModalOpen = isCardDetailsOpen || isAddMoneyOpen || isBankAccountOpen || 
-                          isInviteFriendsOpen || isSendOpen || isCreateCardOpen;
-    
+    const isAnyModalOpen = isCardDetailsOpen || isAddMoneyOpen || isBankAccountOpen ||
+      isInviteFriendsOpen || isSendOpen || isCreateCardOpen;
+
     if (isAnyModalOpen && isTransactionsOpen) {
       setIsTransactionsOpen(false);
     } else if (!isAnyModalOpen && !isTransactionsOpen) {
-      // Show transactions bottom sheet when no other modals are open
       setIsTransactionsOpen(true);
     }
   }, [isCardDetailsOpen, isAddMoneyOpen, isBankAccountOpen, isInviteFriendsOpen, isSendOpen, isCreateCardOpen, isTransactionsOpen]);
 
-  // Card balances data
   const cards = [
     {
       id: "visa-virtual",
@@ -274,10 +265,8 @@ export function MainScreen() {
     }
   ];
 
-  // Bank account balances (these would come from your data source)
-  const bankAccountBalances = [12450.75, 5230.12]; // Chase + Bank of America
+  const bankAccountBalances = [12450.75, 5230.12];
 
-  // Calculate total balance from cards and bank accounts
   const cardTotalValue = cards.reduce((sum, card) => {
     const numericValue = parseFloat(card.balance.replace('$', '').replace(',', ''));
     return sum + (isNaN(numericValue) ? 0 : numericValue);
@@ -290,9 +279,9 @@ export function MainScreen() {
   return (
     <div className="min-h-screen bg-background pt-6 max-w-[444px] m-auto">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 pt-2 pb-2">
+      <div className="flex items-center justify-between px-4 pb-2">
         <button
-          className="flex items-center space-x-2 cursor-pointer"
+          className="flex items-center space-x-2"
           onClick={() => handleButtonClick(() => navigate('/settings'))}
         >
           <div className="w-11 h-11 bg-gradient-crypto rounded-full flex items-center justify-center">
@@ -314,13 +303,17 @@ export function MainScreen() {
 
       {/* Card Section */}
       <div className="px-4 mt-5 flex items-center justify-center">
-        <div className="relative w-full h-48 max-w-[444px]">
+        <button onClick={() => {
+          setIsCardDetailsOpen(true);
+          // setIsCreateCardOpen(true);
+
+        }} className="relative w-full h-48 max-w-[444px]">
           <img src={CardBgImage} alt="#" className="w-full absolute h-full z-1 top-0 left-0" />
           <div className="w-full p-5 absolute h-full z-2 top-0 left-0 flex flex-col justify-between">
             <div className="w-full flex flex-row items-start justify-between">
               <div>
-                <p className="font-semibold text-[#FFF] text-3xl">$ 1.434.530</p>
-                <p className="text-[#FFF] text-sm">Current balance</p>
+                <p className="font-semibold text-[#FFF] text-3xl text-left">$ 1.434.530</p>
+                <p className="text-[#FFF] text-sm text-left">Current balance</p>
               </div>
               <div>
                 <img src={TjrWhiteLogo} alt="#" />
@@ -328,7 +321,7 @@ export function MainScreen() {
             </div>
             <img src={VisaLogo} alt="#" className='w-36' />
           </div>
-        </div>
+        </button>
       </div>
 
       {/* Action Buttons */}
@@ -340,7 +333,7 @@ export function MainScreen() {
             className="h-[50px] rounded-full"
             onClick={() => handleButtonClick(() => handleModalOpen(setIsAddMoneyOpen))}
           >
-            <Plus className="w-5 h-5 mr-2" />
+            <Plus className="mr-1" style={{ width: '22px', height: '22px' }} />
             Top up
           </Button>
           <Button
@@ -349,31 +342,18 @@ export function MainScreen() {
             className="h-[50px] rounded-full"
             onClick={() => handleButtonClick(() => handleModalOpen(setIsSendOpen))}
           >
-            <ArrowUp className="w-5 h-5 mr-2" />
+            <ArrowUp className="mr-1" style={{ width: '22px', height: '22px' }} />
             Send
           </Button>
         </div>
       </div>
-      {/* Cards Section
-      <div className="px-4">
-        <AnimatedCardsCarousel
-          cards={cards}
-          onCardClick={(cardId) => {
-            if (cardId === "visa-virtual") {
-              handleModalOpen(setIsCardDetailsOpen);
-            } else if (cardId === "empty-virtual") {
-              handleModalOpen(setIsCreateCardOpen);
-            }
-          }}
-        />
-      </div> */}
 
       <div className="px-4 mb-[30px] mt-[20px]">
         <div className="grid grid-cols-2 gap-4">
           <Button
             variant="secondary"
             size="lg"
-            className="h-[88px] rounded-3xl flex flex-col items-start"
+            className="h-[88px] rounded-3xl flex flex-col items-start px-5"
           // onClick={() => handleButtonClick(() => setIsAddMoneyOpen(true))}
           >
             <img src={MiniCardIcn} alt="#" />
@@ -382,7 +362,7 @@ export function MainScreen() {
           <Button
             variant="secondary"
             size="lg"
-            className="h-[88px] rounded-3xl flex flex-col items-start"
+            className="h-[88px] rounded-3xl flex flex-col items-start px-5"
             onClick={() => handleModalOpen(setIsBankAccountOpen)}
           >
             <img src={BankFlags} alt="#" />
@@ -390,7 +370,58 @@ export function MainScreen() {
           </Button>
         </div>
       </div>
+      {/* <div className="bg-secondary px-4 py-4 pb-8 rounded-tl-[20px] rounded-tr-[20px]">
+        <div className="mb-3 flex justify-between items-center">
+          <span className="font-medium">Transactions</span>
+          <button onClick={() => navigate("/transactions")}>
+            <span className="font-medium text-sm">View all</span>
+          </button>
+        </div>
+        <div className="space-y-6">
+          {["Today", "Yesterday", "Dec 28", "Dec 27"].map((date) => {
+            const dateTransactions = transactions.filter(t => t.date === date);
+            if (dateTransactions.length === 0) return null;
 
+            return (
+              <div key={date}>
+                <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
+                  {date}
+                </h3>
+                <div className="space-y-2">
+                  {dateTransactions.map((transaction) => (
+                    <CardContent className="p-0 mb-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-lg">
+                            {transaction.icon}
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-foreground">{transaction.description}</h4>
+                            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                              <span>{transaction.time}</span>
+                              <span>•</span>
+                              <span className={getStatusColor(transaction.status)}>
+                                {transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1)}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className={`font-semibold ${transaction.type === "in" ? "text-green-500" : "text-foreground"
+                            }`}>
+                            {transaction.amount}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{transaction.category}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div> */}
       {/* Utility Sections */}
       {/* <div className="px-4 mb-4 space-y-4">
         <Card

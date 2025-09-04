@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { PopupMenu } from "@/components/ui/popup-menu";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MoreHorizontal, Eye, EyeOff, Lock, RefreshCw, User, Copy } from "lucide-react";
+import { User, Eye, EyeOff, Lock, RefreshCw, ChevronRight } from "lucide-react";
+import TjrWhiteLogo from '@/assets/icons/tjrWhiteLogo.svg'
 import { useToast } from "@/hooks/use-toast";
-
+import CardBgImage from '@/assets/images/card_bg_img.png'
+import AppleIcn from '@/assets/icons/appleIcn.svg'
 interface CardDetailsModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -35,179 +36,98 @@ export function CardDetailsModal({ isOpen, onClose }: CardDetailsModalProps) {
   };
 
   return (
-    <PopupMenu 
-      isOpen={isOpen} 
-      onClose={onClose} 
+    <PopupMenu
+      isOpen={isOpen}
+      onClose={onClose}
       showHeader={false}
       className="max-h-[90vh]"
     >
-      <div className="flex items-center justify-end mb-4">
-        <Button variant="ghost" size="icon" className="hover:bg-secondary/80">
-          <MoreHorizontal className="w-5 h-5" />
-        </Button>
-      </div>
-
       <div>
-          {/* Virtual Card Display */}
-          <Card className="mb-6 bg-gradient-crypto border-0 shadow-primary max-w-sm mx-auto">
-            <CardContent className="p-4 relative overflow-hidden">
-              {/* Geometric Pattern Background */}
-              <div className="absolute inset-0 opacity-20">
-                <div className="absolute top-2 right-2 w-12 h-12 border border-white/30 rounded-full"></div>
-                <div className="absolute bottom-2 left-2 w-10 h-10 border border-white/30 rounded-lg rotate-45"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 border border-white/20 rounded-full"></div>
+        {/* Virtual Card Display */}
+        <div className="relative w-full h-52 mb-5">
+          <img src={CardBgImage} alt="#" className="w-full absolute h-full z-1 top-0 left-0" />
+          <div className="w-full p-5 absolute h-full z-2 top-0 left-0 flex flex-col justify-between">
+            <div className="w-full flex flex-row items-start justify-between">
+              <div className="flex items-center space-x-2 cursor-pointer">
+                <div className="w-8 h-8 bg-gradient-crypto rounded-full flex items-center justify-center">
+                  <User className="w-4 h-4 text-primary-foreground" />
+                </div>
+                <span className="text-lg font-medium text-[#FFF]">
+                  Kamil Vahabov
+                </span>
               </div>
-              
-              <div className="relative z-10">
-                <div className="flex justify-between items-start mb-4">
-                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                    <User className="w-4 h-4 text-white" />
-                  </div>
-                  <div className="text-white font-bold">VISA</div>
-                </div>
-                
-                <div className="mb-3">
-                  <p className="text-white/80 text-xs mb-1">Card Holder</p>
-                  <p className="text-white font-semibold text-sm">
-                    {showCardDetails ? "John Doe" : "J••• D••"}
-                  </p>
-                </div>
-                
-                <div className="text-white font-mono text-base tracking-wider mb-3">
-                  {showCardDetails ? "4734 5678 9012 1234" : "•••• •••• •••• 1234"}
-                </div>
-                
-                <div className="flex justify-between items-end">
-                  <div>
-                    <p className="text-white/80 text-xs">Valid Thru</p>
-                    <p className="text-white font-mono text-sm">
-                      {showCardDetails ? "12/27" : "••/••"}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-white/80 text-xs">CVV</p>
-                    <p className="text-white font-mono text-sm">
-                      {showCardDetails ? "123" : "•••"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Card Information */}
-          <div className="space-y-6">
-            <div>
-              <Label htmlFor="cardNumber" className="text-foreground mb-2 block">Card number</Label>
-              <div className="relative">
-                <Input
-                  id="cardNumber"
-                  type={showCardDetails ? "text" : "password"}
-                  value={showCardDetails ? "4734 5678 9012 1234" : "•••• •••• •••• 1234"}
-                  readOnly
-                  className="bg-secondary border-border text-foreground pr-20"
-                />
-                <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="p-1 h-8 w-8"
-                    onClick={() => copyToClipboard("4734567890121234", "Card number")}
-                    disabled={!showCardDetails}
-                  >
-                    <Copy className="w-3 h-3" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="p-1 h-8 w-8"
-                    onClick={() => setShowCardDetails(!showCardDetails)}
-                  >
-                    {showCardDetails ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="cardHolder" className="text-foreground mb-2 block">Card holder name</Label>
-              <div className="relative">
-                <Input
-                  id="cardHolder"
-                  type={showCardDetails ? "text" : "password"}
-                  value={showCardDetails ? "John Doe" : "J••• D••"}
-                  readOnly
-                  className="bg-secondary border-border text-foreground pr-12"
-                />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 h-8 w-8"
-                  onClick={() => copyToClipboard("John Doe", "Cardholder name")}
-                  disabled={!showCardDetails}
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="expiration" className="text-foreground mb-2 block">Expiration date</Label>
-                <div className="relative">
-                  <Input
-                    id="expiration"
-                    type={showCardDetails ? "text" : "password"}
-                    value={showCardDetails ? "12/27" : "••/••"}
-                    readOnly
-                    className="bg-secondary border-border text-foreground pr-12"
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 h-8 w-8"
+                <img src={TjrWhiteLogo} alt="#" />
+              </div>
+            </div>
+            <button
+              disabled={!showCardDetails}
+              onClick={() => { copyToClipboard("4734567890121234", "Card number") }}
+            >
+              <span className="text-[6vw] text-[#fff] tracking-[0.08em] text-center block font-mono custom:text-[32px]">
+                {showCardDetails ? `1234 4567 7890 1011` : '**** **** **** 1011'}
+              </span>
+            </button>
+            <div className="flex items-center justify-between">
+              <div className="flex">
+                <div className="min-w-16">
+                  <button
+                    disabled={!showCardDetails}
                     onClick={() => copyToClipboard("12/27", "Expiration date")}
-                    disabled={!showCardDetails}
-                  >
-                    <Copy className="w-3 h-3" />
-                  </Button>
+                    className="text-[#fff] text-[14px]">
+                    {showCardDetails ? `02/29` : '*****'}
+                  </button>
+                  <span className="block text-[#fff] text-[10px]">
+                    Date
+                  </span>
                 </div>
-              </div>
-              <div>
-                <Label htmlFor="cvv" className="text-foreground mb-2 block">CVV</Label>
-                <div className="relative">
-                  <Input
-                    id="cvv"
-                    type={showCardDetails ? "text" : "password"}
-                    value={showCardDetails ? "123" : "•••"}
-                    readOnly
-                    className="bg-secondary border-border text-foreground pr-12"
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 h-8 w-8"
+                <div className="min-w-16">
+                  <button
+                    disabled={!showCardDetails}
                     onClick={() => copyToClipboard("123", "CVV")}
-                    disabled={!showCardDetails}
-                  >
-                    <Copy className="w-3 h-3" />
-                  </Button>
+                    className="text-[#fff] text-[14px]">
+                    {showCardDetails ? `543` : '***'}
+                  </button>
+                  <span className="block text-[#fff] text-[10px]">
+                    CVC
+                  </span>
                 </div>
               </div>
+              <button
+                className="bg-secondary px-3 h-[35px] flex items-center text-[14px] rounded-sm justify-center"
+                onClick={() => setShowCardDetails(!showCardDetails)}
+              >
+                {showCardDetails ? "Hide" : 'Show'} details
+                {showCardDetails ? <EyeOff className="w-5 h-5 ml-2" /> : <Eye className="w-5 h-5 ml-2" />}
+              </button>
             </div>
           </div>
+        </div>
 
-          {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-4 mt-8">
-            <Button variant="outline" className="h-12">
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Replace Card
-            </Button>
-            <Button variant="secondary" className="h-12">
-              <Lock className="w-4 h-4 mr-2" />
-              Lock Card
-            </Button>
+        <Button variant="secondary" className="h-[60px] w-full flex items-center justify-between mb-5">
+          <div className="flex items-center">
+            <img src={AppleIcn} alt="#" className="mr-2" />
+            <span className="font-medium text-[16px]">Top up your balance via Apple Pay</span>
           </div>
+          <ChevronRight className="ml-2" style={{ width: '25px', height: '25px' }} />
+        </Button>
+
+        <Button variant="outline" className="h-[60px] w-full flex items-center justify-between">
+          <span className="font-medium text-[16px]">Billing address</span>
+          <ChevronRight className="ml-2" style={{ width: '25px', height: '25px' }} />
+        </Button>
+
+        {/* Action Buttons */}
+        <div className="grid grid-cols-2 gap-4 mt-8">
+          <Button className="h-[60px] bg-tjrAppColor text-[16px] font-semibold">
+            Replace Card
+            <RefreshCw className="w-4 h-4 ml-2" />
+          </Button>
+          <Button className="h-[60px] bg-tjrAppColor text-[16px] font-semibold">
+            Lock Card
+            <Lock className="w-4 h-4 ml-2" />
+          </Button>
+        </div>
       </div>
     </PopupMenu>
   );
