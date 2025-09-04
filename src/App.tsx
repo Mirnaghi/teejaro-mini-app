@@ -29,7 +29,7 @@ const AppContent = () => {
     }
     setTimeout(() => {
       setTopPadding(`${WebApp?.safeAreaInset?.top + 35}px`);
-    }, 200);
+    }, 100);
   }, [webApp]);
 
 
