@@ -29,14 +29,7 @@ export function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
     setCurrentScreen("address");
   };
 
-  const getTitle = () => {
-    switch (currentScreen) {
-      case "crypto": return "Top up with Crypto";
-      case "bank": return "Bank Transfer";
-      case "address": return "Deposit Address";
-      default: return "Add Money with";
-    }
-  };
+
 
   const renderContent = () => {
     if (currentScreen === "crypto") {
@@ -77,7 +70,6 @@ export function AddMoneyModal({ isOpen, onClose }: AddMoneyModalProps) {
     <PopupMenu
       isOpen={isOpen}
       onClose={handleClose}
-      title={getTitle()}
       showHeader={false}
     >
       {renderContent()}

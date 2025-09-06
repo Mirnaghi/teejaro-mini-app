@@ -91,13 +91,6 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
     handleClose();
   };
 
-  const getTitle = () => {
-    switch (currentScreen) {
-      case "create": return "Add New Bank Account";
-      default: return "Select Bank Account";
-    }
-  };
-
   const renderContent = () => {
     if (currentScreen === "create") {
       return (
@@ -126,11 +119,10 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
                 {currencies.map((currency) => (
                   <div
                     key={currency.value}
-                    className={`relative cursor-pointer rounded-lg border-2 p-4 transition-all hover:border-primary/50 ${
-                      formData.currency === currency.value
-                        ? "border-primary bg-primary/5"
-                        : "border-border bg-card hover:bg-secondary/30"
-                    }`}
+                    className={`relative cursor-pointer rounded-lg border-2 p-4 transition-all hover:border-primary/50 ${formData.currency === currency.value
+                      ? "border-primary bg-primary/5"
+                      : "border-border bg-card hover:bg-secondary/30"
+                      }`}
                     onClick={() => setFormData({ currency: currency.value })}
                   >
                     <div className="flex items-center space-x-3">
@@ -153,8 +145,8 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
               </div>
             </div>
 
-            <Button 
-              onClick={handleCreateAccount} 
+            <Button
+              onClick={handleCreateAccount}
               className="w-full mt-6"
               disabled={!formData.currency}
             >
@@ -174,7 +166,7 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
           </h3>
           <div className="space-y-3">
             {mockBankAccounts.map((account) => (
-              <Card 
+              <Card
                 key={account.id}
                 className={`cursor-pointer transition-colors border-2 border-border hover:bg-secondary/50`}
                 onClick={() => handleAccountSelect(account)}
@@ -203,7 +195,7 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
         </div>
 
         {/* Add New Account Button */}
-        <Card 
+        <Card
           className="bg-secondary/30 border-dashed border-border cursor-pointer hover:bg-secondary/50 transition-colors"
           onClick={() => setCurrentScreen("create")}
         >
@@ -223,16 +215,15 @@ export function BankAccountModal({ isOpen, onClose }: BankAccountModalProps) {
 
   return (
     <>
-      <PopupMenu 
-        isOpen={isOpen} 
-        onClose={handleClose} 
-        title={getTitle()}
+      <PopupMenu
+        isOpen={isOpen}
+        onClose={handleClose}
         showHeader={currentScreen === "select"}
       >
         {renderContent()}
       </PopupMenu>
-      
-      <BankAccountDetailModal 
+
+      <BankAccountDetailModal
         isOpen={isDetailOpen}
         onClose={() => setIsDetailOpen(false)}
         account={selectedAccountData}

@@ -32,7 +32,7 @@ export function TopUpCryptoContent({ onBack, onContinue }: TopUpCryptoContentPro
         <Button variant="ghost" size="icon" onClick={onBack} className="bg-secondary">
           <ArrowLeft className="w-5 h-5" />
         </Button>
-        <h2 className="text-xl font-semibold text-foreground mt-5">Top up with crypto</h2>
+        <h2 className="text-2xl font-semibold text-foreground mt-5">Top up with crypto</h2>
       </div>
 
       <div className="space-y-4">

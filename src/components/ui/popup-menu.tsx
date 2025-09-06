@@ -6,7 +6,6 @@ interface PopupMenuProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  title?: string;
   showHeader?: boolean;
   className?: string;
 }
@@ -15,7 +14,6 @@ export function PopupMenu({
   isOpen,
   onClose,
   children,
-  title,
 }: PopupMenuProps) {
 
   const handleClose = () => {
