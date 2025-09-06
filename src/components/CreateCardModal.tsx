@@ -59,7 +59,7 @@ export function CreateCardModal({ isOpen, onClose }: CreateCardModalProps) {
 
         <Button
           onClick={handleActivateCard}
-          className="w-full h-[60px] bg-tjrAppColor rounded-[20px] text-[#000]"
+          className="w-full h-[60px] bg-tjrAppColor rounded-[20px] text-[#000] text-lg"
           // disabled={isActivating}
           disabled={true}
         >

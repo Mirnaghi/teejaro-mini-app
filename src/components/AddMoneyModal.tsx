@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { PopupMenu } from "@/components/ui/popup-menu";
-import { Card, CardContent } from "@/components/ui/card";
-import { QrCode, Building2, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { TopUpCryptoContent } from "./TopUpCryptoContent";
 import { BankTransferContent } from "./BankTransferContent";
 import { CryptoDepositContent } from "./CryptoDepositContent";

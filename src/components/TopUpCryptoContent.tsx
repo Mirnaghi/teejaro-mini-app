@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, ChevronDown } from "lucide-react";
-import { SelectTokenModal } from "./SelectTokenModal";
+import { ArrowLeft } from "lucide-react";
+import UsdtIcn from '@/assets/icons/usdtIcn.svg'
 
 interface TopUpCryptoContentProps {
   onBack: () => void;
@@ -24,78 +24,96 @@ const networks = [
 
 export function TopUpCryptoContent({ onBack, onContinue }: TopUpCryptoContentProps) {
   const [selectedNetwork, setSelectedNetwork] = useState("base");
-  const [showTokenModal, setShowTokenModal] = useState(false);
+  const [selectedCoin, setSelectedCoin] = useState("USDT");
 
   return (
     <>
-      <div className="flex items-center justify-between mb-6">
-        <Button variant="ghost" size="icon" onClick={onBack} className="hover:bg-secondary/80">
+      <div className="mb-6">
+        <Button variant="ghost" size="icon" onClick={onBack} className="bg-secondary">
           <ArrowLeft className="w-5 h-5" />
         </Button>
-        <h2 className="text-xl font-semibold text-foreground">Top up with crypto</h2>
-        <div className="w-10"></div>
+        <h2 className="text-xl font-semibold text-foreground mt-5">Top up with crypto</h2>
       </div>
 
-      <div className="space-y-6">
-        {/* Choose Token */}
-        <div>
-          <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
-            CHOOSE TOKEN
-          </h3>
-          <Card 
-            className="cursor-pointer hover:bg-secondary/50 transition-colors bg-card border-border"
-            onClick={() => setShowTokenModal(true)}
-          >
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-crypto-green/20 rounded-full flex items-center justify-center">
-                    <span className="text-xs font-bold text-crypto-green">₮</span>
-                  </div>
-                  <span className="font-medium text-foreground">USDT</span>
-                </div>
-                <ChevronDown className="w-5 h-5 text-muted-foreground" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Choose Network */}
-        <div>
-          <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wide">
-            CHOOSE USDT NETWORK
-          </h3>
-          <RadioGroup value={selectedNetwork} onValueChange={setSelectedNetwork}>
-            <div className="space-y-3">
-              {networks.map((network) => (
-                <div key={network.id} className="flex items-center space-x-3">
-                  <RadioGroupItem value={network.id} id={network.id} />
-                  <Label htmlFor={network.id} className="flex-1 cursor-pointer">
-                    <div className="flex justify-between items-center">
-                      <span className="font-medium text-foreground">{network.name}</span>
-                      <span className="text-sm text-muted-foreground">{network.description}</span>
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <RadioGroup value={selectedCoin} className="w-[48%]" onValueChange={setSelectedCoin}>
+            <Label htmlFor={"USDT"} className="flex-1">
+              <Card className={`border-2 rounded-[20px] bg-secondary ${selectedCoin === 'USDT' ? 'border-[#C5CCDD]' : 'border-secondary'}`}>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <img src={UsdtIcn} alt="#" />
+                      <span className="font-medium text-foreground text-lg">USDT</span>
                     </div>
-                  </Label>
-                </div>
-              ))}
-            </div>
+                    <RadioGroupItem value={'USDT'} id={"USDT"} />
+                  </div>
+                </CardContent>
+              </Card>
+            </Label>
+          </RadioGroup>
+          <RadioGroup value={selectedCoin} className="w-[48%]" onValueChange={setSelectedCoin}>
+            <Label htmlFor={"USDC"} className="flex-1">
+              <Card className={`border-2 rounded-[20px] bg-secondary ${selectedCoin === 'USDC' ? 'border-[#C5CCDD]' : 'border-secondary'}`}>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <img src={UsdtIcn} alt="#" />
+                      <span className="font-medium text-foreground text-lg">USDC</span>
+                    </div>
+                    <RadioGroupItem value={'USDC'} id={"USDC"} />
+                  </div>
+                </CardContent>
+              </Card>
+            </Label>
           </RadioGroup>
         </div>
 
-        {/* Continue Button */}
-        <Button 
-          variant="crypto" 
-          className="w-full h-12 mt-8"
+        <div>
+          <h3 className="text-sm font-medium text-muted-foreground mb-3 tracking-wide">
+            Choose {selectedCoin} network
+          </h3>
+          <RadioGroup
+            value={selectedNetwork}
+            onValueChange={setSelectedNetwork}
+            className="overflow-y-scroll"
+            style={{
+              maxHeight: `calc(100vh - 400px)`
+            }}>
+            {networks.map((network) => (
+              <Label htmlFor={network.id} key={network.id}>
+                <div className={`
+                      border-2 
+                      rounded-[20px] 
+                      bg-secondary 
+                      ${selectedNetwork === network.id ? 'border-[#C5CCDD]' : 'border-secondary'} 
+                      h-[66px] 
+                      flex 
+                      items-center 
+                      justify-center 
+                      w-full
+                      px-5
+                `}>
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center">
+                      <span className="font-medium text-foreground text-lg">{network.name}</span>
+                      {/* <span className="font-medium text-foreground">{network.description}</span> */}
+                    </div>
+                    <RadioGroupItem value={network.id} id={network.id} />
+                  </div>
+                </div>
+              </Label>
+            ))}
+          </RadioGroup>
+        </div >
+
+        <Button
+          className="w-full h-[60px] bg-[#00BA82] text-lg"
           onClick={onContinue}
         >
           Continue
         </Button>
       </div>
-
-      <SelectTokenModal 
-        isOpen={showTokenModal} 
-        onClose={() => setShowTokenModal(false)} 
-      />
     </>
   );
 }

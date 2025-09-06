@@ -16,6 +16,8 @@ import TjrWhiteLogo from '@/assets/icons/tjrWhiteLogo.svg'
 import VisaLogo from '@/assets/icons/visaLogo.svg'
 import MiniCardIcn from '@/assets/icons/miniCardIcn.svg'
 import BankFlags from '@/assets/icons/bankFlags.svg'
+import { BankTransferContent } from "./BankTransferContent";
+import { PopupMenu } from "./ui/popup-menu";
 
 interface Transaction {
   id: string;
@@ -263,9 +265,7 @@ export function MainScreen() {
       {/* Card Section */}
       <div className="px-4 mt-5 flex items-center justify-center">
         <button onClick={() => {
-          // setIsCardDetailsOpen(true);
-          setIsCreateCardOpen(true);
-
+          setIsCardDetailsOpen(true);
         }} className="relative w-full h-48 max-w-screen-custom">
           <img src={CardBgImage} alt="#" className="w-full absolute h-full z-1 top-0 left-0" />
           <div className="w-full p-5 absolute h-full z-2 top-0 left-0 flex flex-col justify-between">
@@ -313,7 +313,7 @@ export function MainScreen() {
             variant="secondary"
             size="lg"
             className="h-[88px] rounded-3xl flex flex-col items-start px-5"
-          // onClick={() => handleButtonClick(() => setIsAddMoneyOpen(true))}
+            onClick={() => handleButtonClick(() => setIsCreateCardOpen(true))}
           >
             <img src={MiniCardIcn} alt="#" />
             <span className="text-[18px] font-semibold mt-0.5">Phisical cards</span>
@@ -338,10 +338,10 @@ export function MainScreen() {
         isOpen={isAddMoneyOpen}
         onClose={() => setIsAddMoneyOpen(false)}
       />
-      <BankAccountModal
+      {/* <BankAccountModal
         isOpen={isBankAccountOpen}
         onClose={() => setIsBankAccountOpen(false)}
-      />
+      /> */}
       <InviteFriendsModal
         isOpen={isInviteFriendsOpen}
         onClose={() => setIsInviteFriendsOpen(false)}
@@ -359,6 +359,12 @@ export function MainScreen() {
         onClose={() => setIsTransactionsOpen(false)}
         transactions={transactions}
       />
+      <PopupMenu
+        isOpen={isBankAccountOpen}
+        onClose={() => { setIsBankAccountOpen(false) }}
+      >
+        <BankTransferContent />
+      </PopupMenu>
     </div>
   );
 }
